@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { UserProvider, useUserState, useUserDispatch } from './UserContext';
-import ModalTest from './components/ModalTest';
+// import ModalTest from './components/ModalTest';
 import NavBar from './components/navBar';
 // import Login from
 // import Signup from
@@ -30,6 +30,7 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
+
     <UserProvider>
       <Test />
 
@@ -94,6 +95,7 @@ const App = () => {
         />
       </Switch>
     </UserProvider>
+
   );
 };
 
