@@ -1,3 +1,4 @@
+
 import React, { useState, useReducer, useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { UserProvider, useUserState, useUserDispatch } from './UserContext';
@@ -10,6 +11,7 @@ import MainPage from './components/mainPage';
 import Footer from './components/footer';
 import MyPage from './components/myPage';
 import GroupPage from './components/groupPage';
+
 import Test from './test';
 import './App.css';
 
@@ -117,5 +119,6 @@ export default withRouter(App);
 //     </div>
 //   );
 // }
+
 
 // export default App;

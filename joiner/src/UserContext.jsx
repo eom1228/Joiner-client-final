@@ -1,7 +1,7 @@
 import React, { useReducer, createContext, useContext, useEffect } from 'react';
 import axios from 'axios';
 
-const initialState = {
+export const initialState = {
   user: {
     id: '',
     userName: '',
@@ -10,11 +10,12 @@ const initialState = {
     location: '',
     group: '',
     event: '',
+    page: 'myPage',
   },
   // users: [],
   token: '', // JWT store 역할
   //   errorMessage: null,
-  isLogin: false,
+  isLogin: true,
 };
 // const initialState = {
 //   user: [
@@ -36,7 +37,7 @@ const initialState = {
 //   ],
 // }; // userinfo[0].id ... userinfo[1].token
 
-function userReducer(state, action) {
+export function userReducer(state, action) {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
       return {
@@ -88,14 +89,19 @@ function userReducer(state, action) {
         ...state,
         user: state.user.filter(user => user.location === action.location),
       };
-
+    case 'CHANGE_PAGE_STATE':
+      // 버튼을 누르면 page state값이 바뀐다.
+      return {
+        ...state,
+        page: action.value,
+      };
     default:
       throw new Error('');
   }
 }
 
-const UserStateContext = createContext();
-const UserDispatchContext = createContext();
+export const UserStateContext = createContext();
+export const UserDispatchContext = createContext();
 
 export function UserProvider({ children }) {
   const [state, dispatch] = useReducer(userReducer, initialState);
@@ -159,3 +165,4 @@ export function useUserDispatch() {
 // 		user,
 // 	})
 // })
+
