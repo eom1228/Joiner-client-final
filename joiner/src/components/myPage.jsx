@@ -5,7 +5,6 @@ import NavBar from './navBar';
 const MyPage = props => {
   return (
     <>
-      <NavBar />
       <div>
         <div className="userImage">
           {/* form 의 type을 enctype="multipart/form-data" 로 설정해야 
@@ -21,11 +20,10 @@ const MyPage = props => {
           <button>정보 수정</button>
         </div>
       </div>
-      <div class="userGroups">
+      <div className="userGroups">
         <h1>그룹들이있어용</h1>
       </div>
       <button>회원 탈퇴</button>
-      <Footer />
     </>
   );
 };
