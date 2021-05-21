@@ -28,7 +28,15 @@ const NavBar = props => {
                 height: `50px`,
               }}
             />
-            <button value="groups">Groups</button>
+            <button
+              value="groups"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Groups
+            </button>
             <button value="signUp">Signup</button>
             <button value="signIn">Login</button>
           </nav>
@@ -47,7 +55,15 @@ const NavBar = props => {
               }}
             />
             <button value="events">Events</button>
-            <button value="groups">Groups</button>
+            <button
+              value="groups"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Groups
+            </button>
             <button value="signUp">Signup</button>
             <button value="signIn">Login</button>
           </nav>
@@ -67,7 +83,15 @@ const NavBar = props => {
                 height: `50px`,
               }}
             />
-            <button value="groups">Groups</button>
+            <button
+              value="groups"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Groups
+            </button>
             <button
               onClick={e => {
                 console.log(state.page);
@@ -93,8 +117,24 @@ const NavBar = props => {
                 height: `50px`,
               }}
             />
-            <button value="events">Events</button>
-            <button value="groups">Groups</button>
+            <button
+              value="events"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Events
+            </button>
+            <button
+              value="groups"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Groups
+            </button>
             <button
               onClick={e => {
                 console.log(state.page);
@@ -120,8 +160,24 @@ const NavBar = props => {
                 height: `50px`,
               }}
             />
-            <button value="events">Events</button>
-            <button value="groups">Groups</button>
+            <button
+              value="events"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Events
+            </button>
+            <button
+              value="groups"
+              onClick={e => {
+                console.log(state.page);
+                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              }}
+            >
+              Groups
+            </button>
             <button value="logout">Logout</button>
           </nav>
         </>
