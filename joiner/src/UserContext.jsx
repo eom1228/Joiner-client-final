@@ -93,7 +93,10 @@ export function userReducer(state, action) {
       // 버튼을 누르면 page state값이 바뀐다.
       return {
         ...state,
-        page: action.value,
+        user: {
+          ...state,
+          page: action.value,
+        },
       };
     default:
       throw new Error('');
@@ -165,4 +168,3 @@ export function useUserDispatch() {
 // 		user,
 // 	})
 // })
-
