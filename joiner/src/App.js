@@ -3,14 +3,14 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { UserProvider, useUserState, useUserDispatch } from './UserContext';
 // import ModalTest from './components/ModalTest';
 import NavBar from './components/navBar';
-// import Login from
+import Login from './components/modals/loginModal';
 // import Signup from
 import LandingPage from './components/landingPage';
 import MainPage from './components/mainPage';
 import Footer from './components/footer';
 import MyPage from './components/myPage';
 import GroupPage from './components/groupPage';
-import Test from './test';
+// import Test from './test';
 import './App.css';
 
 const App = () => {
@@ -30,10 +30,7 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-
-    <UserProvider>
-      <Test />
-
+    <>
       <Route
         exact
         path="/" // landing이 홈
@@ -46,7 +43,14 @@ const App = () => {
         )}
       />
       <Switch>
-        <Route path="/login" render={() => <Login />} />
+        <Route
+          path="/login"
+          render={() => (
+            <UserProvider>
+              <Login />{' '}
+            </UserProvider>
+          )}
+        />
         <Route exact path="/signUp" render={() => <Signup />} />
         <Route
           exact
@@ -94,8 +98,7 @@ const App = () => {
           )}
         />
       </Switch>
-    </UserProvider>
-
+    </>
   );
 };
 

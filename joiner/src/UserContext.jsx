@@ -1,7 +1,6 @@
 import React, { useReducer, createContext, useContext, useEffect } from 'react';
-import axios from 'axios';
 
-const initialState = {
+export const initialState = {
   user: {
     id: '',
     userName: '',
@@ -15,6 +14,8 @@ const initialState = {
   token: '', // JWT store 역할
   //   errorMessage: null,
   isLogin: false,
+  isLoading: false,
+  isModalOpen: false,
 };
 // const initialState = {
 //   user: [
@@ -36,30 +37,38 @@ const initialState = {
 //   ],
 // }; // userinfo[0].id ... userinfo[1].token
 
-function userReducer(state, action) {
+export function userReducer(state, action) {
   switch (action.type) {
-    case 'LOGIN_SUCCESS':
+    case 'LOGIN_SUCCESS': // login 될때
       return {
         ...state,
         user: action.payload.user, // 로그인 성공 시 payload: data를 불러옴
         token: action.payload.auth_token, // JWT store 역할
         isLogin: true,
       };
-    case 'LOGIN_FAILED':
+    case 'LOGIN_FAILED': //login 안될때
       return {
         ...state,
         errorMessage: action.errorMessage,
         isLogin: false,
       };
 
-    case 'LOGOUT':
+    case 'LOGOUT': //logout 할때
       return {
         ...state,
         token: '',
         isLogin: false,
       };
 
-    case 'REGISTER_USER':
+    case 'HANDLE_LOGIN':
+      return {
+        ...state,
+        email: action.payload.email,
+        password: action.payload.password,
+        token: action.payload.token,
+      };
+
+    case 'REGISTER_USER': // 회원가입하여 정보 넘길때
       return {
         ...state,
         user: action.payload.user,
@@ -89,13 +98,19 @@ function userReducer(state, action) {
         user: state.user.filter(user => user.location === action.location),
       };
 
+    case 'CALL_API':
+      return {
+        ...state,
+        loading: true,
+      };
+
     default:
       throw new Error('');
   }
 }
 
-const UserStateContext = createContext();
-const UserDispatchContext = createContext();
+export const UserStateContext = createContext();
+export const UserDispatchContext = createContext();
 
 export function UserProvider({ children }) {
   const [state, dispatch] = useReducer(userReducer, initialState);
@@ -136,7 +151,6 @@ export function useUserDispatch() {
 
 // const getUser = async () => {
 //   // 로그인 시 유저 정보 get 해오기
-//   dispatch({ type: 'GET_USER', payload:  });
 //   try {
 //     const response = await axios.get('url');
 //     dispatch({

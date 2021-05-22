@@ -29,4 +29,4 @@ const MyPage = props => {
   );
 };
 
-export default Mypage;
+export default MyPage;
