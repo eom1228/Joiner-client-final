@@ -1,13 +1,84 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: black;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.pointWrap {
+  position: fixed;
+  right: 3vw;
+  top: 40%;
+  z-index: 10;
+}
+
+.pointWrap li {
+  background-color: #666;
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease-out;
+}
+
+.pointWrap li.active {
+  background-color: rgb(255, 5, 5);
+}
+
+section {
+  height: 100vh;
+  background-color: #fff;
+}
+.section1 {
+  background: url(./images/bg2.jpg) no-repeat;
+  background-size: cover;
+}
+
+section h1 {
+  position: absolute;
+  color: rgb(181, 76, 94);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+}
+section p {
+  position: absolute;
+  color: #fff;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.section2 {
+  display: flex;
+  padding-top: 1rem;
+  justify-content: center;
+}
+
+.test {
+  color: blue;
+  font-size: 80px;
+  position: fixed;
+}
+
+/* #cardWrapper {
+} */
+
+.card {
+  box-shadow: 0 0 10px 5px #e1e5ee;
+  margin-bottom: 1rem;
+  border-radius: 0.2rem;
+  width: 20rem;
+  height: 14rem;
+}
+
+.card_img {
+  width: 20rem;
+  height: 14rem;
+  object-fit: cover;
 }
