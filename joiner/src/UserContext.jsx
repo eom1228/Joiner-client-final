@@ -9,13 +9,18 @@ export const initialState = {
     location: '',
     group: '',
     event: '',
+    page: 'myPage',
   },
   // users: [],
   token: '', // JWT store 역할
   //   errorMessage: null,
+<<<<<<< HEAD
   isLogin: false,
   isLoading: false,
   isModalOpen: false,
+=======
+  isLogin: true,
+>>>>>>> 3f0daa46fccf7201f8c8f2452847eb46a22b8abd
 };
 // const initialState = {
 //   user: [
@@ -97,6 +102,7 @@ export function userReducer(state, action) {
         ...state,
         user: state.user.filter(user => user.location === action.location),
       };
+<<<<<<< HEAD
 
     case 'CALL_API':
       return {
@@ -104,6 +110,17 @@ export function userReducer(state, action) {
         loading: true,
       };
 
+=======
+    case 'CHANGE_PAGE_STATE':
+      // 버튼을 누르면 page state값이 바뀐다.
+      return {
+        ...state,
+        user: {
+          ...state,
+          page: action.value,
+        },
+      };
+>>>>>>> 3f0daa46fccf7201f8c8f2452847eb46a22b8abd
     default:
       throw new Error('');
   }

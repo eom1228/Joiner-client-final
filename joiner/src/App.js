@@ -11,6 +11,8 @@ import Footer from './components/footer';
 import MyPage from './components/myPage';
 import GroupPage from './components/groupPage';
 // import Test from './test';
+
+import Test from './test';
 import './App.css';
 
 const App = () => {
