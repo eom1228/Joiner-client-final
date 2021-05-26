@@ -1,6 +1,13 @@
 import React, { useReducer, useContext } from 'react';
-import { userReducer, UserStateContext, initialState } from '../UserContext';
+import { useHistory } from 'react-router-dom';
+import { useUserContext } from '../contexts/UserContext';
+// import {
+//   userReducer,
+//   UserStateContext,
+//   initialState,
+// } from '../contexts/UserContext';
 import logo from '../images/LOGO.jpg';
+
 // 버튼 클릭시 유저 상태 user.page = '어떤페이지'
 // 로그인 상태 및 user.page에 따라서 보여주는 버튼 변경
 
@@ -13,8 +20,10 @@ case2 groupPage일 경우
 case3 myPage일 경우
 ==========>Events Groups Logout 
 */
-const NavBar = props => {
-  const [state, dispatch] = useContext(UserStateContext);
+const NavBar = () => {
+  const history = useHistory();
+  const { state, dispatch } = useUserContext();
+  console.log(state);
   if (!state.isLogin) {
     if (state.user.page === 'mainPage') {
       return (
@@ -33,6 +42,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/main/groupPage');
               }}
             >
               Groups
@@ -71,7 +81,7 @@ const NavBar = props => {
       );
     }
   } else if (state.isLogin) {
-    if (state.user.page === 'mainPage' && state.page === '') {
+    if (state.user.page === 'mainPage' && state.user.page === '') {
       return (
         <>
           <nav>
@@ -88,6 +98,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/main/groupPage');
               }}
             >
               Groups
@@ -96,6 +107,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/user/userinfo');
               }}
               value="myPage"
             >
@@ -105,7 +117,7 @@ const NavBar = props => {
           </nav>
         </>
       );
-    } else if (state.user.page === 'groupPage') {
+    } else if (state.user.page === 'groupPage' && state.user.page === '') {
       return (
         <>
           <nav>
@@ -122,6 +134,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/searchEventNearBy');
               }}
             >
               Events
@@ -131,6 +144,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/category/GroupList');
               }}
             >
               Groups
@@ -139,6 +153,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/user/userInfo');
               }}
               value="myPage"
             >
@@ -165,6 +180,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/searchEventNearBy');
               }}
             >
               Events
@@ -174,6 +190,7 @@ const NavBar = props => {
               onClick={e => {
                 console.log(state.page);
                 dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/category/GroupList');
               }}
             >
               Groups
