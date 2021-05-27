@@ -6,13 +6,17 @@ import Card from './card';
 //컴포넌트 내부에서 상태 값을 들고있어야함.
 const LandingPage = props => {
   const [position, setPosition] = useState(0);
-  const [hogu, setHogu] = useState(0);
+
   const ulRef = useRef();
+  const hoguRef = useRef();
+  const textRef = useRef();
+  const text2Ref = useRef();
+  const text3Ref = useRef();
+  const graphRef = useRef();
+
   const section = document.getElementsByTagName('section');
-  // const pointBtn = document.querySelectorAll('.pointWrap li');
   let page = 0;
   let scroll = 0;
-
   function onScroll() {
     // console.log(window.scrollY);
     setPosition(window.scrollY);
@@ -23,17 +27,23 @@ const LandingPage = props => {
   function scrollPage() {
     for (let i = 0; i < section.length; i++) {
       if (
-        scroll > section[i].offsetTop - window.outerHeight / 1.5 &&
-        scroll <
-          section[i].offsetTop -
-            window.outerHeight / 1.5 +
-            section[i].offsetHeight
+        scroll > section[i].offsetTop &&
+        scroll < section[i].offsetTop + section[i].offsetHeight
       ) {
         page = i;
-        setHogu(i);
         pageChange();
         break;
       }
+    }
+    if (
+      scroll > section[1].offsetTop - 100 &&
+      scroll < section[1].offsetTop + section[1].offsetHeight
+    ) {
+      textRef.current.classList.add('active');
+      text2Ref.current.classList.add('active');
+      text3Ref.current.classList.add('active');
+      hoguRef.current.classList.add('active');
+      graphRef.current.classList.add('active');
     }
   }
 
@@ -69,16 +79,15 @@ const LandingPage = props => {
   }, []); //마운트 시 한 번만 실행되게.
 
   return (
-    <>
+    <div id="firstContainer">
       <ul className="pointWrap" ref={ulRef}>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
-        <li></li>
       </ul>
-      <p className="test">{hogu}</p>
+
       <section
         className="section1"
         style={{
@@ -90,60 +99,98 @@ const LandingPage = props => {
       >
         <h1
           style={{
-            opacity: 1 - position / 600,
+            opacity: 1 - position / 300,
             // transform: `translateX(${position / 3}px)`,
           }}
         >
-          삶이 너무 힘들어요
+          JOINER
         </h1>
         <p
           style={{
-            opacity: (position - 265) / 300,
+            opacity: (position - 100) / 100,
           }}
+          id="serviceDesc"
         >
           우리의 서비스는 사용자들이 그룹과 이벤트를 만들어 약속된 장소에서 만나
           활동하는 서비스입니다
         </p>
       </section>
-      <section className="section2">
-        <div>
-          <h3>산에서, 공연장에서, 축구장에서</h3>
+      <section>
+        <div className="animated-title">
+          <div className="text-top">
+            <div className="hogu" ref={hoguRef}>
+              <span className="text" ref={textRef}>
+                참여하고
+              </span>
+              <span className="text2" ref={text2Ref}>
+                만들고
+              </span>
+            </div>
+          </div>
+          <div className="text-bottom">
+            <div ref={text3Ref}>잊지 못할 추억으로.</div>
+          </div>
+          <div className="graph" ref={graphRef}>
+            {' '}
+            <img
+              src="https://cdn.pixabay.com/photo/2015/10/12/15/05/girl-984155_1280.jpg"
+              alt="graphImage"
+              className="graph_img"
+            />
+          </div>
         </div>
-        <div className="innerWrap" id="cardWrapper">
+      </section>
+
+      <section className="section3">
+        <div className="item2">
+          <span>산에서, </span>
+          <span>공연장에서, </span>
+          <span>축구장에서, </span>
+          <p>사람들과 함께하세요</p>
+        </div>
+        <div id="cardWrapper">
           <Card img="https://cdn.pixabay.com/photo/2016/08/01/20/15/girl-1562025_1280.jpg" />
           <Card img="https://cdn.pixabay.com/photo/2015/05/15/14/50/concert-768722_1280.jpg" />
+          <Card img="https://cdn.pixabay.com/photo/2020/03/13/23/13/girls-4929292_1280.jpg" />
         </div>
       </section>
 
-      <section>
+      <section className="section4">
         <div className="innerWrap">
-          <h3>만들고, 참여하고, 잊지 못할 추억으로.</h3>
-          <h3>Img</h3>
+          <div className="innerItemHeader">
+            <h3>원하는 그룹이 없나요? 그러면 만드세요.</h3>
+            <p>어떤 활동을 하든, 그룹을 만들어 사람들과 함께할 수 있답니다.</p>
+          </div>
+          <div className="innerItemImage">
+            {/* <img src="" alt="groupImage" className="groupImage" /> */}
+          </div>
         </div>
-      </section>
 
-      <section>
         <div className="innerWrap">
-          <h3>원하는 그룹이 없나요? 그러면 만드세요.</h3>
-          <h3>Img</h3>
+          <div className="innerItemHeader2">
+            <h3>원하는 날짜에 활동을 누군가와 같이.</h3>
+            <p>HELP </p>
+          </div>
+          <div className="innerItemImage">
+            {/* <img src="" alt="groupImage" className="groupImage" /> */}
+          </div>
         </div>
       </section>
 
-      <section>
-        <div className="innerWrap">
-          <h3>원하는 날짜에 활동을 누군가와 같이.</h3>
-          <h3>Img</h3>
-        </div>
-      </section>
-
-      <section>
+      <section className="section5">
         <div className="innerWrap">
           <h3>그룹장이 아니신가요?</h3>
-          <h3>그러면 제안하세요.</h3>
+          <p>채팅방을 활용하여 사람들에게 이벤트를 제안할 수 있습니다.</p>
+          <div>
+            <img
+              src="https://images.pexels.com/photos/6422563/pexels-photo-6422563.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              alt="이미지"
+            />
+          </div>
+          <button>지금 Joiner와 함께하세요</button>
         </div>
       </section>
-    </>
+    </div>
   );
 };
-
 export default LandingPage;
