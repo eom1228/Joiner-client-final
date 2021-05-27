@@ -97,7 +97,7 @@ body {
   }
 }
 
-section {
+.section {
   box-shadow: 0 0 10px 5px #e1e5ee;
   border-radius: 1rem;
   margin-top: 1.5rem;
@@ -123,7 +123,7 @@ section {
   margin-top: 0;
   border-radius: 0;
   height: 100vh;
-  background: url(./images/bg2.jpg) no-repeat;
+  background: url(../images/bg2.jpg) no-repeat;
   background-size: cover;
 }
 
