@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Card from './card';
-
+import '../styles/landingpage.scss';
 //현재스크롤 위치 알아야함
 //스크롤 위치 값  컴포넌트한테 전달 시켜줘야함
 //컴포넌트 내부에서 상태 값을 들고있어야함.
@@ -89,7 +89,7 @@ const LandingPage = props => {
       </ul>
 
       <section
-        className="section1"
+        className="section section1"
         style={{
           backgroundPositionY: position / 4,
           // transform: `translateY(${-position / 20}px)`,
@@ -115,7 +115,7 @@ const LandingPage = props => {
           활동하는 서비스입니다
         </p>
       </section>
-      <section>
+      <section className="section">
         <div className="animated-title">
           <div className="text-top">
             <div className="hogu" ref={hoguRef}>
@@ -141,7 +141,7 @@ const LandingPage = props => {
         </div>
       </section>
 
-      <section className="section3">
+      <section className="section section3">
         <div className="item2">
           <span>산에서, </span>
           <span>공연장에서, </span>
@@ -155,7 +155,7 @@ const LandingPage = props => {
         </div>
       </section>
 
-      <section className="section4">
+      <section className="section section4">
         <div className="innerWrap">
           <div className="innerItemHeader">
             <h3>원하는 그룹이 없나요? 그러면 만드세요.</h3>
@@ -177,7 +177,7 @@ const LandingPage = props => {
         </div>
       </section>
 
-      <section className="section5">
+      <section className="section section5">
         <div className="innerWrap">
           <h3>그룹장이 아니신가요?</h3>
           <p>채팅방을 활용하여 사람들에게 이벤트를 제안할 수 있습니다.</p>
