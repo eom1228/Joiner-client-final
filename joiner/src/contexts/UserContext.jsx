@@ -8,8 +8,8 @@ export const initialState = {
     email: '',
     password: '',
     location: '',
-    group: '',
-    event: '',
+    groups: [],
+    events: [],
     page: 'myPage',
   },
   // users: [],
@@ -18,27 +18,60 @@ export const initialState = {
   isLogin: true,
 };
 // const initialState = {
-//   user: [
-//     {
-//       id: '',
-//       userName: '',
-//       email: '',
-//       password: '',
-//       location: '',
-//       group: '',
-//       event: '',
-//     },
-//     {
-//       token: '',
-//     },
-//     {
-//       isLogin: false,
-//     },
-//   ],
+// user: {
+
+//     id: '',
+//     userName: '',
+//     email: '',
+//     password: '',
+//     location: '',
+//     groups: [
+//       ...groups,
+//       group: {
+//         ...group,
+//         events: {
+//           ...events,
+//           event: {
+//             event.id,
+//             ...event
+//           }
+//         }
+//       }
+//     ]
+
+//     groups: [
+//      group: {
+//        events: {
+//          events,
+//          ...events
+//        },
+//        ...group
+//      },
+//      ...groups
+//     ],
+//   {
+//     token: '',
+//   },
+//   {
+//     isLogin: false,
+//   },
+// },
 // }; // userinfo[0].id ... userinfo[1].token
 
 export function userReducer(state, action) {
   switch (action.type) {
+    case 'GET_USERINFO':
+      return {
+        ...state,
+        user: action.payload.user,
+        token: action.payload.auth_token,
+      };
+    case 'GET_SUCCESS':
+      return {
+        ...state,
+        user: action.payload.user,
+        token: action.payload.auth_token,
+      };
     case 'HANDLE_LOGIN':
       return {
         ...state,
@@ -50,12 +83,10 @@ export function userReducer(state, action) {
         ...state,
         user: action.payload.user, // 로그인 성공 시 payload: data를 불러옴
         token: action.payload.auth_token, // JWT store 역할
-        isLogin: true,
       };
     case 'LOGIN_FAILED':
       return {
         ...state,
-        errorMessage: action.errorMessage,
         isLogin: false,
       };
 
@@ -76,7 +107,12 @@ export function userReducer(state, action) {
     case 'UDPDATE_USER':
       return {
         ...state,
-        user: action.payload.user,
+        user: {
+          ...state.user,
+          userName: action.payload.value,
+          email: action.payload.value,
+          location: action.payload.value,
+        },
       };
     case 'DELETE_USER':
       return {
