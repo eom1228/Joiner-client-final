@@ -1,19 +1,44 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import { UserProvider, useUserState, useUserDispatch } from './UserContext';
-// import ModalTest from './components/ModalTest';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  withRouter,
+  Link,
+} from 'react-router-dom';
+import { UserContextProvider } from './contexts/UserContext';
+import { GroupContextProvider } from './contexts/GroupContext';
+
 import NavBar from './components/navBar';
 import Login from './components/modals/loginModal';
 // import Signup from
-import LandingPage from './components/landingPage';
-import MainPage from './components/mainPage';
+import LandingPage from './pages/landingPage';
+import MainPage from './pages/mainPage';
 import Footer from './components/footer';
-import MyPage from './components/myPage';
-import GroupPage from './components/groupPage';
-// import Test from './test';
+import MyPage from './pages/myPage';
+import GroupPage from './pages/groupPage';
 
-import Test from './test';
 import './App.css';
+import landingPage from './pages/landingPage';
+import mainPage from './pages/mainPage';
+
+function Home({ match }) {
+  return <h2>홈페이지데스</h2>;
+}
+
+function Test({ match }) {
+  return <h2>기모찌</h2>;
+}
+
+function LinkTest() {
+  return (
+    <>
+      <Link to="/">랜딩페이지로</Link>
+      <Link to="/main">메인페이지로</Link>
+      <Link to="/groupPage">그룹페이지로</Link>
+    </>
+  );
+}
 
 const App = () => {
   // const state = useUserState();
@@ -29,77 +54,25 @@ const App = () => {
 
   //   console.log(state);
 
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
+    // <UserProvider>
+    //   <GroupProvider>
+    //     <Test />
     <>
-      <Route
-        exact
-        path="/" // landing이 홈
-        render={() => (
-          <div>
+      <BrowserRouter>
+        <UserContextProvider>
+          <GroupContextProvider>
             <NavBar />
-            <LandingPage />
+            <Switch>
+              <Route exact path="/" component={landingPage} />
+              <Route path="/main" component={mainPage} />
+              <Route path="/groupPage" component={GroupPage} />
+              <Route path="/userInfo" component={MyPage} />
+            </Switch>
             <Footer />
-          </div>
-        )}
-      />
-      <Switch>
-        <Route
-          path="/login"
-          render={() => (
-            <UserProvider>
-              <Login />{' '}
-            </UserProvider>
-          )}
-        />
-        <Route exact path="/signUp" render={() => <Signup />} />
-        <Route
-          exact
-          path="/main"
-          render={() => (
-            <div>
-              <NavBar />
-              <MainPage user={user} />
-              <Footer />
-            </div>
-          )}
-        />
-        <Route
-          exact
-          path="/mypage"
-          render={() => (
-            <div>
-              <NavBar />
-              <MyPage user={user} location={location}>
-                <User />
-              </MyPage>
-              <Footer />
-            </div>
-          )}
-        />
-        {/* <Route 
-					exact path='/GroupsByCategoryPage' 
-					render={() => 
-						(<div>
-							<NavBar />
-							<GroupsByCategory />
-							<Footer />
-						</div>)
-					} 
-				/> */}
-        <Route
-          exact
-          path="/GroupPage"
-          render={() => (
-            <div>
-              <NavBar />
-              <GroupPage />
-              <Footer />
-            </div>
-          )}
-        />
-      </Switch>
+          </GroupContextProvider>
+        </UserContextProvider>
+      </BrowserRouter>
     </>
   );
 };
