@@ -20,11 +20,12 @@ case2 groupPage일 경우
 case3 myPage일 경우
 ==========>Events Groups Logout 
 */
+const pageState = ['', 'mainPage'];
 const NavBar = () => {
   const history = useHistory();
   const { state, dispatch } = useUserContext();
-  console.log(state);
-  if (!state.isLogin) {
+  console.log(state.isLogin);
+  if (state.isLogin === false) {
     if (state.user.page === 'mainPage') {
       return (
         <>
@@ -39,10 +40,10 @@ const NavBar = () => {
             />
             <button
               value="groups"
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/main/groupPage');
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/category/GroupList');
               }}
             >
               Groups
@@ -67,9 +68,10 @@ const NavBar = () => {
             <button value="events">Events</button>
             <button
               value="groups"
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/category/GroupList');
               }}
             >
               Groups
@@ -80,7 +82,7 @@ const NavBar = () => {
         </>
       );
     }
-  } else if (state.isLogin) {
+  } else if (state.isLogin === true) {
     if (state.user.page === 'mainPage' && state.user.page === '') {
       return (
         <>
@@ -95,18 +97,18 @@ const NavBar = () => {
             />
             <button
               value="groups"
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/main/groupPage');
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                history.push('/category/GroupList');
               }}
             >
               Groups
             </button>
             <button
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
                 history.push('/user/userinfo');
               }}
               value="myPage"
@@ -131,9 +133,9 @@ const NavBar = () => {
             />
             <button
               value="events"
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
                 history.push('/searchEventNearBy');
               }}
             >
@@ -150,9 +152,9 @@ const NavBar = () => {
               Groups
             </button>
             <button
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
                 history.push('/user/userInfo');
               }}
               value="myPage"
@@ -177,9 +179,9 @@ const NavBar = () => {
             />
             <button
               value="events"
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
                 history.push('/searchEventNearBy');
               }}
             >
@@ -187,9 +189,9 @@ const NavBar = () => {
             </button>
             <button
               value="groups"
-              onClick={e => {
+              onClick={() => {
                 console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
                 history.push('/category/GroupList');
               }}
             >
