@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useUserContext } from '../contexts/UserContext';
 // import {
 //   userReducer,
@@ -20,12 +20,16 @@ case2 groupPage일 경우
 case3 myPage일 경우
 ==========>Events Groups Logout 
 */
-const NavBar = () => {
+
+const NavBar = props => {
+  const kimozzistate = {
+    page: '',
+  };
   const history = useHistory();
   const { state, dispatch } = useUserContext();
   console.log(state);
   if (!state.isLogin) {
-    if (state.user.page === 'mainPage') {
+    if (state.user.page === 'mainPage' || state.user.page === '') {
       return (
         <>
           <nav>
@@ -37,169 +41,170 @@ const NavBar = () => {
                 height: `50px`,
               }}
             />
-            <button
+            <Link
+              to="/groupPage"
               value="groups"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/main/groupPage');
-              }}
+              // onClick={e => {
+              //   console.log(state.page);
+              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              // }}
             >
               Groups
-            </button>
-            <button value="signUp">Signup</button>
-            <button value="signIn">Login</button>
-          </nav>
-        </>
-      );
-    } else if (state.user.page === 'groupPage') {
-      return (
-        <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-              }}
-            />
-            <button value="events">Events</button>
-            <button
-              value="groups"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-              }}
-            >
-              Groups
-            </button>
+            </Link>
             <button value="signUp">Signup</button>
             <button value="signIn">Login</button>
           </nav>
         </>
       );
     }
-  } else if (state.isLogin) {
-    if (state.user.page === 'mainPage' && state.user.page === '') {
-      return (
-        <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-              }}
-            />
-            <button
-              value="groups"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/main/groupPage');
-              }}
-            >
-              Groups
-            </button>
-            <button
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/user/userinfo');
-              }}
-              value="myPage"
-            >
-              MyPage
-            </button>
-            <button value="logout">Logout</button>
-          </nav>
-        </>
-      );
-    } else if (state.user.page === 'groupPage' && state.user.page === '') {
-      return (
-        <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-              }}
-            />
-            <button
-              value="events"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/searchEventNearBy');
-              }}
-            >
-              Events
-            </button>
-            <button
-              value="groups"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
-            >
-              Groups
-            </button>
-            <button
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/user/userInfo');
-              }}
-              value="myPage"
-            >
-              MyPage
-            </button>
-            <button value="logout">Logout</button>
-          </nav>
-        </>
-      );
-    } else if (state.user.page === 'myPage') {
-      return (
-        <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-              }}
-            />
-            <button
-              value="events"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/searchEventNearBy');
-              }}
-            >
-              Events
-            </button>
-            <button
-              value="groups"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
-            >
-              Groups
-            </button>
-            <button value="logout">Logout</button>
-          </nav>
-        </>
-      );
-    }
+    //   else if (state.user.page === 'groupPage') {
+    //     return (
+    //       <>
+    //         <nav>
+    //           <img
+    //             src={logo}
+    //             alt="Logo"
+    //             style={{
+    //               width: `50px`,
+    //               height: `50px`,
+    //             }}
+    //           />
+    //           <button value="events">Events</button>
+    //           <button
+    //             value="groups"
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //             }}
+    //           >
+    //             Groups
+    //           </button>
+    //           <button value="signUp">Signup</button>
+    //           <button value="signIn">Login</button>
+    //         </nav>
+    //       </>
+    //     );
+    //   }
+    // } else if (state.isLogin) {
+    //   if (state.user.page === 'mainPage') {
+    //     return (
+    //       <>
+    //         <nav>
+    //           <img
+    //             src={logo}
+    //             alt="Logo"
+    //             style={{
+    //               width: `50px`,
+    //               height: `50px`,
+    //             }}
+    //           />
+    //           <button
+    //             value="groups"
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/main/groupPage');
+    //             }}
+    //           >
+    //             Groups
+    //           </button>
+    //           <button
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/user/userinfo');
+    //             }}
+    //             value="myPage"
+    //           >
+    //             MyPage
+    //           </button>
+    //           <button value="logout">Logout</button>
+    //         </nav>
+    //       </>
+    //     );
+    //   } else if (state.user.page === 'groupPage') {
+    //     return (
+    //       <>
+    //         <nav>
+    //           <img
+    //             src={logo}
+    //             alt="Logo"
+    //             style={{
+    //               width: `50px`,
+    //               height: `50px`,
+    //             }}
+    //           />
+    //           <button
+    //             value="events"
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/searchEventNearBy');
+    //             }}
+    //           >
+    //             Events
+    //           </button>
+    //           <button
+    //             value="groups"
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/category/GroupList');
+    //             }}
+    //           >
+    //             Groups
+    //           </button>
+    //           <button
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/user/userInfo');
+    //             }}
+    //             value="myPage"
+    //           >
+    //             MyPage
+    //           </button>
+    //           <button value="logout">Logout</button>
+    //         </nav>
+    //       </>
+    //     );
+    //   } else if (state.user.page === 'myPage') {
+    //     return (
+    //       <>
+    //         <nav>
+    //           <img
+    //             src={logo}
+    //             alt="Logo"
+    //             style={{
+    //               width: `50px`,
+    //               height: `50px`,
+    //             }}
+    //           />
+    //           <button
+    //             value="events"
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/searchEventNearBy');
+    //             }}
+    //           >
+    //             Events
+    //           </button>
+    //           <button
+    //             value="groups"
+    //             onClick={e => {
+    //               console.log(state.page);
+    //               dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+    //               history.push('/category/GroupList');
+    //             }}
+    //           >
+    //             Groups
+    //           </button>
+    //           <button value="logout">Logout</button>
+    //         </nav>
+    //       </>
+    //     );
+    //   }
   }
 };
 

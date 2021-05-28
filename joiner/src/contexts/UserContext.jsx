@@ -10,12 +10,12 @@ export const initialState = {
     location: '',
     groups: [],
     events: [],
-    page: 'myPage',
+    page: '',
   },
   // users: [],
   token: '', // JWT store 역할
   //   errorMessage: null,
-  isLogin: true,
+  isLogin: false,
 };
 // const initialState = {
 // user: {
@@ -63,8 +63,8 @@ export function userReducer(state, action) {
     case 'GET_USERINFO':
       return {
         ...state,
-        user: action.payload.user,
-        token: action.payload.auth_token,
+        // user: action.payload.user,
+        // token: action.payload.auth_token,
       };
     case 'GET_SUCCESS':
       return {

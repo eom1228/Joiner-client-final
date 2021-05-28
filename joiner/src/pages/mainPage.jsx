@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import '../styles/mainpage.scss';
 import { markerData } from '../dummyData/markerData';
+import { withRouter } from 'react-router-dom';
+
 const { kakao } = window;
 
 function map() {
@@ -98,4 +100,4 @@ const MainPage = props => {
   );
 };
 
-export default MainPage;
+export default withRouter(MainPage);

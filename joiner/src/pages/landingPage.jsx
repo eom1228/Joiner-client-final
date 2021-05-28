@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Card from './card';
+import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Card from '../components/card';
 import '../styles/landingpage.scss';
 //현재스크롤 위치 알아야함
 //스크롤 위치 값  컴포넌트한테 전달 시켜줘야함
 //컴포넌트 내부에서 상태 값을 들고있어야함.
 const LandingPage = props => {
   const [position, setPosition] = useState(0);
+  const history = useHistory();
 
   const ulRef = useRef();
   const hoguRef = useRef();
@@ -187,10 +190,16 @@ const LandingPage = props => {
               alt="이미지"
             />
           </div>
-          <button>지금 Joiner와 함께하세요</button>
+          <button
+            onClick={() => {
+              history.push('/main');
+            }}
+          >
+            지금 Joiner와 함께하세요
+          </button>
         </div>
       </section>
     </div>
   );
 };
-export default LandingPage;
+export default withRouter(LandingPage);

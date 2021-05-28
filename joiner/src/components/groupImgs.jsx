@@ -27,7 +27,7 @@ const GroupImgs = () => {
   } = useImgHandlers();
 
   return (
-    <div className="container">
+    <div id="groupImgContainer">
       <form className="form" onSubmit={onSubmit}>
         {status === 'IMGS_UPLOADED' && (
           <div className="success-container">

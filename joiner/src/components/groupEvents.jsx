@@ -165,7 +165,7 @@ const GroupEvents = () => {
 
   return isLogin ? (
     <>
-      <div>
+      <div style={{ backgroundColor: 'green' }}>
         {user.username === host || members.includes(user.id) ? (
           <div>
             <CreateEventButton />

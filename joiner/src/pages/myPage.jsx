@@ -5,6 +5,7 @@ import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
 import UserIconInfoContainer from '../components/userIconInfoContainer';
 import UserGroups from '../components/userGroups';
+import { withRouter } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
 
@@ -41,4 +42,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default withRouter(MyPage);
