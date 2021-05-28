@@ -1,7 +1,14 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  withRouter,
+  Link,
+} from 'react-router-dom';
 import { UserContextProvider } from './contexts/UserContext';
 import { GroupContextProvider } from './contexts/GroupContext';
+
 import NavBar from './components/navBar';
 // import Login from
 // import Signup from
@@ -12,6 +19,26 @@ import MyPage from './pages/myPage';
 import GroupPage from './pages/groupPage';
 
 import './App.css';
+import landingPage from './pages/landingPage';
+import mainPage from './pages/mainPage';
+
+function Home({ match }) {
+  return <h2>홈페이지데스</h2>;
+}
+
+function Test({ match }) {
+  return <h2>기모찌</h2>;
+}
+
+function LinkTest() {
+  return (
+    <>
+      <Link to="/">랜딩페이지로</Link>
+      <Link to="/main">메인페이지로</Link>
+      <Link to="/groupPage">그룹페이지로</Link>
+    </>
+  );
+}
 
 const App = () => {
   // const state = useUserState();
@@ -32,70 +59,20 @@ const App = () => {
     //   <GroupProvider>
     //     <Test />
     <>
-      <Route
-        exact
-        path="/" // landing이 홈
-        render={() => (
-          <UserContextProvider>
+      <BrowserRouter>
+        <UserContextProvider>
+          <GroupContextProvider>
             <NavBar />
-            <LandingPage />
+            <Switch>
+              <Route exact path="/" component={landingPage} />
+              <Route path="/main" component={mainPage} />
+              <Route path="/groupPage" component={GroupPage} />
+              <Route path="/userInfo" component={MyPage} />
+            </Switch>
             <Footer />
-          </UserContextProvider>
-        )}
-      />
-      <Switch>
-        <Route path="/user/login" render={() => <Login />} />
-        <Route exact path="/signUp" render={() => <Signup />} />
-        <Route
-          exact
-          path="/main"
-          render={() => (
-            <UserContextProvider>
-              <NavBar />
-              <MainPage />
-              <Footer />
-            </UserContextProvider>
-          )}
-        />
-        <Route
-          exact
-          path="/user/userInfo"
-          render={() => (
-            <UserContextProvider>
-              <NavBar />
-              <MyPage />
-              <Footer />
-            </UserContextProvider>
-          )}
-        />
-        {/* <Route 
-					exact path='/GroupsByCategoryPage' 
-					render={() => 
-						(<div>
-							<NavBar />
-							<GroupsByCategory />
-							<Footer />
-						</div>)
-					} 
-				/> */}
-        <Route
-          exact
-          path="/main/groupPage"
-          render={() => (
-            <UserContextProvider>
-              {/* <UserStateContext.Provider
-              value={useReducer(userReducer, initialState)}
-            ></UserStateContext.Provider> */}
-              <GroupContextProvider>
-                <NavBar />
-                <GroupPage />
-
-                <Footer />
-              </GroupContextProvider>
-            </UserContextProvider>
-          )}
-        />
-      </Switch>
+          </GroupContextProvider>
+        </UserContextProvider>
+      </BrowserRouter>
     </>
   );
 };
