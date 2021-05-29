@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { Link, useHistory, withRouter } from 'react-router-dom';
+
 import { useUserContext } from '../contexts/UserContext';
 // import {
 //   userReducer,
@@ -20,6 +22,7 @@ case2 groupPage일 경우
 case3 myPage일 경우
 ==========>Events Groups Logout 
 */
+
 
 const NavBar = ({ location }) => {
   const history = useHistory();
@@ -180,6 +183,7 @@ const NavBar = ({ location }) => {
         </>
       );
     }
+
   }
 };
 

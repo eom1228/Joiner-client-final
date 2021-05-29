@@ -166,8 +166,10 @@ const GroupEvents = () => {
   return isLogin ? (
     <>
       <div style={{ backgroundColor: 'green' }}>
+
         {user.username === host ||
         user.userName === members.map(member => member.userName) ? (
+
           <div>
             <CreateEventButton />
             <button onClick={handleLeaveClick}>그룹 탈퇴</button>

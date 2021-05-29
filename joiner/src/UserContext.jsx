@@ -1,5 +1,4 @@
 import React, { useReducer, createContext, useContext, useEffect } from 'react';
-import axios from 'axios';
 
 export const initialState = {
   user: {
@@ -15,7 +14,13 @@ export const initialState = {
   // users: [],
   token: '', // JWT store 역할
   //   errorMessage: null,
+<<<<<<< HEAD
+  isLogin: false,
+  isLoading: false,
+  isModalOpen: false,
+=======
   isLogin: true,
+>>>>>>> 3f0daa46fccf7201f8c8f2452847eb46a22b8abd
 };
 // const initialState = {
 //   user: [
@@ -39,28 +44,36 @@ export const initialState = {
 
 export function userReducer(state, action) {
   switch (action.type) {
-    case 'LOGIN_SUCCESS':
+    case 'LOGIN_SUCCESS': // login 될때
       return {
         ...state,
         user: action.payload.user, // 로그인 성공 시 payload: data를 불러옴
         token: action.payload.auth_token, // JWT store 역할
         isLogin: true,
       };
-    case 'LOGIN_FAILED':
+    case 'LOGIN_FAILED': //login 안될때
       return {
         ...state,
         errorMessage: action.errorMessage,
         isLogin: false,
       };
 
-    case 'LOGOUT':
+    case 'LOGOUT': //logout 할때
       return {
         ...state,
         token: '',
         isLogin: false,
       };
 
-    case 'REGISTER_USER':
+    case 'HANDLE_LOGIN':
+      return {
+        ...state,
+        email: action.payload.email,
+        password: action.payload.password,
+        token: action.payload.token,
+      };
+
+    case 'REGISTER_USER': // 회원가입하여 정보 넘길때
       return {
         ...state,
         user: action.payload.user,
@@ -89,6 +102,15 @@ export function userReducer(state, action) {
         ...state,
         user: state.user.filter(user => user.location === action.location),
       };
+<<<<<<< HEAD
+
+    case 'CALL_API':
+      return {
+        ...state,
+        loading: true,
+      };
+
+=======
     case 'CHANGE_PAGE_STATE':
       // 버튼을 누르면 page state값이 바뀐다.
       return {
@@ -98,6 +120,7 @@ export function userReducer(state, action) {
           page: action.value,
         },
       };
+>>>>>>> 3f0daa46fccf7201f8c8f2452847eb46a22b8abd
     default:
       throw new Error('');
   }
@@ -145,7 +168,6 @@ export function useUserDispatch() {
 
 // const getUser = async () => {
 //   // 로그인 시 유저 정보 get 해오기
-//   dispatch({ type: 'GET_USER', payload:  });
 //   try {
 //     const response = await axios.get('url');
 //     dispatch({

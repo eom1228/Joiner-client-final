@@ -10,7 +10,7 @@ import { UserContextProvider } from './contexts/UserContext';
 import { GroupContextProvider } from './contexts/GroupContext';
 
 import NavBar from './components/navBar';
-// import Login from
+import Login from './components/modals/loginModal';
 // import Signup from
 import LandingPage from './pages/landingPage';
 import MainPage from './pages/mainPage';
@@ -21,24 +21,6 @@ import GroupPage from './pages/groupPage';
 import './App.css';
 import landingPage from './pages/landingPage';
 import mainPage from './pages/mainPage';
-
-// function Home({ match }) {
-//   return <h2>홈페이지데스</h2>;
-// }
-
-// function Test({ match }) {
-//   return <h2>기모찌</h2>;
-// }
-
-// function LinkTest() {
-//   return (
-//     <>
-//       <Link to="/">랜딩페이지로</Link>
-//       <Link to="/main">메인페이지로</Link>
-//       <Link to="/groupPage">그룹페이지로</Link>
-//     </>
-//   );
-// }
 
 const App = ({ location }) => {
   // const state = useUserState();

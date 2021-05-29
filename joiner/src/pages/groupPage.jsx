@@ -5,8 +5,10 @@ import GroupImgs from '../components/groupImgs';
 import GroupSummary from '../components/groupSummary';
 import GroupInfoEventsContainer from '../components/groupInfoEventsContainer';
 import axios from 'axios';
+
 import styled from 'styled-components';
 // import { withRouter } from 'react-router-dom';
+
 
 // import Footer from './footer';
 // import NavBar from './navBar';
@@ -128,4 +130,4 @@ const GroupPage = () => {
   );
 };
 
-export default GroupPage;
+export default withRouter(GroupPage);
