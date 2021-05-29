@@ -1,0 +1,21 @@
+#maincontainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  .mainSection1 {
+    width: 100%;
+    height: 10%;
+    background-color: beige;
+    text-align: center;
+  }
+  .mainSection2 {
+    flex: 1 0 90%;
+    background-color: pink;
+    #map {
+      height: 100%;
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+}

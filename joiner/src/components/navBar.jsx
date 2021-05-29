@@ -1,5 +1,5 @@
-import React, { useReducer, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory, withRouter } from 'react-router-dom';
 import { useUserContext } from '../contexts/UserContext';
 // import {
 //   userReducer,
@@ -20,13 +20,12 @@ case2 groupPage일 경우
 case3 myPage일 경우
 ==========>Events Groups Logout 
 */
-const pageState = ['', 'mainPage'];
-const NavBar = () => {
+
+const NavBar = ({ location }) => {
   const history = useHistory();
-  const { state, dispatch } = useUserContext();
-  console.log(state.isLogin);
-  if (state.isLogin === false) {
-    if (state.user.page === 'mainPage') {
+  const { state } = useUserContext();
+  if (!state.isLogin) {
+    if (location.pathname === '/main' || location.pathname === '/') {
       return (
         <>
           <nav>
@@ -36,24 +35,31 @@ const NavBar = () => {
               style={{
                 width: `50px`,
                 height: `50px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
               }}
             />
-            <button
+            <Link
+              to="/GroupPage"
               value="groups"
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
+              // onClick={e => {
+              //   console.log(state.page);
+              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              // }}
             >
               Groups
-            </button>
+            </Link>
             <button value="signUp">Signup</button>
             <button value="signIn">Login</button>
           </nav>
         </>
       );
-    } else if (state.user.page === 'groupPage') {
+    } else if (
+      location.pathname === '/GroupPage' ||
+      location.pathname === '/groupPage'
+    ) {
       return (
         <>
           <nav>
@@ -63,27 +69,33 @@ const NavBar = () => {
               style={{
                 width: `50px`,
                 height: `50px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
               }}
             />
-            <button value="events">Events</button>
-            <button
+            <Link to="/main" value="events">
+              Events
+            </Link>
+            <Link
+              to="/groupPage"
               value="groups"
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
+              // onClick={e => {
+              //   console.log(state.page);
+              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+              // }}
             >
               Groups
-            </button>
+            </Link>
             <button value="signUp">Signup</button>
             <button value="signIn">Login</button>
           </nav>
         </>
       );
     }
-  } else if (state.isLogin === true) {
-    if (state.user.page === 'mainPage' && state.user.page === '') {
+  } else if (state.isLogin) {
+    if (location.pathname === '/main' || location.pathname === '/') {
       return (
         <>
           <nav>
@@ -93,33 +105,55 @@ const NavBar = () => {
               style={{
                 width: `50px`,
                 height: `50px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
               }}
             />
-            <button
-              value="groups"
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
-            >
+            <Link to="/groupPage" value="groups">
               Groups
-            </button>
-            <button
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/user/userinfo');
-              }}
-              value="myPage"
-            >
+            </Link>
+            <Link to="/userInfo" value="myPage">
               MyPage
-            </button>
+            </Link>
+            <Link value="logout">Logout</Link>
+          </nav>
+        </>
+      );
+    } else if (
+      location.pathname === '/GroupPage' ||
+      location.pathname === '/groupPage'
+    ) {
+      return (
+        <>
+          <nav>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: `50px`,
+                height: `50px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
+              }}
+            />
+            <Link to="/main" value="events">
+              Events
+            </Link>
+            <Link to="/groupPage" value="groups">
+              Groups
+            </Link>
+            <Link to="/userInfo" value="myPage">
+              MyPage
+            </Link>
             <button value="logout">Logout</button>
           </nav>
         </>
       );
-    } else if (state.user.page === 'groupPage' && state.user.page === '') {
+    } else if (location.pathname === '/userInfo') {
       return (
         <>
           <nav>
@@ -129,74 +163,18 @@ const NavBar = () => {
               style={{
                 width: `50px`,
                 height: `50px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
               }}
             />
-            <button
-              value="events"
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/searchEventNearBy');
-              }}
-            >
+            <Link to="/main" value="events">
               Events
-            </button>
-            <button
-              value="groups"
-              onClick={e => {
-                console.log(state.page);
-                dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
-            >
+            </Link>
+            <Link to="/groupPage" value="groups">
               Groups
-            </button>
-            <button
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/user/userInfo');
-              }}
-              value="myPage"
-            >
-              MyPage
-            </button>
-            <button value="logout">Logout</button>
-          </nav>
-        </>
-      );
-    } else if (state.user.page === 'myPage') {
-      return (
-        <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-              }}
-            />
-            <button
-              value="events"
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/searchEventNearBy');
-              }}
-            >
-              Events
-            </button>
-            <button
-              value="groups"
-              onClick={() => {
-                console.log(state.page);
-                // dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-                history.push('/category/GroupList');
-              }}
-            >
-              Groups
-            </button>
+            </Link>
             <button value="logout">Logout</button>
           </nav>
         </>
@@ -205,7 +183,7 @@ const NavBar = () => {
   }
 };
 
-export default NavBar;
+export default withRouter(NavBar);
 
 // return (
 //   <>

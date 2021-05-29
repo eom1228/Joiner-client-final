@@ -73,7 +73,7 @@ const GroupEvents = () => {
   // if islogin && leave group ->
 
   useEffect(() => {
-    const leaveGroup = async id => {
+    const leaveGroup = async () => {
       let response = await axios.delete('/main/groupPage/groupSecession', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,12 +81,12 @@ const GroupEvents = () => {
         },
         data: {
           //   [user.id]: user.id,
-          id: id, // group의 id
+          [user.id]: user.id, // group의 id
         },
         withCredentials: true,
         crossDomain: true,
       });
-      dispatch({ type: 'LEAVE_GROUP', payload: response.user.group });
+      dispatch({ type: 'LEAVE_GROUP', payload: response.data.group.id });
     };
     leaveGroup(dispatch);
   }, [groups]);
@@ -165,8 +165,9 @@ const GroupEvents = () => {
 
   return isLogin ? (
     <>
-      <div>
-        {user.username === host || members.includes(user.id) ? (
+      <div style={{ backgroundColor: 'green' }}>
+        {user.username === host ||
+        user.userName === members.map(member => member.userName) ? (
           <div>
             <CreateEventButton />
             <button onClick={handleLeaveClick}>그룹 탈퇴</button>
@@ -197,10 +198,10 @@ const GroupEvents = () => {
     <>
       <div>
         <div>
-          <CreateEventButton onClick={openModal} />
+          <IsLoginModal>그룹 가입</IsLoginModal>
+          {/* <CreateEventButton onClick={openModal} />
           <button onClick={openModal}>그룹 가입</button>
-          <EditGroupButton onClick={openModal} />
-          {/* <LoginModal isModal={isModal} close={closeModal} /> */}
+          <EditGroupButton onClick={openModal} /> */}
         </div>
       </div>
       <div>
