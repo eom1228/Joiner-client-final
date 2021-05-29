@@ -22,25 +22,7 @@ import './App.css';
 import landingPage from './pages/landingPage';
 import mainPage from './pages/mainPage';
 
-function Home({ match }) {
-  return <h2>홈페이지데스</h2>;
-}
-
-function Test({ match }) {
-  return <h2>기모찌</h2>;
-}
-
-function LinkTest() {
-  return (
-    <>
-      <Link to="/">랜딩페이지로</Link>
-      <Link to="/main">메인페이지로</Link>
-      <Link to="/groupPage">그룹페이지로</Link>
-    </>
-  );
-}
-
-const App = () => {
+const App = ({ location }) => {
   // const state = useUserState();
   // const dispatch = useUserDispatch();
 
@@ -77,11 +59,11 @@ const App = () => {
   );
 };
 
-export default withRouter(App);
+export default App;
 
 // function App() {
 //   const [isOpen, setIsOpen] = useState(false);
-//   return (
+//   return
 //     <div>
 //       <button onClick={() => setIsOpen(true)}>Open Modal</button>
 //       <ModalTest

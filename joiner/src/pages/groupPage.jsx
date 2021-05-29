@@ -1,15 +1,30 @@
-import React, { useReducer, useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
 import GroupImgs from '../components/groupImgs';
 import GroupSummary from '../components/groupSummary';
 import GroupInfoEventsContainer from '../components/groupInfoEventsContainer';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+
+import styled from 'styled-components';
+// import { withRouter } from 'react-router-dom';
+
 
 // import Footer from './footer';
 // import NavBar from './navBar';
 axios.defaults.withCredentials = true;
+
+const PageBody = styled.div`
+  display: flex;
+  padding: 0px 30px; 
+  width 100%;
+  height: 100%;
+  align-items: center;
+  background-color: ;
+`;
+const PageBodyTop = styled.div``;
+
+const PageBodyBottom = styled.div``;
 
 const GroupPage = () => {
   // const state = useUserState();
@@ -18,12 +33,10 @@ const GroupPage = () => {
   // const groupState = useGroupState();
   // const groupDispatch = useGroupDispatch();
 
-  const { state, dispatch } = useUserContext();
+  const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group, loading, error } = groupCurrentState;
   const { user, token } = state;
-
-  console.log(group);
 
   // useEffect(() => {
   //   dispatch({ type: 'GET_LOGIN' });
@@ -48,14 +61,11 @@ const GroupPage = () => {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        data: {
-          [group.id]: group.id,
-        },
         withCredentials: true,
         crossDomain: true,
       });
       if (response.status === 200) {
-        groupDispatch({ type: 'GET_SUCCESS', payload: response.group });
+        groupDispatch({ type: 'GET_SUCCESS', payload: response.data });
         return;
       }
       groupDispatch({ type: 'GET_ERROR', payload: response.error });
@@ -67,11 +77,15 @@ const GroupPage = () => {
   // if (error) return <div>에러 발생!</div>;
 
   return (
-    <>
-      <GroupImgs />
-      <GroupSummary group={group} />
-      <GroupInfoEventsContainer />
-    </>
+    <PageBody>
+      <PageBodyTop>
+        <GroupImgs />
+        <GroupSummary group={group} />
+      </PageBodyTop>
+      <PageBodyBottom>
+        <GroupInfoEventsContainer />
+      </PageBodyBottom>
+    </PageBody>
     // <>
     //   <div className="groupImgSummaryWrapper">
     //     <div className="groupImg">
