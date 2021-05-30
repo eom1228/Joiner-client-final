@@ -1,20 +1,15 @@
 import React, { useReducer, useContext, useState } from 'react';
-import {
-  userReducer,
-  useUserState,
-  useUserDispatch,
-  initialState,
-} from '../../UserContext';
+import { useUserContext } from '../../contexts/UserContext.jsx';
 import { withRouter, Link } from 'react-router-dom';
 import Logo from '../../images/LOGO.jpg';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-const Signup = ({ isOpen, close }) => {
-  const state = useUserState();
-  const dispatch = useUserDispatch();
-  const { userName, email, password, location, err, token } = state;
+const SignupModal = ({ isOpen, close }) => {
+  const { state, dispatch } = useUserContext();
+  const { user, err, token } = state;
+  const { userName, email, password, location } = user;
   const [alert, setAlert] = useState('');
 
   const isValidEmail = str => {
@@ -69,7 +64,7 @@ const Signup = ({ isOpen, close }) => {
             location: action.payload.location,
           },
         });
-        dispatch({ type: 'SHOW_MODAL', modal: 'login' }).catch(err => {
+        dispatch({ type: 'SHOW_MODAL' }).catch(err => {
           dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
         });
       });
@@ -90,7 +85,7 @@ const Signup = ({ isOpen, close }) => {
                   style={{ width: `50px`, height: `50px` }}
                 />
                 <input
-                  value={userName}
+                  // value={userName}
                   className="userName"
                   type="text"
                   placeholder="이름을 입력해주세요"
@@ -99,7 +94,7 @@ const Signup = ({ isOpen, close }) => {
                   }}
                 />
                 <input
-                  value={email}
+                  // value={email}
                   className="email"
                   type="text"
                   placeholder="이메일 주소를 입력해주세요"
@@ -108,7 +103,7 @@ const Signup = ({ isOpen, close }) => {
                   }}
                 />
                 <input
-                  value={password}
+                  // value={password}
                   className="password"
                   type="password"
                   placeholder="비밀번호를 입력해주세요"
@@ -117,7 +112,7 @@ const Signup = ({ isOpen, close }) => {
                   }}
                 />
                 <input
-                  value={location}
+                  // value={location}
                   className="loaction"
                   type="text"
                   placeholder="지역을 입력해주세요"
@@ -140,4 +135,4 @@ const Signup = ({ isOpen, close }) => {
     </>
   );
 };
-export default withRouter(Signup);
+export default withRouter(SignupModal);

@@ -13,88 +13,75 @@ export const initialState = {
     page: '',
   },
   // users: [],
-  token: '', // JWT store 역할
-  //   errorMessage: null,
+  err: '',
+  access_token: '', // JWT store 역할
+  token_type: 'Bearer',
   isLogin: false,
+  isLoading: false,
+  //   errorMessage: null,
+  isLogin: true,
 };
-// const initialState = {
-// user: {
-
-//     id: '',
-//     userName: '',
-//     email: '',
-//     password: '',
-//     location: '',
-//     groups: [
-//       ...groups,
-//       group: {
-//         ...group,
-//         events: {
-//           ...events,
-//           event: {
-//             event.id,
-//             ...event
-//           }
-//         }
-//       }
-//     ]
-
-//     groups: [
-//      group: {
-//        events: {
-//          events,
-//          ...events
-//        },
-//        ...group
-//      },
-//      ...groups
-//     ],
-//   {
-//     token: '',
-//   },
-//   {
-//     isLogin: false,
-//   },
-// },
-// }; // userinfo[0].id ... userinfo[1].token
 
 export function userReducer(state, action) {
   switch (action.type) {
+    case 'FIELD':
+      return {
+        ...state,
+        [action.fieldName]: action.value,
+      };
+
+    case 'LOGIN':
+      return {
+        ...state,
+        isLoading: true,
+        err: '',
+      };
+
+    case 'LOGIN_SUCCESS': // login 될때
+      return {
+        ...state,
+        isLogin: true,
+        isLoading: false,
+      };
+
+    case 'LOGIN_FAILED': //login 안될때
+      return {
+        ...state,
+        isLogin: false,
+        isLoading: false,
+        email: '',
+        password: '',
+        err: '이메일 주소와 비밀번호를 입력해주세요.',
+      };
+
+    case 'LOGOUT': //logout 할때
+      return {
+        ...state,
+        isLogin: false,
+      };
+
+    case 'SET_USERINFO':
+      return {
+        ...state,
+        userName: action.payload.userName,
+        email: action.payload.email,
+        location: action.payload.location,
+        group: action.payload.group,
+        event: action.payload.event,
+      };
+
     case 'GET_USERINFO':
       return {
         ...state,
         // user: action.payload.user,
         // token: action.payload.auth_token,
       };
+
     case 'GET_SUCCESS':
       return {
         ...state,
         user: action.payload.user,
         token: action.payload.auth_token,
-      };
-    case 'HANDLE_LOGIN':
-      return {
-        ...state,
-        token: '',
-        isLogin: false,
-      };
-    case 'LOGIN_SUCCESS':
-      return {
-        ...state,
-        user: action.payload.user, // 로그인 성공 시 payload: data를 불러옴
-        token: action.payload.auth_token, // JWT store 역할
-      };
-    case 'LOGIN_FAILED':
-      return {
-        ...state,
-        isLogin: false,
-      };
-
-    case 'LOGOUT':
-      return {
-        ...state,
-        token: '',
-        isLogin: false,
       };
 
     case 'REGISTER_USER':
@@ -104,16 +91,22 @@ export function userReducer(state, action) {
         // users: state.users.concat(action.payload.user)
       }; // 유저 목록에 신규유저 정보 추가/POST : 필요없을듯..
 
-    case 'UDPDATE_USER':
+    case 'REGISTER_FAIL':
       return {
         ...state,
-        user: {
-          ...state.user,
-          userName: action.payload.value,
-          email: action.payload.value,
-          location: action.payload.value,
-        },
+        err: '알맞은 정보를 입력하세요.',
       };
+
+    // case 'UDPDATE_USER':
+    //   return {
+    //     ...state,
+    //     user: {
+    //       ...state.user,
+    //       userName: action.payload.value,
+    //       email: action.payload.value,
+    //       location: action.payload.value,
+    //     },
+    //   };
     case 'DELETE_USER':
       return {
         ...state,
@@ -161,6 +154,13 @@ export function userReducer(state, action) {
           ...state,
           page: action.value,
         },
+      };
+
+    case 'ACCESS_TOKEN':
+      return {
+        ...state,
+        access_token: '',
+        token_type: 'Bearer',
       };
     default:
       return state;

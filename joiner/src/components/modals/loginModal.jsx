@@ -1,10 +1,5 @@
 import React, { useReducer, useContext, useState } from 'react';
-import {
-  userReducer,
-  useUserState,
-  useUserDispatch,
-  initialState,
-} from '../../UserContext';
+import { useUserContext } from '../../contexts/UserContext.jsx';
 import { withRouter, Link } from 'react-router-dom';
 import Logo from '../../images/LOGO.jpg';
 import axios from 'axios';
@@ -13,8 +8,7 @@ import '../modals/loginStyle.css';
 axios.defaults.withCredentials = true;
 
 const LoginModal = ({ isOpen, close }) => {
-  const { state } = useUserState();
-  const { dispatch } = useUserDispatch();
+  const { state, dispatch } = useUserContext();
   const { user, isLogin, isLoading, err } = state;
   const { email, password } = user;
   const [alert, setAlert] = useState('');
@@ -38,7 +32,8 @@ const LoginModal = ({ isOpen, close }) => {
         type: 'LOGIN_FAILED',
         err: '이메일 주소와 비밀번호를 입력해주세요.',
       });
-      return;
+    } else {
+      dispatch({ type: 'LOGIN_SUCCESS', err: '' });
     }
 
     //유효성 검사
@@ -104,20 +99,20 @@ const LoginModal = ({ isOpen, close }) => {
                   style={{ width: `50px`, height: `50px` }}
                 />
                 <input
-                  value={email}
+                  value="email"
                   className="loginId"
                   type="text"
                   placeholder="이메일을 입력해주세요."
-                  onChange={e => {
+                  onChange={() => {
                     dispatch({ type: 'FIELD', payload: e.target.value });
                   }}
                 />
                 <input
-                  value={password}
+                  value="password"
                   className="loginPw"
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
-                  onChange={e => {
+                  onChange={() => {
                     dispatch({ type: 'FIELD', payload: e.target.value });
                   }}
                 />
