@@ -10,67 +10,65 @@ export const initialState = {
     group: '',
     event: '',
     page: 'myPage',
+    modal: '',
   },
   // users: [],
-  token: '', // JWT store 역할
+  err: '',
+  access_token: '', // JWT store 역할
+  refresh_token: '',
+  token_type: 'Bearer',
   //   errorMessage: null,
-<<<<<<< HEAD
   isLogin: false,
   isLoading: false,
-  isModalOpen: false,
-=======
-  isLogin: true,
->>>>>>> 3f0daa46fccf7201f8c8f2452847eb46a22b8abd
+  isModal: false,
 };
-// const initialState = {
-//   user: [
-//     {
-//       id: '',
-//       userName: '',
-//       email: '',
-//       password: '',
-//       location: '',
-//       group: '',
-//       event: '',
-//     },
-//     {
-//       token: '',
-//     },
-//     {
-//       isLogin: false,
-//     },
-//   ],
-// }; // userinfo[0].id ... userinfo[1].token
 
 export function userReducer(state, action) {
   switch (action.type) {
+    case 'FIELD':
+      return {
+        ...state,
+        [action.fieldName]: action.payload,
+      };
+
+    case 'LOGIN':
+      return {
+        ...state,
+        isLoading: true,
+        err: '',
+      };
+
     case 'LOGIN_SUCCESS': // login 될때
       return {
         ...state,
-        user: action.payload.user, // 로그인 성공 시 payload: data를 불러옴
-        token: action.payload.auth_token, // JWT store 역할
         isLogin: true,
+        isLoading: false,
       };
+
     case 'LOGIN_FAILED': //login 안될때
       return {
         ...state,
-        errorMessage: action.errorMessage,
         isLogin: false,
+        isLoading: false,
+        email: '',
+        password: '',
+        err: '이메일 주소와 비밀번호를 입력해주세요.',
       };
 
     case 'LOGOUT': //logout 할때
       return {
         ...state,
-        token: '',
         isLogin: false,
       };
 
-    case 'HANDLE_LOGIN':
+    case 'SET_USERINFO':
       return {
         ...state,
+        userName: action.payload.userName,
         email: action.payload.email,
-        password: action.payload.password,
-        token: action.payload.token,
+        location: action.payload.location,
+        group: action.payload.group,
+        event: action.payload.event,
       };
 
     case 'REGISTER_USER': // 회원가입하여 정보 넘길때
@@ -79,6 +77,12 @@ export function userReducer(state, action) {
         user: action.payload.user,
         // users: state.users.concat(action.payload.user)
       }; // 유저 목록에 신규유저 정보 추가/POST : 필요없을듯..
+
+    case 'REGISTER_FAIL':
+      return {
+        ...state,
+        err: '알맞은 정보를 입력하세요.',
+      };
 
     case 'UDPDATE_USER':
       return {
@@ -102,7 +106,6 @@ export function userReducer(state, action) {
         ...state,
         user: state.user.filter(user => user.location === action.location),
       };
-<<<<<<< HEAD
 
     case 'CALL_API':
       return {
@@ -110,7 +113,6 @@ export function userReducer(state, action) {
         loading: true,
       };
 
-=======
     case 'CHANGE_PAGE_STATE':
       // 버튼을 누르면 page state값이 바뀐다.
       return {
@@ -120,7 +122,34 @@ export function userReducer(state, action) {
           page: action.value,
         },
       };
->>>>>>> 3f0daa46fccf7201f8c8f2452847eb46a22b8abd
+
+    case 'SHOW_MODAL':
+      return {
+        ...state,
+        isModal: true,
+        modal: '',
+      };
+
+    case 'CLOSE_MODAL':
+      return {
+        ...state,
+        isModal: false,
+      };
+
+    case 'ACCESS_TOKEN':
+      return {
+        ...state,
+        access_token: '',
+        token_type: 'Bearer',
+      };
+
+    case 'REFRESH_TOKEN':
+      return {
+        ...state,
+        refresh_token: '',
+        token_type: 'Bearer',
+      };
+
     default:
       throw new Error('');
   }
@@ -135,8 +164,8 @@ export function UserProvider({ children }) {
   //   const { id, userName, email, password, location, group, event } = user;
 
   return (
-    <UserStateContext.Provider value={state}>
-      <UserDispatchContext.Provider value={dispatch}>
+    <UserStateContext.Provider value={{ state }}>
+      <UserDispatchContext.Provider value={{ dispatch }}>
         {children}
       </UserDispatchContext.Provider>
     </UserStateContext.Provider>

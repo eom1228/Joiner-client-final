@@ -1,8 +1,9 @@
-
 import React from 'react';
 import { Link, useHistory, withRouter } from 'react-router-dom';
 
 import { useUserContext } from '../contexts/UserContext';
+import IsLoginModal from '../components/modals/loginModalBtn';
+import IsSignupModal from '../components/modals/signupModalBtn';
 // import {
 //   userReducer,
 //   UserStateContext,
@@ -22,7 +23,6 @@ case2 groupPage일 경우
 case3 myPage일 경우
 ==========>Events Groups Logout 
 */
-
 
 const NavBar = ({ location }) => {
   const history = useHistory();
@@ -54,8 +54,8 @@ const NavBar = ({ location }) => {
             >
               Groups
             </Link>
-            <button value="signUp">Signup</button>
-            <button value="signIn">Login</button>
+            <IsSignupModal value="signUp">Signup</IsSignupModal>
+            <IsLoginModal value="signIn">Login</IsLoginModal>
           </nav>
         </>
       );
@@ -91,8 +91,8 @@ const NavBar = ({ location }) => {
             >
               Groups
             </Link>
-            <button value="signUp">Signup</button>
-            <button value="signIn">Login</button>
+            <IsSignupModal value="signUp">Signup</IsSignupModal>
+            <IsLoginModal value="signIn">Login</IsLoginModal>
           </nav>
         </>
       );
@@ -183,7 +183,6 @@ const NavBar = ({ location }) => {
         </>
       );
     }
-
   }
 };
 
