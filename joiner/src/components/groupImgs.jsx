@@ -1,85 +1,125 @@
-import React from 'react';
-// import { useGroupContext } from '../GroupContext';
-import useImgHandlers from './custom/useImgHandler';
-// import ImgSlider from './Slider/imgSlider';
-import './groupImgs.css';
+import React, { useState, useEffect } from 'react';
+import { useUserContext } from '../contexts/UserContext';
+import { useGroupContext } from '../contexts/GroupContext';
+import axios from 'axios';
+import DefaultImg from '../images/image-file.png';
 
-const Input = props => (
-  <input
-    type="file"
-    accept="image/*"
-    name="img-loader-input"
-    multiple
-    {...props}
-  />
-);
+const GroupImgs = ({ host }) => {
+  const [imgFile, setImgFile] = useState(DefaultImg);
+  const [fileUrl, setFileUrl] = useState('');
+  // const [accessToken, setAccessToken] = useState('');
+  const { state, dispatch } = useUserContext();
+  const { access_token, user } = state;
+  const { groupCurrentState, groupDispatch } = useGroupContext();
+  const { group } = groupCurrentState;
+  const maxNum = 3;
 
-const GroupImgs = () => {
-  const {
-    files,
-    pending,
-    next,
-    uploading,
-    uploaded,
-    status,
-    onSubmit,
-    onChange,
-  } = useImgHandlers();
+  const uploadFile = async e => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('imgFile', e.target.files);
+    formData.append('fileUrl', fileUrl);
+
+    await axios
+      .patch('/group/groupImg', formData, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
+        setImgFile(res.data);
+        alert('파일이 업로드 되었습니다.');
+        console.log('SUCCESS');
+      })
+      .catch(err => {
+        alert('파일 업로드 실패하셨습니다.');
+        console.log('FAILED');
+      });
+  };
+  useEffect(() => {
+    const getImgs = async e => {
+      await axios
+        .get('/group/groupImg', {
+          headers: {
+            // Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
+          crossDomain: true,
+        })
+        .then(res => {
+          setImgFile(res.data);
+          console.log('SUCCESS');
+        })
+        .catch(err => {
+          alert('사진을 불러오지 못했습니다');
+          console.log('FAILED TO GET IMAGES');
+        });
+    };
+    getImgs();
+  }, [imgFile]);
+
+  const changeFile = e => {
+    setImgFile(e.target.files);
+    setFileUrl(fileUrl.createObjectURL(e.target.file[0]));
+  };
+  const cancelFile = e => {
+    setImgFile(DefaultImg);
+    setFileUrl('');
+  };
+  const previewFile = e => {
+    if (e.target.files.length) {
+      let imgSelect = e.target.files[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(imgSelect);
+      reader.onload = () => {
+        setImgFile(e.target.result);
+      };
+    } else {
+      setImgFile(DefaultImg);
+    }
+  };
 
   return (
-    <div id="groupImgContainer">
-      <form className="form" onSubmit={onSubmit}>
-        {status === 'IMGS_UPLOADED' && (
-          <div className="success-container">
-            <div>
-              <h2>업로드 완료!</h2>
-              <small>뭐해? 업로드 됬다니까</small>
-            </div>
-          </div>
-        )}
-        <div>
-          <Input onChange={onChange} />
-          <button type="submit">등록</button>
-        </div>
-        <div>
-          {files.map(({ file, src, id }, index) => (
-            <div
-              style={{
-                opacity: uploaded[id] ? 0.2 : 1,
-              }}
-              key={`thumb${index}`}
-              className="thumbnail-wrapper"
-            >
-              <img className="thumbnail" src={src} alt="" />
-              <div className="thumbnail-caption">{file.name}</div>
-            </div>
-          ))}
-        </div>
-      </form>
+    <div className="imagePreview-container">
+      <input
+        className="image-selector"
+        type="file"
+        id="input"
+        accept="image/jpg,impge/png,image/jpeg,image/gif"
+        multiple
+        max={maxNum}
+        onChange={previewFile}
+      />
+      <button
+        className="image-upload"
+        onClick={e => {
+          user.userName !== host.userName
+            ? alert('그룹장이 아니세요!')
+            : uploadFile;
+        }}
+      >
+        업로드
+      </button>
+      <button
+        className="image-change"
+        onClick={e => {
+          changeFile;
+        }}
+      >
+        수정
+      </button>
+      <button
+        className="image-delete"
+        onClick={e => {
+          cancelFile;
+        }}
+      >
+        삭제
+      </button>
     </div>
   );
 };
 
 export default GroupImgs;
-
-//   const [fileState, setFileState] = useState({
-//     pending: [], // 현재 어떤 이미지를 업로드 중인지 알기 위함
-//     next: null, // pending의 다음 이미지
-//     uploading: false,
-//     uploaded: {},
-//     status: 'waiting',
-//   });
-
-//   const uploadImg = () => {
-//     dispatchEvent({ type: 'UPLOAD_IMG', payload: imgs });
-//   };
-
-//   return (
-//     <div className="groupImg">
-//       <h1>그룹 이미지가 들어갈꺼에요</h1>
-//       <ImgSlider imgs={imgs} />
-//       <button>{gearIcon}</button>
-//       {/* 로컬에 있는 아이콘 가져와서 버튼으로 쓰기! */}
-//     </div>
-//   );
-// };

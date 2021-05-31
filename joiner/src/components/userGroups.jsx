@@ -12,16 +12,17 @@ const UserGroups = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
   // const [groupState, setGroupState] = useState(groups)
-  const { user, token } = state;
+  const { user, access_token, isLogin } = state;
   const { groups } = user;
   // setGroupState(Data.groupsData);
   useEffect(() => {
     // Data.groupsData.map(el => console.log(el.events[0]));
+
     dispatch({ type: 'GET_USERINFO' });
     const getUserInfo = async () => {
       let response = await axios.get('/user/userInfo', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -31,14 +32,15 @@ const UserGroups = () => {
         dispatch({ type: 'GET_SUCCESS', payload: response.data });
       }
       if (response.status === 400) {
-        setErrorMessage('잘못된 요청입니다');
+        dispatch({ type: 'GET_USERFAILED', payload: response.error });
       }
       if (response.status === 405) {
-        setErrorMessage('유저를 찾을 수 없습니다');
+        dispatch({ type: 'GET_USERFAILED', payload: response.error });
       }
+
       getUserInfo(dispatch);
     };
-  }, []);
+  }, [access_token]);
 
   return (
     <div>
@@ -56,12 +58,3 @@ const UserGroups = () => {
   );
 };
 export default UserGroups;
-
-/* <div className="userGroups">
-        <ul>
-        {groups.map((el, id) => {
-            el = <li key={id}>{group}</li>
-        })}
-       </ul>
-      <button>회원 탈퇴</button>
-    </> */

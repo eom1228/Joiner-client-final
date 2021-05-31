@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext, useEffect } from 'react';
+import React from 'react';
 
 const GroupSummary = ({ group }) => {
   const { groupName, category, host, memberCount, location } = group;
