@@ -1,5 +1,6 @@
 
 .modal {
+    z-index: 1050;
     position: fixed;
     top: 0;
     right: 0;
@@ -9,6 +10,7 @@
   }  
   /* 배경에 픽스를 주고 투명도를 준다. */
     .loginModal {
+      
       width: 480px;
       height: 621px;
       background-color: white;
@@ -16,7 +18,7 @@
       box-sizing: border-box;
       margin: 50px auto;
       padding: 20px;
-      background: #fff;      
+      background: #fff;
       /* 로그인 배경이다  */
     }
       .close {

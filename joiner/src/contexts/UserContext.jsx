@@ -67,12 +67,13 @@ export function userReducer(state, action) {
       return {
         ...state,
         user: {
-          userName: action.payload.user.userName,
-          email: action.payload.user.email,
-          password: action.payload.user.password,
-          location: action.payload.user.location,
-          group: action.payload.user.group,
-          event: action.payload.user.event,
+          ...state,
+          userName: action.payload.userName,
+          email: action.payload.email,
+          password: action.payload.password,
+          location: action.payload.location,
+          group: action.payload.group,
+          event: action.payload.event,
         },
       };
 
