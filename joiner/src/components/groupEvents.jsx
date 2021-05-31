@@ -18,16 +18,6 @@ import EditGroupButton from './modals/editGroupButton';
 
 const GroupEvents = () => {
   //   const { eventName, date, time, information } = events;
-  const [isModal, setIsModal] = useState(false);
-
-  const openModal = () => {
-    setIsModal(true);
-  };
-
-  const closeModal = () => {
-    setIsModal(false);
-  };
-
   const { state, dispatch } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
 
@@ -35,42 +25,6 @@ const GroupEvents = () => {
   const { host, members, events } = group;
   const { token, user, isLogin } = state;
   const { groups } = user;
-  //   const [eventState, setEventState] = useState({
-  //     // 필요???
-  //     eventName: '',
-  //     date: '',
-  //     time: '',
-  //     information: '',
-  //   });
-
-  //   useEffect(() => {
-
-  //   })
-  //   headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       'Content-Type': 'application/json',
-  //   },
-  //   withCredentials: true,
-  //   crossDomain: true,
-  //   }
-
-  //   const onEdit = useCallback(
-  //     e => {
-  //       const { name, value } = e.target;
-  //       setGroupInputs({
-  //         ...groupInputs,
-  //         [name]: value,
-  //       });
-  //     },
-  //     [groupInputs],
-  //   );
-
-  //   console.log(group);
-  //   console.log(members);
-
-  //   const handleClick = () => {};
-
-  // if islogin && leave group ->
 
   useEffect(() => {
     const leaveGroup = async () => {
@@ -166,10 +120,8 @@ const GroupEvents = () => {
   return isLogin ? (
     <>
       <div style={{ backgroundColor: 'green' }}>
-
         {user.username === host ||
         user.userName === members.map(member => member.userName) ? (
-
           <div>
             <CreateEventButton />
             <button onClick={handleLeaveClick}>그룹 탈퇴</button>

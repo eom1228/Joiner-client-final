@@ -47,6 +47,12 @@ const LandingPage = props => {
       text3Ref.current.classList.add('active');
       hoguRef.current.classList.add('active');
       graphRef.current.classList.add('active');
+    } else if (scroll > section[1].offsetHeight) {
+      textRef.current.classList.remove('active');
+      text2Ref.current.classList.remove('active');
+      text3Ref.current.classList.remove('active');
+      hoguRef.current.classList.remove('active');
+      graphRef.current.classList.remove('active');
     }
   }
 
