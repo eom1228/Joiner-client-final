@@ -6,7 +6,7 @@ import axios from 'axios';
 import UserIconInfoContainer from '../components/userIconInfoContainer';
 import UserGroups from '../components/userGroups';
 import { withRouter } from 'react-router-dom';
-
+import '../styles/mypage.scss';
 axios.defaults.withCredentials = true;
 
 const MyPage = () => {
@@ -15,10 +15,10 @@ const MyPage = () => {
   const { userName, email, location, group, event } = user;
 
   return (
-    <>
+    <section className="myPageContainer">
       <UserIconInfoContainer />
       <UserGroups />
-    </>
+    </section>
     //   {/* //   <div>
     // //     <div className="userImage">
     // //       {/* form 의 type을 enctype="multipart/form-data" 로 설정해야

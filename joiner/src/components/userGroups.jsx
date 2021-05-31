@@ -41,7 +41,7 @@ const UserGroups = () => {
   }, []);
 
   return (
-    <div>
+    <div className="userGroupBox">
       <ul>
         {groups.map(group => {
           return (
