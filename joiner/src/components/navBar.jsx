@@ -54,8 +54,8 @@ const NavBar = ({ location }) => {
             >
               Groups
             </Link>
-            <IsSignupModal value="signUp">Signup</IsSignupModal>
-            <IsLoginModal value="signIn">Login</IsLoginModal>
+            <IsSignupModal></IsSignupModal>
+            <IsLoginModal></IsLoginModal>
           </nav>
         </>
       );
@@ -91,8 +91,8 @@ const NavBar = ({ location }) => {
             >
               Groups
             </Link>
-            <IsSignupModal value="signUp">Signup</IsSignupModal>
-            <IsLoginModal value="signIn">Login</IsLoginModal>
+            <IsSignupModal></IsSignupModal>
+            <IsLoginModal></IsLoginModal>
           </nav>
         </>
       );

@@ -1,16 +1,45 @@
-import React, { useReducer, useContext, useState } from 'react';
+import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from '../../images/LOGO.jpg';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
-
 const SignupModal = ({ isOpen, close }) => {
+  const [userInputs, setUserInputs] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    location: '',
+  });
   const { state, dispatch } = useUserContext();
-  const { user, err, token } = state;
+  const { user, err, access_token } = state;
   const { userName, email, password, location } = user;
   const [alert, setAlert] = useState('');
+
+  useEffect(() => {
+    const postRegister = async () => {
+      let response = await axios.post('/signUp', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          userInputs: userInputs,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      });
+      dispatch({ type: 'REGISTER_USER', payload: response.userInputs });
+    };
+    if (clickSignupHandler) {
+      postRegister(dispatch);
+    }
+  }, [userInputs]);
+
+  const handleSignup = e => {
+    const { name, value } = e.target;
+    setUserInputs({ [name]: value });
+  };
 
   const isValidEmail = str => {
     const regExp =
@@ -24,101 +53,70 @@ const SignupModal = ({ isOpen, close }) => {
     return regExp.test(str);
   };
 
-  const handleSignup = () => {
+  const clickSignupHandler = () => {
     if (!userName || !email || !password || !location) {
       dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
-      return;
     }
 
     if (!isValidEmail(email)) {
       setAlert('올바른 이메일 형식이 아닙니다.');
-      return;
     }
 
     if (!isValidPw(password)) {
       setAlert('비밀번호는 영문, 숫자, 특수문자 포함 8자이상 입력해야합니다.');
-      return;
     }
-
-    axios
-      .post('https://joiner/user/signUp', {
-        userName,
-        email,
-        password,
-        location,
-      })
-      .then(data => {
-        if (
-          data.status === 200 &&
-          data.data === '이미 존재하는 이메일 주소입니다.'
-        ) {
-          setAlert('이미 가입한 이메일 주소입니다.');
-          return;
-        }
-        dispatch({
-          type: 'REGISTER_USER',
-          payload: {
-            userName: action.payload.userName,
-            email: action.payload.email,
-            password: action.payload.password,
-            location: action.payload.location,
-          },
-        });
-        dispatch({ type: 'SHOW_MODAL' }).catch(err => {
-          dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
-        });
-      });
   };
   return (
     <>
       {isOpen ? (
         <div className="modal">
-          <div onClick={close}>
+          <div
+            onClick={() => {
+              close();
+            }}
+          >
             <div className="signupModal">
-              <span className="close" onClick={close}>
+              <span
+                className="close"
+                onClick={() => {
+                  close();
+                }}
+              >
                 &times;
               </span>
-              <div className="modalContents" onClick={isOpen}>
+              <div className="modalContents" onClick={() => isOpen}>
                 <img
                   className="logo"
                   src={Logo}
                   style={{ width: `50px`, height: `50px` }}
                 />
                 <input
-                  // value={userName}
+                  value={userInputs.userName}
                   className="userName"
                   type="text"
                   placeholder="이름을 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
                 <input
-                  // value={email}
+                  value={userInputs.email}
                   className="email"
                   type="text"
                   placeholder="이메일 주소를 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
                 <input
-                  // value={password}
+                  value={userInputs.password}
                   className="password"
                   type="password"
                   placeholder="비밀번호를 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
                 <input
-                  // value={location}
+                  value={userInputs.location}
                   className="loaction"
                   type="text"
                   placeholder="지역을 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
                 <button className="signUpBtn" onClick={handleSignup}>
                   SIGN UP
@@ -135,4 +133,4 @@ const SignupModal = ({ isOpen, close }) => {
     </>
   );
 };
-export default withRouter(SignupModal);
+export default SignupModal;

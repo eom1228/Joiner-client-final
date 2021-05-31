@@ -15,20 +15,23 @@ export const initialState = {
   // users: [],
   err: '',
   access_token: '', // JWT store 역할
-  token_type: 'Bearer',
+  // token_type: 'Bearer',
   isLogin: false,
   isLoading: false,
   //   errorMessage: null,
-  isLogin: true,
 };
 
 export function userReducer(state, action) {
   switch (action.type) {
-    case 'FIELD':
-      return {
-        ...state,
-        [action.fieldName]: action.value,
-      };
+    // case 'FIELD':
+    //   return {
+    //     ...state,
+    //     user: {
+    //       ...state.user,
+    //       password: action.payload.user.password,
+    //       email: action.payload.user.email,
+    //     },
+    //   };
 
     case 'LOGIN':
       return {
@@ -63,11 +66,14 @@ export function userReducer(state, action) {
     case 'SET_USERINFO':
       return {
         ...state,
-        userName: action.payload.userName,
-        email: action.payload.email,
-        location: action.payload.location,
-        group: action.payload.group,
-        event: action.payload.event,
+        user: {
+          userName: action.payload.user.userName,
+          email: action.payload.user.email,
+          password: action.payload.user.password,
+          location: action.payload.user.location,
+          group: action.payload.user.group,
+          event: action.payload.user.event,
+        },
       };
 
     case 'GET_USERINFO':
@@ -156,11 +162,17 @@ export function userReducer(state, action) {
         },
       };
 
-    case 'ACCESS_TOKEN':
+    case 'GET_ACCESSTOKEN':
       return {
         ...state,
-        access_token: '',
-        token_type: 'Bearer',
+        isLoading: true,
+      };
+
+    case 'SET_ACCESSTOKEN':
+      return {
+        ...state,
+        user: action.payload.user,
+        access_token: action.payload.access_token,
       };
     default:
       return state;

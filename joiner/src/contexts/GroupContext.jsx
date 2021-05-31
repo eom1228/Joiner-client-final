@@ -117,8 +117,16 @@ export function groupReducer(state, action) {
           events: action.payload.group.events,
         },
       };
+    case 'GET_GROUPMEMBERS':
+      return {
+        ...state,
+        group: {
+          ...state.group,
+          members: action.payload.group.members,
+        },
+      };
     default:
-      throw new Error('');
+      return state;
   }
 }
 
