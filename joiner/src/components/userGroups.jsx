@@ -12,31 +12,34 @@ const UserGroups = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
   // const [groupState, setGroupState] = useState(groups)
-  const { user, token } = state;
+  const { user, token, isLogin } = state;
   const { groups } = user;
   // setGroupState(Data.groupsData);
   useEffect(() => {
     // Data.groupsData.map(el => console.log(el.events[0]));
+
     dispatch({ type: 'GET_USERINFO' });
     const getUserInfo = async () => {
-      let response = await axios.get('/user/userInfo', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      if (response.status === 200) {
-        dispatch({ type: 'GET_SUCCESS', payload: response.data });
+      if (isLogin) {
+        let response = await axios.get('/user/userInfo', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (response.status === 200) {
+          dispatch({ type: 'GET_SUCCESS', payload: response.data });
+        }
+        if (response.status === 400) {
+          dispatch({ type: 'GET_USERFAILED', payload: response.error });
+        }
+        if (response.status === 405) {
+          dispatch({ type: 'GET_USERFAILED', payload: response.error });
+        }
+        getUserInfo(dispatch);
       }
-      if (response.status === 400) {
-        setErrorMessage('잘못된 요청입니다');
-      }
-      if (response.status === 405) {
-        setErrorMessage('유저를 찾을 수 없습니다');
-      }
-      getUserInfo(dispatch);
     };
   }, []);
 
