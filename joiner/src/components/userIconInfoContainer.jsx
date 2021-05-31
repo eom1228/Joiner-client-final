@@ -5,7 +5,6 @@ import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
 import UserIcon from './userIcon';
 import UserInfo from './userInfo';
-
 axios.defaults.withCredentials = true;
 
 const UserIconInfoContainer = () => {
@@ -15,8 +14,10 @@ const UserIconInfoContainer = () => {
 
   return (
     <>
-      <UserIcon />
-      <UserInfo />
+      <div className="userInfoBox">
+        <UserIcon />
+        <UserInfo />
+      </div>
     </>
   );
 };
