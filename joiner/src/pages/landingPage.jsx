@@ -200,6 +200,7 @@ const LandingPage = props => {
             onClick={() => {
               history.push('/main');
             }}
+            className="btn_toMain"
           >
             지금 Joiner와 함께하세요
           </button>
