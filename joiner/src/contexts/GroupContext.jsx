@@ -122,7 +122,8 @@ export function groupReducer(state, action) {
         ...state,
         group: {
           ...state.group,
-          members: action.payload.group.members,
+          id: action.group.id,
+          members: action.group.members,
         },
       };
     default:

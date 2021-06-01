@@ -68,12 +68,12 @@ export function userReducer(state, action) {
         ...state,
         user: {
           ...state,
-          userName: action.payload.userName,
-          email: action.payload.email,
-          password: action.payload.password,
-          location: action.payload.location,
-          group: action.payload.group,
-          event: action.payload.event,
+          userName: action.userName,
+          email: action.email,
+          password: action.password,
+          location: action.location,
+          group: action.group,
+          event: action.event,
         },
       };
 
@@ -172,8 +172,8 @@ export function userReducer(state, action) {
     case 'SET_ACCESSTOKEN':
       return {
         ...state,
-        user: action.payload.user,
-        access_token: action.payload.access_token,
+        access_token: action.access_token,
+        isLogin: true,
       };
     default:
       return state;
