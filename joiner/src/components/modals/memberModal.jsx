@@ -14,8 +14,8 @@ const MemberModal = ({ isOpen, close }) => {
   const { members } = group;
 
   const clickGroupHandler = () => {
-    const data = axios
-      .get('/groupMember', {
+    axios
+      .get('https://localhost:4000/group/groupMember', {
         headers: {
           Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
@@ -39,6 +39,7 @@ const MemberModal = ({ isOpen, close }) => {
     setUserInputs({ ...userInputs, [name]: value });
     console.log(userInputs);
   };
+
   const filterUser = () => {
     const groupMember = members.filter(member => {
       member.userName === userInputs.userName;

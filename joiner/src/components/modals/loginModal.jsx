@@ -18,7 +18,7 @@ const LoginModal = ({ isOpen, close }) => {
     let data = axios
       .post('https://localhost:4000/user/login', {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          // Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         data: {
@@ -37,14 +37,17 @@ const LoginModal = ({ isOpen, close }) => {
         });
         dispatch({
           type: 'SET_USERINFO',
-          email: res.data.data.user.email,
-          password: res.data.data.user.password,
-          userName: res.data.data.user.userName,
-          location: res.data.data.user.location,
-          group: res.data.data.user.group,
-          event: res.data.data.user.event,
+          email: data.data.data.user.email,
+          password: data.data.data.user.password,
+          userName: data.data.data.user.userName,
+          location: data.data.data.user.location,
+          group: data.data.data.user.group,
+          event: data.data.data.user.event,
         });
         history.push('/main');
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 

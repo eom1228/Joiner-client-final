@@ -66,13 +66,15 @@ export function userReducer(state, action) {
     case 'SET_USERINFO':
       return {
         ...state,
-        userName: action.userName,
-        email: action.email,
-        password: action.password,
-        location: action.location,
-        group: action.group,
-        event: action.event,
-        isLogin: true,
+        user: {
+          ...state,
+          userName: action.userName,
+          email: action.email,
+          password: action.password,
+          location: action.location,
+          group: action.group,
+          event: action.event,
+        },
       };
 
     case 'GET_USERINFO':
@@ -170,7 +172,6 @@ export function userReducer(state, action) {
     case 'SET_ACCESSTOKEN':
       return {
         ...state,
-        user: action.user,
         access_token: action.access_token,
         isLogin: true,
       };

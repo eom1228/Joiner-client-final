@@ -20,6 +20,7 @@ const UserIcon = () => {
     try {
       const response = await axios('/upload', formData, {
         headers: {
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
         },
       });

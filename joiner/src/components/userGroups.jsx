@@ -18,28 +18,33 @@ const UserGroups = () => {
   useEffect(() => {
     // Data.groupsData.map(el => console.log(el.events[0]));
 
-    dispatch({ type: 'GET_USERINFO' });
     const getUserInfo = async () => {
-      let response = await axios.get('/user/userInfo', {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      if (response.status === 200) {
-        dispatch({ type: 'GET_SUCCESS', payload: response.data });
+      dispatch({ type: 'GET_USERINFO' });
+      try {
+        let response = await axios.get('/user/userInfo', {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (response.status === 200) {
+          dispatch({
+            type: 'GET_SUCCESS',
+            payload: response.data.data.userinfo,
+          });
+        }
+      } catch (e) {
+        if (response.status === 400) {
+          dispatch({ type: 'GET_USERFAILED', error: e });
+        }
+        if (response.status === 405) {
+          dispatch({ type: 'GET_USERFAILED', error: e });
+        }
       }
-      if (response.status === 400) {
-        dispatch({ type: 'GET_USERFAILED', payload: response.error });
-      }
-      if (response.status === 405) {
-        dispatch({ type: 'GET_USERFAILED', payload: response.error });
-      }
-
-      getUserInfo(dispatch);
     };
+    getUserInfo(dispatch);
   }, [access_token]);
 
   return (

@@ -3,7 +3,6 @@ import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
 import UserIconInfoContainer from '../components/userIconInfoContainer';
 import UserGroups from '../components/userGroups';
-
 axios.defaults.withCredentials = true;
 
 const MyPage = () => {
