@@ -43,7 +43,7 @@ const UserGroups = () => {
   }, [access_token]);
 
   return (
-    <div>
+    <div className="userGroupBox">
       <ul>
         {groups.map(group => {
           return (

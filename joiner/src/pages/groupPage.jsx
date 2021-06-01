@@ -6,7 +6,6 @@ import GroupSummary from '../components/groupSummary';
 import GroupInfoEventsContainer from '../components/groupInfoEventsContainer';
 import axios from 'axios';
 import styled from 'styled-components';
-
 axios.defaults.withCredentials = true;
 
 const PageBody = styled.div`
