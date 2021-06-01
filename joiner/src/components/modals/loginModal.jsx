@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/logo_remove.png';
 import axios from 'axios';
 import '../modals/loginStyle.css';
@@ -12,6 +12,7 @@ const LoginModal = ({ isOpen, close }) => {
   const { user, access_token } = state;
   const { email, password } = user;
   const [alert, setAlert] = useState('');
+  const history = useHistory();
 
   const clickLoginHandler = () => {
     let data = axios
@@ -29,23 +30,23 @@ const LoginModal = ({ isOpen, close }) => {
       })
       .then(res => {
         console.log(res);
+        dispatch({
+          type: 'SET_ACCESSTOKEN',
+          access_token: res.data.data.access_token,
+          isLogin: true,
+        });
+        dispatch({
+          type: 'SET_USERINFO',
+          email: res.data.data.user.email,
+          password: res.data.data.user.password,
+          userName: res.data.data.user.userName,
+          location: res.data.data.user.location,
+          group: res.data.data.user.group,
+          event: res.data.data.user.event,
+        });
+        history.push('/main');
       });
   };
-
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     dispatch({ type: 'GET_ACCESSTOKEN' });
-  //     let response = await axios.get('user/userInfo', {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       withCredentials: true,
-  //       crossDomain: true,
-  //     });
-  //     dispatch({ type: 'SET_ACCESSTOKEN', payload: response.data });
-  //   };
-  //   getToken(dispatch);
-  // }, [access_token]);
 
   const handleLogin = e => {
     //이메일&비밀번호 일치하지 않을 경우 Login Failed에 있는 err
@@ -108,7 +109,7 @@ const LoginModal = ({ isOpen, close }) => {
                 </button>
                 <div className="loginEnd">
                   <div className="loginLine">회원이 아니신가요?</div>
-                  <IsSignupModal>SIGN UP</IsSignupModal>
+                  <Link to="/signUp">SIGN UP</Link>
                 </div>
               </div>
             </div>
