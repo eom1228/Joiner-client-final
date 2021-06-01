@@ -53,7 +53,7 @@ const GroupImgs = ({ host }) => {
           console.log('SUCCESS');
         })
         .catch(err => {
-          alert('사진을 불러오지 못했습니다');
+          // alert('사진을 불러오지 못했습니다');
           console.log('FAILED TO GET IMAGES');
         });
     };

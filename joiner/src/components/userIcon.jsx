@@ -20,6 +20,7 @@ const UserIcon = () => {
     try {
       const response = await axios('/upload', formData, {
         headers: {
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
         },
       });
@@ -41,9 +42,6 @@ const UserIcon = () => {
     <>
       {/* form 의 type을 enctype="multipart/form-data" 로 설정해야
     // //       사용자가 전송한 파일을 서버로 전송할 수 있다. */}
-      {/* 
-    userInfoBox 안에 userImage, 
-    */}
       <div className="userImage">
         {uploadedImage ? (
           <img style={{ width: '100%' }} src={uploadedImage.filePath} alt="" />
@@ -53,20 +51,14 @@ const UserIcon = () => {
           action="upload"
           method="post"
           encType="multipart/form-data"
-          className="formTest"
         >
-          <span>
-            <p>Click the blank to change your profile picture</p>
-            <input
-              type="file"
-              name="imgFile"
-              id="customFile"
-              onChange={onChange}
-              style={{ opacity: 0 }}
-            />
-            <br />
-            <input type="submit" value="Upload" />
-          </span>
+          <input
+            type="file"
+            name="imgFile"
+            id="customFile"
+            onChange={onChange}
+          />
+          <input type="submit" value="Upload" />
         </form>
       </div>
     </>
