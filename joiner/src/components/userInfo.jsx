@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
 import data from '../dummyData/userDummy';
@@ -8,29 +8,25 @@ const UserInfo = () => {
   const [inputs, setInputs] = useState({ userName: '', email: '' });
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [refresh, setRefresh] = useState(null);
 
   const { state, dispatch } = useUserContext();
   const { user, accessToken } = state;
   const { userName, email } = user;
 
-  useEffect(() => {
-    const updateUserInfo = async () => {
-      let response = await axios.put('/user/userInfo/userInfoUpdate', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          inputs: inputs,
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      dispatch({ type: 'UPDATE_USER', payload: response.data.inputs });
-    };
-    updateUserInfo(dispatch);
-  }, [inputs.userName, inputs.email]);
+  const updateUserInfo = async () => {
+    let response = await axios.put('/user/userInfo/userInfoUpdate', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        inputs: inputs,
+      },
+      withCredentials: true,
+      crossDomain: true,
+    });
+    dispatch({ type: 'UPDATE_USER', payload: response.data.inputs });
+  };
 
   const isValidEmail = str => {
     const regExp =
@@ -57,6 +53,7 @@ const UserInfo = () => {
       alert('올바른 이메일 형식이 아닙니다');
     } else {
       // alert('수정 완료!');
+      updateUserInfo();
       setSubmitted(true);
       window.location.reload();
       // setIsToggleOn({ isToggleOn: !isToggleOn });
@@ -116,4 +113,5 @@ const UserInfo = () => {
     );
   }
 };
+
 export default UserInfo;
