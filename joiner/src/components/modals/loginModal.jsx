@@ -1,9 +1,10 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
-import { Link } from 'react-router-dom';
-import Logo from '../../images/LOGO.jpg';
+import { withRouter, Link } from 'react-router-dom';
+import Logo from '../../images/logo_remove.png';
 import axios from 'axios';
 import '../modals/loginStyle.css';
+import IsSignupModal from './signupModalBtn.jsx';
 
 const LoginModal = ({ isOpen, close }) => {
   const [userInputs, setUserInputs] = useState({ email: '', password: '' });
@@ -12,43 +13,47 @@ const LoginModal = ({ isOpen, close }) => {
   const { email, password } = user;
   const [alert, setAlert] = useState('');
 
-  useEffect(() => {
-    const postLogin = async () => {
-      let response = await axios.post('https://localhost:4000/user/login', {
+  const clickLoginHandler = () => {
+    let data = axios
+      .post('https://localhost:4000/user/login', {
         headers: {
           Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         data: {
-          userInputs: userInputs,
+          email: userInputs.email,
+          password: userInputs.password,
         },
         withCredentials: true,
         crossDomain: true,
+      })
+      .then(res => {
+        console.log(res);
       });
-      dispatch({ type: 'SET_USERINFO', payload: response.data });
-    };
-    postLogin(dispatch);
-  }, []);
+  };
 
-  useEffect(() => {
-    const getToken = async () => {
-      dispatch({ type: 'GET_ACCESSTOKEN' });
-      let response = await axios.get('user/userInfo', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      dispatch({ type: 'SET_ACCESSTOKEN', payload: response.data });
-    };
-    getToken(dispatch);
-  }, [access_token]);
+  // useEffect(() => {
+  //   const getToken = async () => {
+  //     dispatch({ type: 'GET_ACCESSTOKEN' });
+  //     let response = await axios.get('user/userInfo', {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       withCredentials: true,
+  //       crossDomain: true,
+  //     });
+  //     dispatch({ type: 'SET_ACCESSTOKEN', payload: response.data });
+  //   };
+  //   getToken(dispatch);
+  // }, [access_token]);
 
   const handleLogin = e => {
     //이메일&비밀번호 일치하지 않을 경우 Login Failed에 있는 err
     const { name, value } = e.target;
-    setUserInputs({ [name]: value });
+    console.log(e.target.name);
+    console.log(e.target.value);
+    setUserInputs({ ...userInputs, [name]: value });
+    console.log(userInputs);
   };
 
   const isValidEmail = str => {
@@ -63,49 +68,25 @@ const LoginModal = ({ isOpen, close }) => {
     return regExp.test(str);
   };
 
-  const clickLoginHandler = e => {
-    e.preventDefault();
-    if (!email || !password) {
-      dispatch({
-        type: 'LOGIN_FAILED',
-        err: '이메일 주소와 비밀번호를 입력해주세요.',
-      });
-    }
-    if (!isValidEmail(email)) {
-      setAlert('유효하지 않은 이메일입니다.');
-    }
-
-    if (!isValidPw(password)) {
-      setAlert('비밀번호는 영문, 숫자, 특수문자 포함 8자이상 입력해야합니다.');
-    }
-  };
   return (
     <>
       {isOpen ? (
         <div className="modal">
-          <div
-            onClick={() => {
-              close;
-            }}
-          >
+          <div onClick={() => close}>
             <div className="loginModal">
-              <span
-                className="close"
-                onClick={() => {
-                  close();
-                }}
-              >
+              <span className="close" onClick={() => close()}>
                 &times;
               </span>
               <div className="modalContents" onClick={() => isOpen}>
                 <img
                   className="logo"
                   src={Logo}
-                  style={{ width: `50px`, height: `50px` }}
+                  style={{ width: `120px`, height: `120px` }}
                 />
                 <input
                   value={userInputs.email}
                   className="loginId"
+                  name="email"
                   type="text"
                   placeholder="이메일을 입력해주세요."
                   onChange={handleLogin}
@@ -113,6 +94,7 @@ const LoginModal = ({ isOpen, close }) => {
                 <input
                   name={userInputs.password}
                   className="loginPw"
+                  name="password"
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
                   onChange={handleLogin}
@@ -126,7 +108,7 @@ const LoginModal = ({ isOpen, close }) => {
                 </button>
                 <div className="loginEnd">
                   <div className="loginLine">회원이 아니신가요?</div>
-                  <Link to="/signUp">SIGN UP</Link>
+                  <IsSignupModal>SIGN UP</IsSignupModal>
                 </div>
               </div>
             </div>
@@ -136,4 +118,4 @@ const LoginModal = ({ isOpen, close }) => {
     </>
   );
 };
-export default LoginModal;
+export default withRouter(LoginModal);

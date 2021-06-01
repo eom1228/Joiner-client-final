@@ -1,4 +1,3 @@
-
 .modal {
     z-index: 1050;
     position: fixed;
@@ -9,8 +8,7 @@
     background: rgba(0, 0, 0, 0.6); 
   }  
   /* 배경에 픽스를 주고 투명도를 준다. */
-    .loginModal {
-      
+    .signupModal {
       width: 480px;
       height: 621px;
       background-color: white;
@@ -18,7 +16,8 @@
       box-sizing: border-box;
       margin: 50px auto;
       padding: 20px;
-      background: #fff;
+      background: #f67280;
+      border-radius: 10px;
       /* 로그인 배경이다  */
     }
       .close {
@@ -42,7 +41,7 @@
           margin: 0 auto;
         }
   
-        .loginId {
+        .userName {
           margin-top: 30px;
           border-radius: 2px;
           width: 100%;
@@ -55,7 +54,7 @@
         input::placeholder {
           color: #999999;
         }
-        .loginPw {
+        .email {
           margin-top: 15px;
           border-radius: 2px;
           width: 100%;
@@ -65,18 +64,40 @@
           outline: none;
           box-sizing: border-box;
         }
+
+        .password {
+            margin-top: 15px;
+            border-radius: 2px;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            padding: 9px 12px;
+            outline: none;
+            box-sizing: border-box;
+          }
+
+          .location {
+            margin-top: 15px;
+            border-radius: 2px;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            padding: 9px 12px;
+            outline: none;
+            box-sizing: border-box;
+          }
   
-        .loginMid {
+        .signupMid {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-          .autoLogin {
+          .autoSignup {
             font-size: 12px;
             color: #8d8d8d;
             line-height: 3;
           }
-        .loginBtn {
+        .signUpBtn {
           height: 40px;
           font-size: 14px;
           padding: 13px 30px;
@@ -141,11 +162,11 @@
             }
           }
         } */
-        .loginEnd {
+        .signupEnd {
           text-align: center;
           font-size: 11px;
         }
-          .loginLine {
+          .signupLine {
             color: #bcbcbc;
             font-size: 11px;
             margin-bottom: 35px;
@@ -159,6 +180,3 @@
           .noUser {
             text-decoration: underline;
           }
-        
-    
-     

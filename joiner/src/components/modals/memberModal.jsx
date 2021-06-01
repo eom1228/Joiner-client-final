@@ -13,42 +13,36 @@ const MemberModal = ({ isOpen, close }) => {
   const { group } = groupCurrentState;
   const { members } = group;
 
-  useEffect(() => {
-    const getMembers = async () => {
-      let response = await axios.get('/groupMember', {
+  const clickGroupHandler = () => {
+    const data = axios
+      .get('/groupMember', {
         headers: {
           Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         data: {
-          inputmembers: inputmembers,
+          userName: inputmembers.userName,
         },
         withCredentials: true,
         crossDomain: true,
+      })
+      .then(res => {
+        console.log(res);
       });
-      groupDispatch({
-        type: 'GET_GROUPMEMBERS',
-        payload: response.data.inputmembers,
-      });
-    };
-    getMembers(groupDispatch);
-  }, [inputmembers]);
+  };
 
   const handleChange = e => {
-    setUserInputs({ userInputs: e.target.value });
+    const { name, value } = e.target;
+    console.log(e.target.name);
+    console.log(e.target.value);
+    setUserInputs({ ...userInputs, [name]: value });
+    console.log(userInputs);
   };
   const filterUser = () => {
     const groupMember = members.filter(member => {
       member.userName === userInputs.userName;
     });
     setInputMembers({ members: groupMember });
-  };
-
-  const handleSubmit = e => {
-    if (e === userInputs) {
-      setInputMembers([userInputs]);
-      filterUser();
-    }
   };
 
   return (
@@ -65,12 +59,14 @@ const MemberModal = ({ isOpen, close }) => {
           </span>
           <div className="member_searchbox">
             <input
+              value={userInputs.userName}
+              name="userName"
               className="searchbox"
               type="text"
               placeholder="이름을 검색하세요"
               onChange={handleChange}
             />
-            <button onClick={handleSubmit}>검색</button>
+            <button onClick={clickGroupHandler}>검색</button>
             <ul className="list">
               {members.map(member => {
                 return (

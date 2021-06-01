@@ -1,7 +1,8 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
-import { Link } from 'react-router-dom';
-import Logo from '../../images/LOGO.jpg';
+import { withRouter, Link } from 'react-router-dom';
+import Logo from '../../images/logo_remove.png';
+import '../modals/signupStyle.css';
 import axios from 'axios';
 
 const SignupModal = ({ isOpen, close }) => {
@@ -17,17 +18,6 @@ const SignupModal = ({ isOpen, close }) => {
   const [alert, setAlert] = useState('');
 
   const clickSignupHandler = () => {
-    // if (!userName || !email || !password || !location) {
-    //   dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
-    // }
-
-    // if (!isValidEmail(email)) {
-    //   setAlert('올바른 이메일 형식이 아닙니다.');
-    // }
-
-    // if (!isValidPw(password)) {
-    //   setAlert('비밀번호는 영문, 숫자, 특수문자 포함 8자이상 입력해야합니다.');
-    // }
     const data = axios
       .post('https://localhost:4000/user/signUp', {
         headers: {
@@ -43,6 +33,7 @@ const SignupModal = ({ isOpen, close }) => {
         crossDomain: true,
       })
       .then(res => {
+        history.push('/login');
         console.log(res);
       });
   };
@@ -73,17 +64,18 @@ const SignupModal = ({ isOpen, close }) => {
         <div className="modal">
           <div onClick={() => close}>
             <div className="signupModal">
-              <span className="close" onClick={() => close}>
+              <span className="close" onClick={() => close()}>
                 &times;
               </span>
               <div className="modalContents" onClick={() => isOpen}>
                 <img
                   className="logo"
                   src={Logo}
-                  style={{ width: `50px`, height: `50px` }}
+                  style={{ width: `120px`, height: `120px` }}
                 />
                 <input
                   value={userInputs.userName}
+                  className="userName"
                   name="userName"
                   type="text"
                   placeholder="이름을 입력해주세요"
@@ -91,6 +83,7 @@ const SignupModal = ({ isOpen, close }) => {
                 />
                 <input
                   value={userInputs.email}
+                  className="email"
                   name="email"
                   type="text"
                   placeholder="이메일 주소를 입력해주세요"
@@ -98,6 +91,7 @@ const SignupModal = ({ isOpen, close }) => {
                 />
                 <input
                   value={userInputs.password}
+                  className="password"
                   name="password"
                   type="password"
                   placeholder="비밀번호를 입력해주세요"
@@ -105,12 +99,17 @@ const SignupModal = ({ isOpen, close }) => {
                 />
                 <input
                   value={userInputs.location}
+                  className="location"
                   name="location"
                   type="text"
                   placeholder="지역을 입력해주세요"
                   onChange={handleSignup}
                 />
-                <button className="signUpBtn" onClick={clickSignupHandler}>
+                <button
+                  className="signUpBtn"
+                  type="submit"
+                  onClick={clickSignupHandler}
+                >
                   SIGN UP
                 </button>
                 <div className="signupEnd">
@@ -125,4 +124,4 @@ const SignupModal = ({ isOpen, close }) => {
     </>
   );
 };
-export default SignupModal;
+export default withRouter(SignupModal);
