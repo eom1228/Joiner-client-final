@@ -6,7 +6,7 @@ import { useUserContext } from '../../contexts/UserContext';
 
 const MemberModal = ({ isOpen, close }) => {
   const [inputmembers, setInputMembers] = useState([]);
-  const [userInputs, setUserInputs] = useState({ userName: '' });
+  const [userInputs, setUserInputs] = useState({ userName: '', id: '' });
   const { state } = useUserContext();
   const { access_token } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
@@ -21,7 +21,8 @@ const MemberModal = ({ isOpen, close }) => {
           'Content-Type': 'application/json',
         },
         data: {
-          userName: inputmembers.userName,
+          id: userInputs.id,
+          userName: userInputs.userName,
         },
         withCredentials: true,
         crossDomain: true,

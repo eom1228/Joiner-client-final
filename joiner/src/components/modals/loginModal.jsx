@@ -28,12 +28,11 @@ const LoginModal = ({ isOpen, close }) => {
         withCredentials: true,
         crossDomain: true,
       })
-
-      .then(data => {
-        console.log(data);
+      .then(res => {
+        console.log(res);
         dispatch({
           type: 'SET_ACCESSTOKEN',
-          access_token: data.data.data.access_token,
+          access_token: res.data.data.access_token,
           isLogin: true,
         });
         dispatch({
@@ -51,21 +50,6 @@ const LoginModal = ({ isOpen, close }) => {
         console.log(err);
       });
   };
-
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     dispatch({ type: 'GET_ACCESSTOKEN' });
-  //     let response = await axios.get('user/userInfo', {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       withCredentials: true,
-  //       crossDomain: true,
-  //     });
-  //     dispatch({ type: 'SET_ACCESSTOKEN', payload: response.data });
-  //   };
-  //   getToken(dispatch);
-  // }, [access_token]);
 
   const handleLogin = e => {
     //이메일&비밀번호 일치하지 않을 경우 Login Failed에 있는 err
@@ -128,7 +112,7 @@ const LoginModal = ({ isOpen, close }) => {
                 </button>
                 <div className="loginEnd">
                   <div className="loginLine">회원이 아니신가요?</div>
-                  <IsSignupModal>SIGN UP</IsSignupModal>
+                  <Link to="/signUp">SIGN UP</Link>
                 </div>
               </div>
             </div>
