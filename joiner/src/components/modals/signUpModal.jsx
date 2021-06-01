@@ -16,29 +16,43 @@ const SignupModal = ({ isOpen, close }) => {
   const { userName, email, password, location } = user;
   const [alert, setAlert] = useState('');
 
-  useEffect(() => {
-    const postRegister = async () => {
-      let response = await axios.post('/signUp', {
+  const clickSignupHandler = () => {
+    // if (!userName || !email || !password || !location) {
+    //   dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
+    // }
+
+    // if (!isValidEmail(email)) {
+    //   setAlert('올바른 이메일 형식이 아닙니다.');
+    // }
+
+    // if (!isValidPw(password)) {
+    //   setAlert('비밀번호는 영문, 숫자, 특수문자 포함 8자이상 입력해야합니다.');
+    // }
+    const data = axios
+      .post('https://localhost:4000/user/signUp', {
         headers: {
-          Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         data: {
-          userInputs: userInputs,
+          email: userInputs.email,
+          userName: userInputs.userName,
+          password: userInputs.password,
+          location: userInputs.location,
         },
         withCredentials: true,
         crossDomain: true,
+      })
+      .then(res => {
+        console.log(res);
       });
-      dispatch({ type: 'REGISTER_USER', payload: response.userInputs });
-    };
-    if (clickSignupHandler) {
-      postRegister(dispatch);
-    }
-  }, [userInputs]);
+  };
 
   const handleSignup = e => {
     const { name, value } = e.target;
-    setUserInputs({ [name]: value });
+    console.log(e.target.name);
+    console.log(e.target.value);
+    setUserInputs({ ...userInputs, [name]: value });
+    console.log(userInputs);
   };
 
   const isValidEmail = str => {
@@ -53,35 +67,13 @@ const SignupModal = ({ isOpen, close }) => {
     return regExp.test(str);
   };
 
-  const clickSignupHandler = () => {
-    if (!userName || !email || !password || !location) {
-      dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
-    }
-
-    if (!isValidEmail(email)) {
-      setAlert('올바른 이메일 형식이 아닙니다.');
-    }
-
-    if (!isValidPw(password)) {
-      setAlert('비밀번호는 영문, 숫자, 특수문자 포함 8자이상 입력해야합니다.');
-    }
-  };
   return (
     <>
       {isOpen ? (
         <div className="modal">
-          <div
-            onClick={() => {
-              close();
-            }}
-          >
+          <div onClick={() => close}>
             <div className="signupModal">
-              <span
-                className="close"
-                onClick={() => {
-                  close();
-                }}
-              >
+              <span className="close" onClick={() => close}>
                 &times;
               </span>
               <div className="modalContents" onClick={() => isOpen}>
@@ -92,33 +84,33 @@ const SignupModal = ({ isOpen, close }) => {
                 />
                 <input
                   value={userInputs.userName}
-                  className="userName"
+                  name="userName"
                   type="text"
                   placeholder="이름을 입력해주세요"
                   onChange={handleSignup}
                 />
                 <input
                   value={userInputs.email}
-                  className="email"
+                  name="email"
                   type="text"
                   placeholder="이메일 주소를 입력해주세요"
                   onChange={handleSignup}
                 />
                 <input
                   value={userInputs.password}
-                  className="password"
+                  name="password"
                   type="password"
                   placeholder="비밀번호를 입력해주세요"
                   onChange={handleSignup}
                 />
                 <input
                   value={userInputs.location}
-                  className="loaction"
+                  name="location"
                   type="text"
                   placeholder="지역을 입력해주세요"
                   onChange={handleSignup}
                 />
-                <button className="signUpBtn" onClick={handleSignup}>
+                <button className="signUpBtn" onClick={clickSignupHandler}>
                   SIGN UP
                 </button>
                 <div className="signupEnd">

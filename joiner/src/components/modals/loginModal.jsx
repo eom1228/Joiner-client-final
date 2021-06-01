@@ -14,7 +14,7 @@ const LoginModal = ({ isOpen, close }) => {
 
   useEffect(() => {
     const postLogin = async () => {
-      let response = await axios.post('/login', {
+      let response = await axios.post('https://localhost:4000/user/login', {
         headers: {
           Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
@@ -25,17 +25,15 @@ const LoginModal = ({ isOpen, close }) => {
         withCredentials: true,
         crossDomain: true,
       });
-      dispatch({ type: 'SET_USERINFO', payload: response.userInputs });
+      dispatch({ type: 'SET_USERINFO', payload: response.data });
     };
-    if (clickLoginHandler) {
-      postLogin(dispatch);
-    }
-  }, [userInputs]);
+    postLogin(dispatch);
+  }, []);
 
   useEffect(() => {
     const getToken = async () => {
       dispatch({ type: 'GET_ACCESSTOKEN' });
-      let response = await axios.get('/user/userInfo', {
+      let response = await axios.get('user/userInfo', {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -87,7 +85,7 @@ const LoginModal = ({ isOpen, close }) => {
         <div className="modal">
           <div
             onClick={() => {
-              close();
+              close;
             }}
           >
             <div className="loginModal">
