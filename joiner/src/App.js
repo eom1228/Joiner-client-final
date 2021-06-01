@@ -10,7 +10,7 @@ import { UserContextProvider } from './contexts/UserContext';
 import { GroupContextProvider } from './contexts/GroupContext';
 
 import NavBar from './components/navBar';
-import Login from './components/modals/loginModal';
+// import Login from './components/modals/loginModal';
 // import Signup from
 import LandingPage from './pages/landingPage';
 import MainPage from './pages/mainPage';

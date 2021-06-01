@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import LoginModal from '../modals/loginModal';
+import MemberModal from '../../components/modals/memberModal';
 
-const IsLoginModal = () => {
+const IsMemberModal = () => {
   const [isModal, setIsModal] = useState(false);
 
   const openModal = () => {
@@ -14,10 +14,10 @@ const IsLoginModal = () => {
 
   return (
     <>
-      <button onClick={openModal}>LOG IN</button>
-      <LoginModal isOpen={isModal} close={closeModal} />
+      <button onClick={openModal}>회원</button>
+      <MemberModal isOpen={isModal} close={closeModal} />
     </>
   );
 };
 
-export default IsLoginModal;
+export default IsMemberModal;

@@ -12,7 +12,7 @@ import EventInfoButton from './modals/eventInfoButton';
 import CreateEventButton from './modals/createEventButton';
 import axios from 'axios';
 import EditGroupButton from './modals/editGroupButton';
-// import LoginModal from './modals/loginModal';
+import LoginModal from './modals/loginModal';
 
 // import LoginModal from ' ';
 
@@ -152,7 +152,7 @@ const GroupEvents = () => {
     <>
       <div>
         <div>
-          <IsLoginModal>그룹 가입</IsLoginModal>
+          <LoginModal>그룹 가입</LoginModal>
           {/* <CreateEventButton onClick={openModal} />
           <button onClick={openModal}>그룹 가입</button>
           <EditGroupButton onClick={openModal} /> */}

@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { useUserContext } from '../contexts/UserContext';
-import { useGroupContext } from '../contexts/GroupContext';
+import { withRouter } from 'react-dom';
 import axios from 'axios';
-import DefaultImg from '../images/image-file.png';
+import DefaultImg from '../../images/image-file.png';
 
-const GroupImgs = ({ host }) => {
+const userIconModal = () => {
   const [imgFile, setImgFile] = useState(DefaultImg);
   const [fileUrl, setFileUrl] = useState('');
-  // const [accessToken, setAccessToken] = useState('');
-  const { state, dispatch } = useUserContext();
-  const { access_token, user } = state;
-  const { groupCurrentState, groupDispatch } = useGroupContext();
-  const { group } = groupCurrentState;
   const maxNum = 3;
 
+  //서버에 파일들 전송
   const uploadFile = async e => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('imgFile', e.target.files);
     formData.append('fileUrl', fileUrl);
-
-    await axios
-      .patch('/group/groupImg', formData, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': 'multipart/form-data',
+    axios
+      .patch(
+        'https://joiner.com/main/groupPage/groupImg/groupImgUpload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      })
+      )
       .then(res => {
-        setImgFile(res.data);
         alert('파일이 업로드 되었습니다.');
         console.log('SUCCESS');
       })
@@ -37,37 +33,20 @@ const GroupImgs = ({ host }) => {
         console.log('FAILED');
       });
   };
-  useEffect(() => {
-    const getImgs = async e => {
-      await axios
-        .get('/group/groupImg', {
-          headers: {
-            // Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'multipart/form-data',
-          },
-          withCredentials: true,
-          crossDomain: true,
-        })
-        .then(res => {
-          setImgFile(res.data);
-          console.log('SUCCESS');
-        })
-        .catch(err => {
-          alert('사진을 불러오지 못했습니다');
-          console.log('FAILED TO GET IMAGES');
-        });
-    };
-    getImgs();
-  }, [imgFile]);
 
+  //파일 수정
   const changeFile = e => {
     setImgFile(e.target.files);
     setFileUrl(fileUrl.createObjectURL(e.target.file[0]));
   };
+
+  //파일 reset
   const cancelFile = e => {
     setImgFile(DefaultImg);
     setFileUrl('');
   };
+
+  //파일 미리보기
   const previewFile = e => {
     if (e.target.files.length) {
       let imgSelect = e.target.files[0];
@@ -95,9 +74,7 @@ const GroupImgs = ({ host }) => {
       <button
         className="image-upload"
         onClick={e => {
-          user.userName !== host.userName
-            ? alert('그룹장이 아니세요!')
-            : uploadFile;
+          uploadFile;
         }}
       >
         업로드
@@ -121,5 +98,4 @@ const GroupImgs = ({ host }) => {
     </div>
   );
 };
-
-export default GroupImgs;
+export default withRouter(userIconModal);

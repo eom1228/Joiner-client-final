@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-// import Footer from './footer';
-// import NavBar from './navBar';
 import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
-
+import data from '../dummyData/userDummy';
 axios.defaults.withCredentials = true;
 
 const UserInfo = () => {
   const [inputs, setInputs] = useState({ userName: '', email: '' });
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [refresh, setRefresh] = useState(null);
+
   const { state, dispatch } = useUserContext();
-  const { user, token } = state;
-  const { userName, email, location } = user;
+  const { user, accessToken } = state;
+  const { userName, email } = user;
 
   useEffect(() => {
     const updateUserInfo = async () => {
       let response = await axios.put('/user/userInfo/userInfoUpdate', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         data: {
@@ -27,10 +27,10 @@ const UserInfo = () => {
         withCredentials: true,
         crossDomain: true,
       });
-      dispatch({ type: 'UPDATE_USER', payload: response.inputs });
+      dispatch({ type: 'UPDATE_USER', payload: response.data.inputs });
     };
     updateUserInfo(dispatch);
-  }, [inputs.userName, inputs.email, location]);
+  }, [inputs.userName, inputs.email]);
 
   const isValidEmail = str => {
     const regExp =
@@ -48,8 +48,8 @@ const UserInfo = () => {
       [e.target.id]: e.target.value,
     });
   };
-
   const handleSubmit = e => {
+    // e.preventDefault();
     if (!inputs.userName || !inputs.email) {
       alert('누락된 항목이 있습니다');
     }
@@ -58,7 +58,6 @@ const UserInfo = () => {
     } else {
       // alert('수정 완료!');
       setSubmitted(true);
-      alert('수정완료데쓰');
       window.location.reload();
       // setIsToggleOn({ isToggleOn: !isToggleOn });
     }
@@ -67,32 +66,34 @@ const UserInfo = () => {
   if (isToggleOn) {
     return (
       <div className="userInfo">
-        <p>{userName}</p>
-        <span>
-          <input
-            id="userName"
-            placeholder="이름"
-            value={inputs.userName}
-            onChange={handleChange}
-          />
-        </span>
-
-        <p>{email}</p>
-        <span>
-          <input
-            id="email"
-            placeholder="이메일"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </span>
-
+        <div className="userNameField">
+          <p>{userName}</p>
+          <span>
+            <input
+              id="userName"
+              placeholder="이름"
+              value={inputs.userName}
+              onChange={handleChange}
+            />
+          </span>
+        </div>
+        <div className="emailField">
+          <p>{email}</p>
+          <span>
+            <input
+              id="email"
+              placeholder="이메일"
+              value={inputs.email}
+              onChange={handleChange}
+            />
+          </span>
+        </div>
         {submitted ? (
           <div>
-            {/* <button type="submit" onClick={handleSubmit}>
+            <button type="submit" onClick={handleSubmit}>
               완료
             </button>
-            <p>수정 완료!</p> */}
+            <p>수정 완료!</p>
           </div>
         ) : (
           <button type="submit" onClick={handleSubmit}>

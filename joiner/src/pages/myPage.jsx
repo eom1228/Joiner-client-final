@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
-// import Footer from './footer';
-// import NavBar from './navBar';
+import React from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
 import UserIconInfoContainer from '../components/userIconInfoContainer';
 import UserGroups from '../components/userGroups';
+<<<<<<< HEAD
 import { withRouter } from 'react-router-dom';
 import '../styles/mypage.scss';
+=======
+
+>>>>>>> 876ede1bf81be69145fd6dd028c582499f4acfb2
 axios.defaults.withCredentials = true;
 
 const MyPage = () => {
-  const { state, dispatch } = useUserContext();
+  const { state } = useUserContext();
   const { user } = state;
-  const { userName, email, location, group, event } = user;
+  const { isLogin } = user;
 
   return (
+<<<<<<< HEAD
     <section className="myPageContainer">
       <UserIconInfoContainer />
       <UserGroups />
@@ -39,7 +42,17 @@ const MyPage = () => {
     // //   </div>
     // //   <button>회원 탈퇴</button>
     // // </> */}
+=======
+    <>
+      {/* {isLogin ? ( */}
+      <>
+        <UserIconInfoContainer />
+        <UserGroups />
+      </>
+      {/* ) : null} */}
+    </>
+>>>>>>> 876ede1bf81be69145fd6dd028c582499f4acfb2
   );
 };
 
-export default withRouter(MyPage);
+export default MyPage;
