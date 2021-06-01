@@ -6,14 +6,6 @@ import GroupSummary from '../components/groupSummary';
 import GroupInfoEventsContainer from '../components/groupInfoEventsContainer';
 import axios from 'axios';
 import styled from 'styled-components';
-<<<<<<< HEAD
-// import { withRouter } from 'react-router-dom';
-
-// import Footer from './footer';
-// import NavBar from './navBar';
-=======
-
->>>>>>> 876ede1bf81be69145fd6dd028c582499f4acfb2
 axios.defaults.withCredentials = true;
 
 const PageBody = styled.div`

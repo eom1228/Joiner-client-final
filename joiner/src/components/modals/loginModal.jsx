@@ -3,14 +3,8 @@ import { useUserContext } from '../../contexts/UserContext.jsx';
 import { withRouter, Link } from 'react-router-dom';
 import Logo from '../../images/logo_remove.png';
 import axios from 'axios';
-<<<<<<< HEAD
-// import '../modals/loginStyle.css';
-
-axios.defaults.withCredentials = true;
-=======
 import '../modals/loginStyle.css';
 import IsSignupModal from './signupModalBtn.jsx';
->>>>>>> 876ede1bf81be69145fd6dd028c582499f4acfb2
 
 const LoginModal = ({ isOpen, close }) => {
   const [userInputs, setUserInputs] = useState({ email: '', password: '' });

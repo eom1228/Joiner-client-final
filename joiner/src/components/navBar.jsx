@@ -46,20 +46,23 @@ const NavBar = ({ location }) => {
                 }}
               />
             </div>
-
-            <Link
-              to="/GroupPage"
-              value="groups"
-              // onClick={e => {
-              //   console.log(state.page);
-              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-              // }}
-              className="linkBtn"
-            >
-              Groups
-            </Link>
-            <IsSignupModal></IsSignupModal>
-            <IsLoginModal></IsLoginModal>
+            <div className="linkBox">
+              <Link
+                to="/GroupPage"
+                value="groups"
+                // onClick={e => {
+                //   console.log(state.page);
+                //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // }}
+                className="linkBtn"
+              >
+                Groups
+              </Link>
+            </div>
+            <div className="signs">
+              <IsSignupModal></IsSignupModal>
+              <IsLoginModal></IsLoginModal>
+            </div>
           </nav>
         </>
       );
@@ -69,7 +72,6 @@ const NavBar = ({ location }) => {
     ) {
       return (
         <>
-<<<<<<< HEAD
           <nav className="navBarContainer">
             <div className="logoBox">
               <img
@@ -105,36 +107,6 @@ const NavBar = ({ location }) => {
               <IsSignupModal value="signUp">Signup</IsSignupModal>
               <IsLoginModal value="signIn">Login</IsLoginModal>
             </div>
-=======
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                history.push('/');
-              }}
-            />
-            <Link to="/main" value="events">
-              Events
-            </Link>
-            <Link
-              to="/groupPage"
-              value="groups"
-              // onClick={e => {
-              //   console.log(state.page);
-              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-              // }}
-            >
-              Groups
-            </Link>
-            <IsSignupModal></IsSignupModal>
-            <IsLoginModal></IsLoginModal>
->>>>>>> 876ede1bf81be69145fd6dd028c582499f4acfb2
           </nav>
         </>
       );
