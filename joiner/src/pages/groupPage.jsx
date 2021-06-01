@@ -30,14 +30,18 @@ const GroupPage = () => {
     const getGroup = async () => {
       groupDispatch({ type: 'GET_GROUP' });
       try {
-        let response = await axios.get('/main/groupPage', {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            'Content-Type': 'application/json',
+        let response = await axios.get(
+          'https://localhost:4000/group/groupPage',
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'Content-Type': 'application/json',
+            },
+            data: {},
+            withCredentials: true,
+            crossDomain: true,
           },
-          withCredentials: true,
-          crossDomain: true,
-        });
+        );
         if (response.status === 200) {
           groupDispatch({ type: 'GET_SUCCESS', payload: response.data });
           return;

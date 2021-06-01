@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import '../styles/mainpage.scss';
 import { markerData } from '../dummyData/markerData';
+import axios from 'axios';
+
+import { useUserContext } from '../contexts/UserContext';
 
 // import { withRouter } from 'react-router-dom';
 
@@ -76,6 +79,27 @@ function map() {
 }
 
 const MainPage = props => {
+  const { state, dispatch } = useUserContext();
+  const { user, access_token } = state;
+  console.log(state);
+  function testzzizzi() {
+    axios
+      .post('https://localhost:4000/main/createGroup', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          title: 'assscweqvewvcwevcwed',
+          locations: 'asd',
+          information: 'asd',
+          groupIntroduce: 'asd',
+        },
+        withCredentials: true,
+        crossDomain: true,
+      })
+      .then(res => {});
+  }
   useEffect(() => {
     // const script = document.createElement('script');
     // script.async = true;
@@ -88,7 +112,7 @@ const MainPage = props => {
     <div id="maincontainer">
       <section className="mainSection1">
         <div>
-          <h1>그룹생성 해보실래용? (img)</h1>
+          <button onClick={testzzizzi}>뻐뜬</button>
         </div>
       </section>
 
