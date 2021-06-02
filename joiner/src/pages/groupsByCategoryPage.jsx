@@ -15,7 +15,7 @@ const GroupsByCategoryPage = () => {
 
   useEffect(() => {
     axios
-      .get('/category/GroupList', {
+      .get('https://localhost:4000/category/GroupList', {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -24,9 +24,10 @@ const GroupsByCategoryPage = () => {
       })
       .then(res => {
         setGroups({
-          groups: res.dataValues.title,
-          category: res.dataValues.category,
+          groups: res.data.title,
+          category: res.data.category,
         });
+        console.log(groups);
       })
       .catch(err => {
         console.log(err);
@@ -34,7 +35,7 @@ const GroupsByCategoryPage = () => {
   });
   const handleClickGroup = e => {
     axios
-      .post('/category/GroupList', {
+      .post('https://localhost:4000/category/GroupList', {
         headers: {
           'Content-Type': 'application/json',
         },
