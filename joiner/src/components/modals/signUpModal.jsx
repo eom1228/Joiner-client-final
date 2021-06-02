@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/logo_remove.png';
 import '../modals/signupStyle.css';
 import axios from 'axios';
@@ -16,6 +16,7 @@ const SignupModal = ({ isOpen, close }) => {
   const { user, err, access_token } = state;
   const { userName, email, password, location } = user;
   const [alert, setAlert] = useState('');
+  const history = useHistory();
 
   const clickSignupHandler = () => {
     const data = axios
@@ -114,7 +115,7 @@ const SignupModal = ({ isOpen, close }) => {
                 </button>
                 <div className="signupEnd">
                   <div className="signupLine">로그인을 시도 해보실까요?</div>
-                  <Link to="/login">LOG IN</Link>
+                  <Link to="/main">LOG IN</Link>
                 </div>
               </div>
             </div>

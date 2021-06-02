@@ -112,7 +112,7 @@ const LoginModal = ({ isOpen, close }) => {
                 </button>
                 <div className="loginEnd">
                   <div className="loginLine">회원이 아니신가요?</div>
-                  <Link to="/signUp">SIGN UP</Link>
+                  <Link to="/main">SIGN UP</Link>
                 </div>
               </div>
             </div>

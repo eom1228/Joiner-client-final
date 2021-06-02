@@ -17,7 +17,7 @@ import MainPage from './pages/mainPage';
 import Footer from './components/footer';
 import MyPage from './pages/myPage';
 import GroupPage from './pages/groupPage';
-
+import GroupsByCategoryPage from './pages/groupsByCategoryPage';
 import './App.css';
 import landingPage from './pages/landingPage';
 import mainPage from './pages/mainPage';
@@ -50,6 +50,7 @@ const App = ({ location }) => {
               <Route path="/main" component={mainPage} />
               <Route path="/groupPage" component={GroupPage} />
               <Route path="/userInfo" component={MyPage} />
+              <Route path="/category" component={GroupsByCategoryPage} />
             </Switch>
             <Footer />
           </GroupContextProvider>
