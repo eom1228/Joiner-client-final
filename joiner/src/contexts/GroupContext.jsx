@@ -40,7 +40,7 @@ export function groupReducer(state, action) {
         group: action.payload.group,
       };
 
-    case 'GET_GROUP':
+    case 'GET_DATA':
       return {
         ...state,
         loading: true,
