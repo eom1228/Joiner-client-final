@@ -14,7 +14,8 @@
   background-color: white;
   position: relative;
   box-sizing: border-box;
-  margin: 50px auto;
+  margin: 0 auto;
+  transform: translate(0, 50%);
   padding: 20px;
   background: #fff;
   /* 로그인 배경이다  */

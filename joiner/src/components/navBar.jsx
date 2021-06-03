@@ -88,7 +88,7 @@ const NavBar = ({ location }) => {
               />
             </div>
             <div className="linkBox">
-              <Link to="/main" value="events">
+              <Link to="/main" value="events" className="linkBtn">
                 Events
               </Link>
               <Link
