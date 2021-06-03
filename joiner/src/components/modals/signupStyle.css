@@ -26,6 +26,7 @@
   font-size: 25px;
 }
 
+
 .modalContents {
   margin: 0 auto;
   width: 100%;
@@ -37,81 +38,90 @@
   flex-direction: column;
 }
 
-.logo {
-  width: 150px;
-  margin: 0 auto;
-}
 
-.userName {
-  margin-top: 30px;
-  border-radius: 2px;
-  width: 100%;
-  height: 40px;
-  border: 1px solid #e5e5e5;
-  padding: 9px 12px;
-  outline: none;
-  box-sizing: border-box;
-}
-input::placeholder {
-  color: #999999;
-}
-.email {
-  margin-top: 15px;
-  border-radius: 2px;
-  width: 100%;
-  height: 40px;
-  border: 1px solid #e5e5e5;
-  padding: 9px 12px;
-  outline: none;
-  box-sizing: border-box;
-}
+        .logo {
+          width: 150px;
+          margin: 0 auto;
+        }
+  
+        .userName {
+          margin-top: 30px;
+          border-radius: 10px;
+          width: 100%;
+          height: 40px;
+          background: #F3F4F9;
+          border: 2px solid  #353866;
+          padding: 9px 12px;
+          outline: none;
+          box-sizing: border-box;
+          color: beige;
+        }
+          input::placeholder {
+            color: bl;
+          }
+        .email {
+          margin-top: 30px;
+          border-radius: 10px;
+          width: 100%;
+          height: 40px;
+          background: #F3F4F9;
+          border: 2px solid  #353866;
+          padding: 9px 12px;
+          outline: none;
+          box-sizing: border-box;
+          color: beige;
+        }
 
-.password {
-  margin-top: 15px;
-  border-radius: 2px;
-  width: 100%;
-  height: 40px;
-  border: 1px solid #e5e5e5;
-  padding: 9px 12px;
-  outline: none;
-  box-sizing: border-box;
-}
+        .password {
+          margin-top: 30px;
+          border-radius: 10px;
+          width: 100%;
+          height: 40px;
+          background: #F3F4F9;
+          border: 2px solid  #353866;
+          padding: 9px 12px;
+          outline: none;
+          box-sizing: border-box;
+          color: beige;
+        }
 
-.location {
-  margin-top: 15px;
-  border-radius: 2px;
-  width: 100%;
-  height: 40px;
-  border: 1px solid #e5e5e5;
-  padding: 9px 12px;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.signupMid {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.autoSignup {
-  font-size: 12px;
-  color: #8d8d8d;
-  line-height: 3;
-}
-.signUpBtn {
-  height: 40px;
-  font-size: 14px;
-  padding: 13px 30px;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  line-height: 1px;
-  margin-top: 20px;
-  margin-bottom: 12px;
-  border-radius: 3px;
-  border-style: none;
-}
-/* .socialBox {
+          /* .location {
+            margin-top: 30px;
+            border-radius: 10px;
+            width: 100%;
+            height: 40px;
+            background: #F3F4F9;
+            border: 2px solid  #353866;
+            padding: 9px 12px;
+            outline: none;
+            box-sizing: border-box;
+            color: beige;
+          } */
+  
+        .signupMid {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+          .autoSignup {
+            font-size: 12px;
+            color: #8d8d8d;
+            line-height: 3;
+          }
+        .signUpBtn {
+          height: 40px;
+          font-size: 14px;
+          padding: 13px 30px;
+          cursor: pointer;
+          background-color: #353866;
+          color: white;
+          line-height: 1px;
+          margin-top: 20px;
+          margin-bottom: 12px;
+          border-radius: 10px;
+          border-style: none;
+        }
+        /* .socialBox {
           margin-bottom: 30px;
           .kakao {
             background-color: #feec34;
@@ -163,21 +173,22 @@ input::placeholder {
             }
           }
         } */
-.signupEnd {
-  text-align: center;
-  font-size: 11px;
-}
-.signupLine {
-  color: #bcbcbc;
-  font-size: 11px;
-  margin-bottom: 35px;
-}
-a {
-  color: black;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
-.noUser {
-  text-decoration: underline;
-}
+        .signupEnd {
+          text-align: center;
+          font-size: 13px;
+        }
+          .signupLine {
+            color: black;
+            font-size: 13px;
+            margin-bottom: 35px;
+          }
+            a {
+              color: black;
+              text-decoration: none;
+              cursor: pointer;
+            }
+          
+          .noUser {
+            text-decoration: none;
+          }

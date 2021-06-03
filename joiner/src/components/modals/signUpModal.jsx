@@ -96,14 +96,14 @@ const SignupModal = ({ isOpen, close }) => {
                   placeholder="비밀번호를 입력해주세요"
                   onChange={handleSignup}
                 />
-                <input
+                {/* <input
                   value={userInputs.location}
                   className="location"
                   name="location"
                   type="text"
                   placeholder="지역을 입력해주세요"
                   onChange={handleSignup}
-                />
+                /> */}
                 <button
                   className="signUpBtn"
                   type="submit"
