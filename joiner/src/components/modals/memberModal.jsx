@@ -7,31 +7,57 @@ import { useUserContext } from '../../contexts/UserContext';
 const MemberModal = ({ isOpen, close }) => {
   const [userInputs, setUserInputs] = useState({ userName: '', id: '' });
   const [nameFilter, setNameFilter] = useState(false);
+
   const { state } = useUserContext();
   const { access_token } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group } = groupCurrentState;
   const { members } = group;
 
-  const clickSearch = () => {
-    axios
-      .get('https://localhost:4000/group/groupMember', {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
-        },
-        // data: {
-        //   id: userInputs.id,
-        //   userName: userInputs.userName,
-        // },
-        withCredentials: true,
-        crossDomain: true,
-      })
-      .then(res => {
-        console.log(res);
-      });
-    searchFilter();
-  };
+  useEffect(() => {
+    const getMembers = async () => {
+      try {
+        const res = await axios.get(
+          'https://localhost:4000/group/groupMember',
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            crossDomain: true,
+          },
+        );
+        groupDispatch({ type: 'GET_GROUPMEMBERS', members: res.data.members });
+      } catch (err) {
+        groupDispatch({ type: 'GET_ERROR', error: err });
+      }
+    };
+    getMembers();
+  }, []);
+
+  // useEffect(() => {
+  //   const getMembers = () => {
+  //     groupDispatch({ type: 'GET_DATA' })
+  //       const res = await axios
+  //       .get('https://localhost:4000/group/groupMember', {
+  //         headers: {
+  //           Authorization: `Bearer ${access_token}`,
+  //           'Content-Type': 'application/json',
+  //         },
+  //         withCredentials: true,
+  //         crossDomain: true,
+  //       })
+  //       .then(res => {
+  //         groupDispatch({ type: 'GET_GROUPMEMBERS', members: res.data.members })
+  //       })
+  //       .catch(err => {
+  //         groupDispatch({ type: 'GET_ERROR', error: err})
+  //       })
+
+  //   };
+  //   getMembers();
+  // }, [])
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -41,14 +67,6 @@ const MemberModal = ({ isOpen, close }) => {
     console.log(userInputs);
   };
 
-  // const filterUserFail = () => {
-  //   const groupMember = members.filter(member => {
-  //     member.userName === userInputs.userName;
-  //   });
-  //   const { name, value } = e.target;
-  //   setUserInputs({ [name]: value})
-  //   setInputMembers({ members: groupMember });
-  // };
   const searchFilter = () => {
     setNameFilter(true);
     console.log(nameFilter);
@@ -75,17 +93,19 @@ const MemberModal = ({ isOpen, close }) => {
               placeholder="이름을 검색하세요"
               onChange={handleChange}
             />
-            <button onClick={clickSearch}>검색</button>
+            <button onClick={searchFilter}>검색</button>
           </div>
           <div className="memberList">
             {nameFilter ? (
-              members.filter(member => {
-                member.userName === userInputs.userName;
-              }) ? (
+              members
+                .filter(member => member.userName === userInputs.userName)
+                .map(filteredMember => filteredMember.name) ? (
                 <div className="searchResults">
-                  {members.filter(member => {
-                    <div>{member.userName === userInputs.userName}</div>;
-                  })}
+                  {members
+                    .filter(member => member.userName === userInputs.userName)
+                    .map(filteredMember => (
+                      <div>{filteredMember.userName}</div>
+                    ))}
                 </div>
               ) : (
                 <div>존재하지 않는 멤버입니다</div>
