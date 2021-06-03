@@ -7,6 +7,14 @@
   background: #e1e5ee;
   box-shadow: -5px -5px 10px rgb(209, 195, 195), 5px 5px 10px grey;
 }
+// $color-background: #34314c;
+// $color-pink: #ff7473;
+// $color-yellow: #ffc952;
+// $color-blue: #47b8e0;
+$color-background: #34314c;
+$color-pink: #f1404b;
+$color-yellow: #dddfe6;
+$color-blue: #f4f5f9;
 
 /////////////////////
 // animation 함수들 //
@@ -79,7 +87,7 @@
 }
 
 body {
-  background-color: rgb(240, 235, 235);
+  background-color: $color-background;
 }
 
 #firstContainer {
@@ -108,7 +116,7 @@ body {
 }
 
 .section {
-  box-shadow: 0 0 10px 5px #e1e5ee;
+  // box-shadow: 0 0 10px 5px #e1e5ee;
   border-radius: 1rem;
   margin-top: 1.5rem;
   height: 100vh;
@@ -289,7 +297,7 @@ body {
 .section4 {
   // border: 1rem solid blue;
   min-height: 100vh;
-  background-color: rgb(240, 235, 235);
+  background-color: $color-background;
   display: flex;
   flex-direction: row;
   .innerWrap {

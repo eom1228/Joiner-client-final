@@ -12,6 +12,8 @@ const UserGroups = () => {
   // const [userGroupEvents, setUserGroupEvents] = useState([])
   const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
+  // const [groupState, setGroupState] = useState(groups)
+  // setGroups({ groups: res.data.userGroup });
   const { user, access_token, isLogin } = state;
   // const { groups } = user;
 
