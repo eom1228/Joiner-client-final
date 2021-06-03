@@ -56,7 +56,6 @@ const GroupsByCategoryPage = () => {
     );
   };
   useEffect(() => {
-
     getData();
   }, []);
   // axios
@@ -77,8 +76,6 @@ const GroupsByCategoryPage = () => {
   //   .catch(err => {
   //     console.log(err);
   //   });
-
-
   const handleClickGroup = e => {
     console.log(e.target.value);
     axios
@@ -94,7 +91,7 @@ const GroupsByCategoryPage = () => {
       })
       .then(res => {
         res.dataValues.id;
-        history.push('/groupPage');
+        // history.push('/groupPage');
         console.log(res);
         // history.push(`/groupPage/${res.dataValues.id}`);
       })

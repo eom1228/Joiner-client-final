@@ -5,27 +5,39 @@ import data from '../dummyData/userDummy';
 axios.defaults.withCredentials = true;
 
 const UserInfo = () => {
-  const [inputs, setInputs] = useState({ userName: '', email: '' });
+  const [inputs, setInputs] = useState({ userName: '' });
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const { state, dispatch } = useUserContext();
-  const { user, accessToken } = state;
+  const { user, access_token } = state;
   const { userName, email } = user;
 
-  const updateUserInfo = async () => {
-    let response = await axios.put('/user/userInfo/userInfoUpdate', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        inputs: inputs,
-      },
-      withCredentials: true,
-      crossDomain: true,
-    });
-    dispatch({ type: 'UPDATE_USER', payload: response.data.inputs });
+  const updateUserInfo = () => {
+    axios
+      .post('/user/userInfo/userInfoUpdate', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          userName: inputs.userName,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          dispatch({
+            type: 'UPDATE_USER',
+            userName: res.data.userName,
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
   };
 
   const isValidEmail = str => {
@@ -46,16 +58,16 @@ const UserInfo = () => {
   };
   const handleSubmit = e => {
     // e.preventDefault();
-    if (!inputs.userName || !inputs.email) {
+    if (!inputs.userName) {
       alert('누락된 항목이 있습니다');
     }
-    if (!isValidEmail(inputs.email)) {
-      alert('올바른 이메일 형식이 아닙니다');
-    } else {
+    // if (!isValidEmail(inputs.email)) {
+    //   alert('올바른 이메일 형식이 아닙니다');
+    else {
       // alert('수정 완료!');
       updateUserInfo();
       setSubmitted(true);
-      window.location.reload();
+      // window.location.reload();
       // setIsToggleOn({ isToggleOn: !isToggleOn });
     }
   };
@@ -76,14 +88,14 @@ const UserInfo = () => {
         </div>
         <div className="emailField">
           <p>{email}</p>
-          <span>
-            <input
+          {/* <span> */}
+          {/* <input
               id="email"
               placeholder="이메일"
               value={inputs.email}
               onChange={handleChange}
-            />
-          </span>
+            /> */}
+          {/* </span> */}
         </div>
         {submitted ? (
           <div>

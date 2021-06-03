@@ -8,55 +8,53 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const UserGroups = () => {
+  const [groups, setGroups] = useState([]);
   // const [userGroupEvents, setUserGroupEvents] = useState([])
   const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
   // const [groupState, setGroupState] = useState(groups)
+  const [groups, setGroups] = useState([]);
+  setGroups({ groups: res.data.userGroup });
   const { user, access_token, isLogin } = state;
-  const { groups } = user;
+  // const { groups } = user;
+
   // setGroupState(Data.groupsData);
   useEffect(() => {
-    // Data.groupsData.map(el => console.log(el.events[0]));
-
-    const getUserInfo = async () => {
+    const getUserInfo = () => {
       dispatch({ type: 'GET_USERINFO' });
-      try {
-        let response = await axios.get('/user/userInfo', {
+
+      let res = axios
+        .get('https://localhost:4000/user/userInfo', {
           headers: {
             Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
           withCredentials: true,
           crossDomain: true,
+        })
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            setGroups(res.data.userGroup);
+          }
+        })
+        .catch(err => {
+          if (res.status === 400) {
+            dispatch({ type: 'GET_USERFAILED', error: err });
+          }
+          if (res.status === 405) {
+            dispatch({ type: 'GET_USERFAILED', error: err });
+          }
         });
-        if (response.status === 200) {
-          dispatch({
-            type: 'GET_SUCCESS',
-            payload: response.data.data.userinfo,
-          });
-        }
-      } catch (e) {
-        if (response.status === 400) {
-          dispatch({ type: 'GET_USERFAILED', error: e });
-        }
-        if (response.status === 405) {
-          dispatch({ type: 'GET_USERFAILED', error: e });
-        }
-      }
     };
     getUserInfo(dispatch);
-  }, [access_token]);
+  }, []);
 
   return (
     <div>
       <ul>
-        {groups.map(group => {
-          return (
-            <>
-              <li key={group.id}>{group.groupName}</li>
-              <li key={group.events.id}>{group.events.eventName}</li>
-            </>
-          );
+        {groups.map((group, index) => {
+          return <li key={index}>{group.title}</li>;
         })}
       </ul>
     </div>

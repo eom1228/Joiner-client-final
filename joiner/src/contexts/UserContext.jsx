@@ -16,7 +16,7 @@ export const initialState = {
   err: '',
   access_token: '', // JWT store 역할
   // token_type: 'Bearer',
-  isLogin: false,
+  isLogin: true,
   isLoading: false,
   //   errorMessage: null,
 };
@@ -82,13 +82,31 @@ export function userReducer(state, action) {
         ...state,
         // user: action.payload.user,
         // token: action.payload.auth_token,
+        isLoading: true,
       };
 
     case 'GET_SUCCESS':
       return {
         ...state,
-        user: action.payload.user,
-        token: action.payload.auth_token,
+        user: {
+          ...state.user,
+          groups: action.groups,
+        },
+      };
+
+    case 'UDPDATE_USER':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          userName: action.userName,
+        },
+      };
+
+    case 'UPDATE_FAIL':
+      return {
+        ...state,
+        err: action.err,
       };
 
     case 'REGISTER_USER':
