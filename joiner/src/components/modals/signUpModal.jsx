@@ -10,7 +10,6 @@ const SignupModal = ({ isOpen, close }) => {
     userName: '',
     email: '',
     password: '',
-    location: '',
   });
   const { state, dispatch } = useUserContext();
   const { user, err, access_token } = state;
@@ -28,7 +27,6 @@ const SignupModal = ({ isOpen, close }) => {
           email: userInputs.email,
           userName: userInputs.userName,
           password: userInputs.password,
-          location: userInputs.location,
         },
         withCredentials: true,
         crossDomain: true,
