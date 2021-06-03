@@ -6,6 +6,11 @@
   box-shadow: -5px -5px 10px rgb(209, 195, 195), 5px 5px 10px grey;
 }
 
+$color-background: #252c41;
+$color-pink: #f1404b;
+$color-yellow: #dddfe6;
+$color-blue: #f4f5f9;
+
 a {
   text-decoration: none;
 }
@@ -15,12 +20,17 @@ a {
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  height: 5vh;
+  height: 10vh;
+  border-radius: 1rem;
+  background-color: #aaabd3;
   .logoBox {
     width: 100%;
     height: 100%;
     cursor: pointer;
     flex-grow: 1;
+    img {
+      margin-top: 20px;
+    }
   }
   .linkBox {
     width: 100%;
@@ -38,7 +48,9 @@ a {
 
 .linkBtn {
   @include btnStyle;
+  display: inline-block;
   border-radius: 0.3rem;
+  margin-top: 4vh;
   margin-right: 20px;
   color: black;
   transition: background 0.5s ease-in-out;

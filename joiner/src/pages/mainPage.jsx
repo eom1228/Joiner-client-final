@@ -140,9 +140,7 @@ const MainPage = props => {
   return (
     <div id="maincontainer">
       <section className="mainSection1">
-        <div>
-          <button onClick={testzzizzi}>뻐뜬</button>
-        </div>
+        <span onClick={testzzizzi}>여기를 클릭해서 그룹을 만들어보세요!</span>
       </section>
 
       <section className="mainSection2">
