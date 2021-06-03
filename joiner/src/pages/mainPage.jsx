@@ -38,7 +38,7 @@ function map() {
         lon = position.coords.longitude; // 경도
 
       const locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-        message = '<div style="padding:5px;">폭격 위치 장소</div>'; // 인포윈도우에 표시될 내용입니다
+        message = '<div style="padding:100px;">폭격 위치 장소</div>'; // 인포윈도우에 표시될 내용입니다
 
       // 마커와 인포윈도우를 표시합니다
       displayMarker(locPosition, message);
@@ -80,7 +80,6 @@ function map() {
 
   //데이터베이스에서 등록한 이벤트 마커 가져오기
   //이 부분 수정해주세요 실제 데이터베이스에서 가져올 것들~
-
   markerData.forEach(el => {
     let marker = new kakao.maps.Marker({
       map: map, // 마커 표시 될 지도
@@ -89,12 +88,14 @@ function map() {
       title: el.title, // 마커에 마우스 1초정도 위치하면 나오는 마커이름
     });
 
-    let content = `<div>
-    ${el.title}
+    let content = `<div class="markerContent">
+    <div class="groupTitle"><span>${el.title}</span></div>
+    <div class="groupContent"><span>그룹 : ${el.group}</span></div>
     </div>`;
     let overlay = new kakao.maps.CustomOverlay({
       content: content,
       position: marker.getPosition(),
+      yAnchor: 0,
     });
 
     kakao.maps.event.addListener(marker, 'mouseover', function () {
