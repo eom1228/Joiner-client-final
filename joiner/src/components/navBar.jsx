@@ -9,7 +9,7 @@ import IsSignupModal from '../components/modals/signupModalBtn';
 //   UserStateContext,
 //   initialState,
 // } from '../contexts/UserContext';
-import logo from '../images/LOGO.jpg';
+import logo from '../images/logo_remove.png';
 
 // 버튼 클릭시 유저 상태 user.page = '어떤페이지'
 // 로그인 상태 및 user.page에 따라서 보여주는 버튼 변경
