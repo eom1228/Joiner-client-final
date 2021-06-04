@@ -127,7 +127,7 @@ const GroupEvents = () => {
       </div>
 
       <div>
-        <ol>
+        <ul>
           {events.map(event => (
             <li key={event.id}>
               <EventInfoButton eventTitle={event.eventTitle}></EventInfoButton>
@@ -137,7 +137,7 @@ const GroupEvents = () => {
             </li>
           ))}
           {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}
-        </ol>
+        </ul>
       </div>
     </>
   ) : (

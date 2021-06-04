@@ -139,7 +139,7 @@ const NavBar = ({ location }) => {
               </Link>
             </div>
             <div className="signs">
-              <Link value="logout" className="linkBtn">
+              <Link value="logout" className="logoutBtn">
                 Logout
               </Link>
             </div>
@@ -180,7 +180,7 @@ const NavBar = ({ location }) => {
             </div>
 
             <div className="signs">
-              <Link value="logout" className="linkBtn">
+              <Link value="logout" className="logoutBtn">
                 Logout
               </Link>
             </div>
@@ -215,7 +215,7 @@ const NavBar = ({ location }) => {
             </div>
 
             <div className="signs">
-              <Link value="logout" className="linkBtn">
+              <Link value="logout" className="logoutBtn">
                 Logout
               </Link>
             </div>

@@ -68,3 +68,19 @@ a {
     cursor: pointer;
   }
 }
+.logoutBtn {
+  @include btnStyle;
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  background-color: #aaabd3;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    // background:
+    color: #34314c;
+    cursor: pointer;
+  }
+}

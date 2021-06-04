@@ -2,20 +2,15 @@ import React, { useState } from 'react';
 import EventInfoModal from './eventInfoModal';
 
 const EventInfoButton = ({ eventTitle }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
+  const [isModalOn, setIsModalOn] = useState(false);
+  function createGroupModal() {
+    setIsModalOn(!isModalOn);
+    console.log(isModalOn);
+  }
   return (
     <>
-      <button onClick={openModal}>{eventTitle}</button>
-      <EventInfoModal isOpen={isOpen} close={closeModal} />
+      <button onClick={createGroupModal}>{eventTitle}이벤트이름</button>
+      {isModalOn && <EventInfoModal handleModal={createGroupModal} />}
     </>
   );
 };
