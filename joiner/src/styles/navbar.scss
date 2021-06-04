@@ -28,9 +28,8 @@ a {
     height: 100%;
     cursor: pointer;
     flex-grow: 1;
-    img {
-      margin-top: 20px;
-    }
+    display: flex;
+    align-items: center;
   }
   .linkBox {
     width: 100%;
@@ -43,6 +42,12 @@ a {
     height: 100%;
     text-align: center;
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      margin-right: 20px;
+    }
   }
 }
 

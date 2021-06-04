@@ -16,7 +16,7 @@ export const initialState = {
   err: '',
   access_token: '', // JWT store 역할
   // token_type: 'Bearer',
-  isLogin: true,
+  isLogin: false,
   isLoading: false,
   //   errorMessage: null,
 };
