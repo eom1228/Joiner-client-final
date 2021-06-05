@@ -20,15 +20,50 @@ const GroupEvents = () => {
   const { state, dispatch } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
 
-  const { group } = groupCurrentState;
-  const { host, members, events } = group;
-  const { token, user, isLogin } = state;
+  const { group, mapping_id } = groupCurrentState;
+  const { host, groupUser } = group;
+  const { access_token, user, isLogin } = state;
   const { groups } = user;
+  const [events, setEvents] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    console.log('hihi');
+    // if (events) return;
+    const getGroupEvents = async () => {
+      console.log('뭘로 찍냐구요!!!');
+      try {
+        let res = await axios.get('https://localhost:4000/event/eventList', {
+          headers: {
+            // Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+          // data: {
+          //   event_id: event.id,
+          // },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (res.status === 200) {
+          console.log(res.data);
+          console.log(events);
+          setEvents(res.data);
+          console.log(events);
+          // return;
+        }
+      } catch (e) {
+        console.log(e);
+        setErrorMessage(e);
+      }
+    };
+    console.log(events);
+    getGroupEvents();
+  }, [group]);
 
   const leaveGroup = async () => {
     let response = await axios.delete('/main/groupPage/groupSecession', {
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${access_token}`,
         'Content-Type': 'application/json',
       },
       data: {
@@ -44,7 +79,7 @@ const GroupEvents = () => {
   const joinGroup = async () => {
     let response = await axios.patch('/main/groupPage/groupJoin', {
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${access_token}`,
         'Content-Type': 'application/json',
       },
       data: {
@@ -109,11 +144,18 @@ const GroupEvents = () => {
     joinGroup();
   };
 
+  if (!events) return null;
+  // if (!groupUser) return <div>Loading!!!</div>;
+  // if (!group) return <div>장난하나</div>;
+
   return isLogin ? (
     <>
+      {console.log('hi hi')}
       <div style={{ backgroundColor: 'green' }}>
+        {console.log(group)}
+        {console.log(groupUser)}
         {user.username === host ||
-        user.userName === members.map(member => member.userName) ? (
+        user.userName === groupUser.map(member => member.userName) ? (
           <div>
             <CreateEventButton />
             <button onClick={handleLeaveClick}>그룹 탈퇴</button>
@@ -130,10 +172,9 @@ const GroupEvents = () => {
         <ol>
           {events.map(event => (
             <li key={event.id}>
-              <EventInfoButton eventTitle={event.eventTitle}></EventInfoButton>
-              <p>{event.activityContent}</p>
+              <EventInfoButton event={event}></EventInfoButton>
+              <p>{event.information}</p>
               <p>{event.date}</p>
-              <p>{event.limit}</p>
             </li>
           ))}
           {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}
@@ -141,37 +182,37 @@ const GroupEvents = () => {
       </div>
     </>
   ) : (
-    <>
+    <div>
+      {console.log(events)}
+
       <div>
-        <div>
-          <LoginModal>그룹 가입</LoginModal>
-          {/* <CreateEventButton onClick={openModal} />
+        <LoginModal>그룹 가입</LoginModal>
+        {/* <CreateEventButton onClick={openModal} />
             <button onClick={openModal}>그룹 가입</button>
             <EditGroupButton onClick={openModal} /> */}
-        </div>
       </div>
       <div>
-        <ol>
+        {console.log(events)}
+        <ul>
+          {console.log(group.groupUser)}
           {events.map(event => (
             <li key={event.id}>
-              <EventInfoButton eventTitle={event.eventTitle}></EventInfoButton>
-              <p>{event.activityContent}</p>
+              <EventInfoButton event={event}></EventInfoButton>
+              <p>{event.information}</p>
               <p>{event.date}</p>
-              <p>{event.limit}</p>
             </li>
           ))}
           {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}
-        </ol>
+        </ul>
       </div>
-    </>
+    </div>
   );
 };
 
-{
-  /* // {eventName ? (
+/* // {eventName ? (
     //     <EventInfoButton eventName={eventName}></EventInfoButton>
     //   ) : (
     //     <div>{events}</div>
     //   )} */
-}
+
 export default GroupEvents;

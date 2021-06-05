@@ -28,7 +28,6 @@ const GroupImgs = ({ host }) => {
         },
       })
       .then(res => {
-        setImgFile(res.data);
         alert('파일이 업로드 되었습니다.');
         console.log('SUCCESS');
       })
@@ -39,6 +38,7 @@ const GroupImgs = ({ host }) => {
   };
   useEffect(() => {
     const getImgs = async e => {
+      console.log('effect start');
       await axios
         .get('/group/groupImg', {
           headers: {
@@ -49,8 +49,9 @@ const GroupImgs = ({ host }) => {
           crossDomain: true,
         })
         .then(res => {
+          console.log(res);
           setImgFile(res.data);
-          console.log('SUCCESS');
+          console.log('SUCCESS effect');
         })
         .catch(err => {
           // alert('사진을 불러오지 못했습니다');
@@ -61,12 +62,16 @@ const GroupImgs = ({ host }) => {
   }, [imgFile]);
 
   const changeFile = e => {
+    console.log(imgFile);
     setImgFile(e.target.files);
+    console.log(e.target.files);
+    console.log(imgFile);
     setFileUrl(fileUrl.createObjectURL(e.target.file[0]));
   };
   const cancelFile = e => {
     setImgFile(DefaultImg);
     setFileUrl('');
+    console.log(imgFile);
   };
   const previewFile = e => {
     if (e.target.files.length) {
@@ -87,7 +92,7 @@ const GroupImgs = ({ host }) => {
         className="image-selector"
         type="file"
         id="input"
-        accept="image/jpg,impge/png,image/jpeg,image/gif"
+        accept="image/jpg,image/png,image/jpeg,image/gif"
         multiple
         max={maxNum}
         onChange={previewFile}
@@ -102,20 +107,10 @@ const GroupImgs = ({ host }) => {
       >
         업로드
       </button>
-      <button
-        className="image-change"
-        onClick={e => {
-          changeFile;
-        }}
-      >
+      <button className="image-change" onClick={changeFile}>
         수정
       </button>
-      <button
-        className="image-delete"
-        onClick={e => {
-          cancelFile;
-        }}
-      >
+      <button className="image-delete" onClick={cancelFile}>
         삭제
       </button>
     </div>

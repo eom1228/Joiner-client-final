@@ -8,61 +8,65 @@ import axios from 'axios';
 import styled from 'styled-components';
 axios.defaults.withCredentials = true;
 
-const PageBody = styled.div`
-  display: flex;
-  padding: 0px 30px; 
-  width 100%;
-  height: 100%;
-  align-items: center;
-  background-color: ;
-`;
-const PageBodyTop = styled.div``;
+// const PageBody = styled.div`
+//   display: flex;
+//   padding: 0px 30px;
+//   width 100%;
+//   height: 100%;
+//   align-items: center;
+//   background-color: ;
+// `;
+// const PageBodyTop = styled.div``;
 
-const PageBodyBottom = styled.div``;
+// const PageBodyBottom = styled.div``;
 const GroupPage = () => {
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
-  const { group, loading, error } = groupCurrentState;
-  const { host } = group;
+  const { group, mapping_id, loading, error } = groupCurrentState;
+  // const { host } = group;
   const { user, access_token } = state;
 
   useEffect(() => {
     const getGroup = async () => {
-      groupDispatch({ type: 'GET_GROUP' });
+      groupDispatch({ type: 'GET_DATA' });
       try {
-        let response = await axios.get(
-          'https://localhost:4000/group/groupPage',
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              'Content-Type': 'application/json',
-            },
-            data: {},
-            withCredentials: true,
-            crossDomain: true,
+        let res = await axios.post('https://localhost:4000/group/groupPage', {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
-        if (response.status === 200) {
-          groupDispatch({ type: 'GET_SUCCESS', payload: response.data });
+          data: {
+            group_id: mapping_id,
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (res.status === 200) {
+          groupDispatch({ type: 'GET_SUCCESS', group: res.data });
           return;
         }
       } catch (e) {
         groupDispatch({ type: 'GET_ERROR', error: e });
       }
     };
-    getGroup(groupDispatch);
-  }, [group, user.groups, group.events]);
+    getGroup();
+  }, []);
 
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>에러 발생!</div>;
+  // if (!group) return null;
+  if (!group) return null;
   return (
-    <PageBody>
-      <PageBodyTop>
-        <GroupImgs host={host} />
-        <GroupSummary group={group} />
-      </PageBodyTop>
-      <PageBodyBottom>
-        <GroupInfoEventsContainer />
-      </PageBodyBottom>
-    </PageBody>
+    <>
+      {/* // <PageBody>
+    //   <PageBodyTop> */}
+      <GroupImgs host={host} />
+      <GroupSummary group={group} />
+      {/* // </PageBodyTop>
+      // <PageBodyBottom> */}
+      <GroupInfoEventsContainer />
+      {/* //   </PageBodyBottom> */}
+      {/* // </PageBody> */}
+    </>
   );
 };
 

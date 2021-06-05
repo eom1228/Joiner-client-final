@@ -15,7 +15,7 @@ const UserInfo = () => {
 
   const updateUserInfo = () => {
     axios
-      .post('/user/userInfo/userInfoUpdate', {
+      .post('https://localhost:4000/user/userInfo/userInfoUpdate', {
         headers: {
           Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
