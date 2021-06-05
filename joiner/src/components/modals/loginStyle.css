@@ -14,7 +14,8 @@
   background-color: #F3F4F9;
   position: relative;
   box-sizing: border-box;
-  margin: 50px auto;
+  margin: 0 auto;
+  transform: translate(0, 50%);
   padding: 20px;
   background: #F3F4F9;
   border-radius: 10px;

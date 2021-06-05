@@ -1,9 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import '../styles/mainpage.scss';
 import { markerData } from '../dummyData/markerData';
 import axios from 'axios';
 
 import { useUserContext } from '../contexts/UserContext';
+import CreateGroupModal from '../components/modals/createGroupModal';
 
 // import { withRouter } from 'react-router-dom';
 
@@ -111,24 +112,12 @@ const MainPage = props => {
   const { state, dispatch } = useUserContext();
   const { user, access_token } = state;
   console.log(state);
-  function testzzizzi() {
-    axios
-      .post('https://localhost:4000/main/createGroup', {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          title: 'assscweqvewvcwevcwed',
-          locations: 'asd',
-          information: 'asd',
-          groupIntroduce: 'asd',
-        },
-        withCredentials: true,
-        crossDomain: true,
-      })
-      .then(res => {});
+  const [isModalOn, setIsModalOn] = useState(false);
+  function createGroupModal() {
+    setIsModalOn(!isModalOn);
+    console.log(isModalOn);
   }
+
   useEffect(() => {
     // const script = document.createElement('script');
     // script.async = true;
@@ -140,7 +129,10 @@ const MainPage = props => {
   return (
     <div id="maincontainer">
       <section className="mainSection1">
-        <span onClick={testzzizzi}>여기를 클릭해서 그룹을 만들어보세요!</span>
+        {isModalOn && <CreateGroupModal handleModal={createGroupModal} />}
+        <span onClick={createGroupModal}>
+          여기를 클릭해서 그룹을 만들어보세요!
+        </span>
       </section>
 
       <section className="mainSection2">

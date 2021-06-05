@@ -6,6 +6,7 @@ import GroupSummary from '../components/groupSummary';
 import GroupInfoEventsContainer from '../components/groupInfoEventsContainer';
 import axios from 'axios';
 import styled from 'styled-components';
+import EventInfoButton from '../components/modals/eventInfoButton';
 axios.defaults.withCredentials = true;
 
 // const PageBody = styled.div`
@@ -56,6 +57,7 @@ const GroupPage = () => {
   // if (!group) return null;
   if (!group) return null;
   return (
+
     <>
       {/* // <PageBody>
     //   <PageBodyTop> */}
@@ -67,6 +69,7 @@ const GroupPage = () => {
       {/* //   </PageBodyBottom> */}
       {/* // </PageBody> */}
     </>
+
   );
 };
 
