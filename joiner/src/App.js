@@ -25,8 +25,8 @@ import mainPage from './pages/mainPage';
 const App = ({ location }) => {
   // const state = useUserState();
   // const dispatch = useUserDispatch();
-  const { groupCurrentState, groupDispatch } = useGroupContext();
-  const { mapping_id } = groupCurrentState;
+  // const { groupCurrentState, groupDispatch } = useGroupContext();
+  // const { mapping_id } = groupCurrentState;
   //   const GlobalStyle = createGlobalStyle`
   // 		body {
 

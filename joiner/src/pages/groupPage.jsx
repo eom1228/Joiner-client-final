@@ -57,7 +57,6 @@ const GroupPage = () => {
   // if (!group) return null;
   if (!group) return null;
   return (
-
     <>
       {/* // <PageBody>
     //   <PageBodyTop> */}
@@ -69,7 +68,6 @@ const GroupPage = () => {
       {/* //   </PageBodyBottom> */}
       {/* // </PageBody> */}
     </>
-
   );
 };
 
