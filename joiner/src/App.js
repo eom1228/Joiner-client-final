@@ -25,8 +25,7 @@ import mainPage from './pages/mainPage';
 const App = ({ location }) => {
   // const state = useUserState();
   // const dispatch = useUserDispatch();
-  const { groupCurrentState, groupDispatch } = useGroupContext();
-  const { mapping_id } = groupCurrentState;
+
   //   const GlobalStyle = createGlobalStyle`
   // 		body {
 
@@ -44,15 +43,17 @@ const App = ({ location }) => {
     <>
       <BrowserRouter>
         <UserContextProvider>
-          {/* <NavBar /> */}
-          <Switch>
-            <Route exact path="/" component={landingPage} />
-            <Route path="/main" component={mainPage} />
-            <Route exact path="/groupPage" component={GroupPage} />
-            <Route path="/userInfo" component={MyPage} />
-            <Route path="/category" component={GroupsByCategoryPage} />
-          </Switch>
-          <Footer />
+          <GroupContextProvider>
+            <NavBar />
+            <Switch>
+              <Route exact path="/" component={landingPage} />
+              <Route path="/main" component={mainPage} />
+              <Route exact path="/groupPage" component={GroupPage} />
+              <Route path="/userInfo" component={MyPage} />
+              <Route path="/category" component={GroupsByCategoryPage} />
+            </Switch>
+            <Footer />
+          </GroupContextProvider>
         </UserContextProvider>
       </BrowserRouter>
     </>

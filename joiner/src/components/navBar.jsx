@@ -48,7 +48,7 @@ const NavBar = ({ location }) => {
             </div>
             <div className="linkBox">
               <Link
-                to="/GroupPage"
+                to="/category"
                 value="groups"
                 // onClick={e => {
                 //   console.log(state.page);
@@ -56,7 +56,7 @@ const NavBar = ({ location }) => {
                 // }}
                 className="linkBtn"
               >
-                Groups
+                Category
               </Link>
             </div>
             <div className="signs">
@@ -67,8 +67,8 @@ const NavBar = ({ location }) => {
         </>
       );
     } else if (
-      location.pathname === '/GroupPage' ||
-      location.pathname === '/groupPage'
+      location.pathname === '/category' ||
+      location.pathname === '/Category'
     ) {
       return (
         <>
@@ -92,7 +92,7 @@ const NavBar = ({ location }) => {
                 Events
               </Link>
               <Link
-                to="/groupPage"
+                to="/category"
                 value="groups"
                 className="linkBtn"
                 // onClick={e => {
@@ -100,7 +100,7 @@ const NavBar = ({ location }) => {
                 //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
                 // }}
               >
-                Groups
+                Category
               </Link>
             </div>
             <div className="signs">
@@ -131,8 +131,8 @@ const NavBar = ({ location }) => {
               />
             </div>
             <div className="linkBox">
-              <Link to="/groupPage" value="groups" className="linkBtn">
-                Groups
+              <Link to="/category" value="groups" className="linkBtn">
+                Category
               </Link>
               <Link to="/userInfo" value="myPage" className="linkBtn">
                 MyPage
@@ -147,8 +147,8 @@ const NavBar = ({ location }) => {
         </>
       );
     } else if (
-      location.pathname === '/GroupPage' ||
-      location.pathname === '/groupPage'
+      location.pathname === '/category' ||
+      location.pathname === '/Category'
     ) {
       return (
         <>
@@ -171,8 +171,8 @@ const NavBar = ({ location }) => {
               <Link to="/main" value="events" className="linkBtn">
                 Events
               </Link>
-              <Link to="/groupPage" value="groups" className="linkBtn">
-                Groups
+              <Link to="/category" value="groups" className="linkBtn">
+                Category
               </Link>
               <Link to="/userInfo" value="myPage" className="linkBtn">
                 MyPage
@@ -209,7 +209,7 @@ const NavBar = ({ location }) => {
               <Link to="/main" value="events" className="linkBtn">
                 Events
               </Link>
-              <Link to="/groupPage" value="groups" className="linkBtn">
+              <Link to="/category" value="groups" className="linkBtn">
                 Groups
               </Link>
             </div>
