@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/modalgroup.scss';
+import axios from 'axios';
+
 const CreateGroupModal = props => {
   const [userInputs, setUserInputs] = useState({
     title: '',

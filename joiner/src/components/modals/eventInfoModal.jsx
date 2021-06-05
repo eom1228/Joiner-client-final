@@ -43,13 +43,13 @@ const EventInfoModal = props => {
           <p>날짜/시간</p>
           <p>참석인원</p>
           <p>활동내용</p>
+          <div className="eventLocation">
+            <p>map</p>
+          </div>
+          <button type="submit" onClick={보내기}>
+            참석
+          </button>
         </div>
-        <div className="eventLocation">
-          <p>map</p>
-        </div>
-        <button type="submit" onClick={보내기}>
-          참석
-        </button>
       </div>
     </div>
   );
