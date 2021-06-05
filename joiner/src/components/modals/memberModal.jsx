@@ -5,13 +5,17 @@ import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
 
 const MemberModal = ({ isOpen, close }) => {
-  const [userInputs, setUserInputs] = useState({ userName: '', id: '' });
+  const [userInputs, setUserInputs] = useState({
+    userName: '',
+    email: '',
+    id: '',
+  });
   const [nameFilter, setNameFilter] = useState(false);
 
   const { state } = useUserContext();
-  const { access_token } = state;
+  // const { access_token } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
-  const { group } = groupCurrentState;
+  const { group, mapping_id } = groupCurrentState;
   const { members } = group;
 
   useEffect(() => {
@@ -21,14 +25,20 @@ const MemberModal = ({ isOpen, close }) => {
           'https://localhost:4000/group/groupMember',
           {
             headers: {
-              Authorization: `Bearer ${access_token}`,
               'Content-Type': 'application/json',
+            },
+            data: {
+              group_id: mapping_id,
             },
             withCredentials: true,
             crossDomain: true,
           },
         );
-        groupDispatch({ type: 'GET_GROUPMEMBERS', members: res.data.members });
+        groupDispatch({
+          type: 'GET_GROUPMEMBERS',
+          members: res.data.groupUser,
+        });
+        console.log(res);
       } catch (err) {
         groupDispatch({ type: 'GET_ERROR', error: err });
       }
@@ -86,7 +96,7 @@ const MemberModal = ({ isOpen, close }) => {
           </span>
           <div className="member_searchbox">
             <input
-              value={userInputs.userName}
+              value={userInputs.email}
               name="userName"
               className="searchbox"
               type="text"
@@ -97,19 +107,17 @@ const MemberModal = ({ isOpen, close }) => {
           </div>
           <div className="memberList">
             {nameFilter ? (
-              members
-                .filter(member => member.userName === userInputs.userName)
-                .map(filteredMember => filteredMember.name) ? (
-                <div className="searchResults">
-                  {members
-                    .filter(member => member.userName === userInputs.userName)
+              <div className="searchResults">
+                {members &&
+                  members
+                    .filter(member => member.email === userInputs.email)
                     .map(filteredMember => (
-                      <div>{filteredMember.userName}</div>
+                      <div className="userInfo">
+                        <div>{filteredMember.userName}</div>
+                        <div>{filteredMember.email}</div>
+                      </div>
                     ))}
-                </div>
-              ) : (
-                <div>존재하지 않는 멤버입니다</div>
-              )
+              </div>
             ) : (
               <ul className="list">
                 {console.log('test')}
@@ -117,6 +125,7 @@ const MemberModal = ({ isOpen, close }) => {
                   // return (
                   <>
                     <li key={member.id}>{member.userName}</li>
+                    <li key={member.id}>{member.email}</li>
                   </>;
                   // );
                 })}

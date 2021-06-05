@@ -16,9 +16,8 @@ const GroupDetailsContainer = () => {
   return (
     <div>
       <div className="groupFilterBtnWrapper">
-        <IsMemberModal>회원</IsMemberModal> // onClick open MembersModal, render
-        members
-        <button>채팅</button> // onClick open ChatModal, render chat
+        {/* <IsMemberModal>회원</IsMemberModal>  */}
+        <button>채팅</button>
       </div>
       <div className="groupInfo">{information}</div>
     </div>

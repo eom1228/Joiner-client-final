@@ -19,34 +19,44 @@ const UserGroups = () => {
 
   // setGroupState(Data.groupsData);
   useEffect(() => {
-    const getUserInfo = () => {
-      dispatch({ type: 'GET_USERINFO' });
-
-      let res = axios
-        .get('https://localhost:4000/user/userInfo', {
+    // const getUserInfo = () => {
+    // dispatch({ type: 'GET_USERINFO' });
+    (function () {
+      console.log('1');
+      try {
+        console.log('2');
+        const res = axios.get('https://localhost:4000/user/userInfo', {
           headers: {
             Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
           withCredentials: true,
           crossDomain: true,
-        })
-        .then(res => {
-          console.log(res);
-          if (res.status === 200) {
-            setGroups(res.data.userGroup);
-          }
-        })
-        .catch(err => {
-          if (res.status === 400) {
-            dispatch({ type: 'GET_USERFAILED', error: err });
-          }
-          if (res.status === 405) {
-            dispatch({ type: 'GET_USERFAILED', error: err });
-          }
         });
-    };
-    getUserInfo(dispatch);
+        console.log('3');
+        setGroups(res.data.userGroup);
+      } catch (err) {
+        console.log('4');
+        console.log(err);
+      }
+    });
+    // .then(res => {
+    //   console.log('asdasd');
+    //   if (res.status === 200) {
+    //     setGroups(res.data.userGroup);
+    //   }
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    //   if (res.status === 400) {
+    //     dispatch({ type: 'GET_USERFAILED', error: err });
+    //   }
+    //   if (res.status === 405) {
+    //     dispatch({ type: 'GET_USERFAILED', error: err });
+    //   }
+    // });
+    // };
+    // getUserInfo(dispatch);
   }, []);
 
   return (

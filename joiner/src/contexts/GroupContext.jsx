@@ -9,12 +9,12 @@ export const groupState = {
     category: '', // category_id
     host: '', // groupIntroduce
     groupIntroduce: '',
-    memberCount: 0,
+    memberCount: 2,
     location: '',
     information: '',
-    events: [],
-    members: [],
+    groupUser: [],
   },
+  mapping_id: null,
   loading: false,
   error: null,
 };
@@ -44,13 +44,14 @@ export function groupReducer(state, action) {
       return {
         ...state,
         loading: true,
+        error: null,
       };
 
     case 'GET_SUCCESS':
       return {
         ...state,
         loading: false,
-        group: action.payload.group, // todoItems: action.payload.items ->
+        group: action.group,
       };
 
     case 'GET_ERROR':
@@ -66,6 +67,11 @@ export function groupReducer(state, action) {
         group: action.payload.group, // 확인 필요..
       };
 
+    case 'SET_GROUPID':
+      return {
+        ...state,
+        mapping_id: action.value,
+      };
     // case 'UPLOAD_IMG': // 필요한가..? 따로 구현?
     //   return {
     //     ...state,
@@ -122,7 +128,6 @@ export function groupReducer(state, action) {
         ...state,
         group: {
           ...state.group,
-          id: action.group.id,
           members: action.group.members,
         },
       };
