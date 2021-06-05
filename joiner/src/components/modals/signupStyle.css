@@ -52,7 +52,7 @@
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  color: beige;
+  color: black;
 }
   input::placeholder {
   color: black;
@@ -68,7 +68,7 @@
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  color: beige;
+  color: black;
 }
 
 .password {
@@ -81,7 +81,7 @@
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  color: beige;
+  color: black;
 }
 
           /* .location {
