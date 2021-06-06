@@ -230,7 +230,41 @@ const NavBar = ({ location }) => {
       location.pathname === '/groupPage' ||
       (location.pathname === '/GroupPage' && mapping_id === null)
     ) {
-      return <Redirect to="/category" />;
+      return (
+        <>
+          <nav className="navBarContainer">
+            <div className="logoBox">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: `60px`,
+                  height: `60px`,
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/');
+                }}
+              />
+            </div>
+            <div className="linkBox">
+              <Link to="/main" value="events" className="linkBtn">
+                Events
+              </Link>
+              <Link to="/category" value="groups" className="linkBtn">
+                Category
+              </Link>
+            </div>
+
+            <div className="signs">
+              <Link value="logout" className="logoutBtn">
+                Logout
+              </Link>
+            </div>
+          </nav>
+        </>
+      );
+      // <Redirect to="/category" />;
     }
   }
 };

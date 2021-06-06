@@ -37,12 +37,12 @@ const LoginModal = ({ isOpen, close }) => {
         });
         dispatch({
           type: 'SET_USERINFO',
-          email: data.data.data.user.email,
-          password: data.data.data.user.password,
-          userName: data.data.data.user.userName,
-          location: data.data.data.user.location,
-          group: data.data.data.user.group,
-          event: data.data.data.user.event,
+          email: res.data.data.user.email,
+          password: res.data.data.user.password,
+          userName: res.data.data.user.userName,
+          location: res.data.data.user.location,
+          groups: res.data.data.user.userGroup,
+          events: res.data.data.user.userEvent,
         });
         history.push('/main');
       })

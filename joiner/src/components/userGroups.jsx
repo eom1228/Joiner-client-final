@@ -25,7 +25,7 @@ const UserGroups = () => {
       console.log('1');
       try {
         console.log('2');
-        const res = axios.get('https://localhost:4000/user/userInfo', {
+        const res = axios.get('https://localhost:4000/user/userGroup', {
           headers: {
             Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
@@ -40,25 +40,9 @@ const UserGroups = () => {
         console.log(err);
       }
     });
-    // .then(res => {
-    //   console.log('asdasd');
-    //   if (res.status === 200) {
-    //     setGroups(res.data.userGroup);
-    //   }
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    //   if (res.status === 400) {
-    //     dispatch({ type: 'GET_USERFAILED', error: err });
-    //   }
-    //   if (res.status === 405) {
-    //     dispatch({ type: 'GET_USERFAILED', error: err });
-    //   }
-    // });
-    // };
-    // getUserInfo(dispatch);
   }, []);
 
+  if (!groups) return <div>Loading...</div>;
   return (
     <div>
       <ul>

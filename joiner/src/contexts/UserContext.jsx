@@ -16,7 +16,7 @@ export const initialState = {
   err: '',
   access_token: '',
   // token_type: 'Bearer',
-  isLogin: true,
+  isLogin: false,
   isLoading: false,
   //   errorMessage: null,
 };
@@ -67,13 +67,13 @@ export function userReducer(state, action) {
       return {
         ...state,
         user: {
-          ...state,
+          ...state.user,
           userName: action.userName,
           email: action.email,
           password: action.password,
           location: action.location,
-          group: action.group,
-          event: action.event,
+          groups: action.groups,
+          events: action.events,
         },
       };
 
@@ -150,24 +150,12 @@ export function userReducer(state, action) {
         user: state.user.filter(user => user.location === action.location),
       };
 
-    case 'JOIN_GROUP': // 유저가 속한 그룹 => 멤버
-      return {
-        // groups user의 group목록에서 가입한 그룹 추가 ,, group의 유저 목록에서
-        ...state,
-        user: {
-          ...state.user,
-          groups: action.payload.groups,
-        },
-      };
-
-    case 'LEAVE_GROUP':
+    case 'CREATE_EVENT':
       return {
         ...state,
         user: {
           ...state.user,
-          groups: state.user.groups.filter(
-            group => group.id !== action.payload.id,
-          ),
+          events: action.events,
         },
       };
 

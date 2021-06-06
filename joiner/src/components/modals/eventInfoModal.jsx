@@ -83,7 +83,8 @@ const EventInfoModal = ({ event, handleModal }) => {
           <div className="eventLocation">
             <p>map</p>
           </div>
-          {user.events.forEach(userEvent => userEvent !== event) ? (
+          {Array.isArray(user.events) &&
+          user.events.forEach(userEvent => userEvent !== event) ? (
             <button type="submit" onClick={attendEvent}>
               참석
             </button>
