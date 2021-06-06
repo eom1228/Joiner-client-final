@@ -16,18 +16,19 @@ const UserIcon = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
-
+    console.log('hi');
     try {
-      const response = await axios('/upload', formData, {
+      const response = await axios.patch('/upload', formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log('bye');
       const { fileName, filePath } = response.data;
-
+      console.log('sup');
       setUploadedImage({ fileName, filePath });
-
+      console.log('hey');
       setMessage('이미지 업로드 완료!');
     } catch (err) {
       if (err.response.status === 500) {
