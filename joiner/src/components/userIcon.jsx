@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useUserContext } from '../contexts/UserContext';
 axios.defaults.withCredentials = true;
 
 const UserIcon = () => {
   const [file, setFile] = useState(null);
   const [uploadedImage, setUploadedImage] = useState({});
   const [message, setMessage] = useState('');
-
+  const { state, dispatch } = useUserContext();
+  const { access_token, user } = state;
   const onChange = e => {
-    setFile(e.target.file);
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
   const onSubmit = async e => {
+    console.log();
     e.preventDefault();
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('imgFile', file);
+    console.log(formData);
 
     try {
-      const response = await axios('/upload', formData, {
+      await axios.post('https://localhost:4000/upload', formData, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${access_token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
       const { fileName, filePath } = response.data;
+      console.log(response);
 
       setUploadedImage({ fileName, filePath });
 
       setMessage('이미지 업로드 완료!');
     } catch (err) {
-      if (err.response.status === 500) {
-        setMessage('서버에 문제가 있네용!');
-      } else {
-        setMessage(err.response.data.msg);
-      }
+      console.log(err);
+      // if (err.response.status === 500) {
+      //   console.log(err);
+      //   setMessage('서버에 문제가 있네용!');
+      // } else {
+      //   setMessage(err.response.data.msg);
+      // }
     }
   };
 
