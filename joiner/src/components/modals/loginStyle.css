@@ -52,11 +52,11 @@
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  color: beige;
+  color: black
 }
-input {
-  color:  black;
-}
+  input {
+    color:  black;
+  }
 
 .loginPw {
   margin-top: 30px;
@@ -68,7 +68,7 @@ input {
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  color: beige;
+  color: black;
 }
 
 .loginMid {

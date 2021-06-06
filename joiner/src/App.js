@@ -25,7 +25,6 @@ import mainPage from './pages/mainPage';
 const App = ({ location }) => {
   // const state = useUserState();
   // const dispatch = useUserDispatch();
-
   //   const GlobalStyle = createGlobalStyle`
   // 		body {
 

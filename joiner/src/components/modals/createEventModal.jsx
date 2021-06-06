@@ -76,6 +76,7 @@ const CreateEventModal = ({ isOpen, close, event }) => {
             value={inputs.title}
             id="eventTitle"
             onChange={handleChange}
+            styled="black"
           />
         </p>
 

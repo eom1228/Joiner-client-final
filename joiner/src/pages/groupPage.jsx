@@ -35,7 +35,7 @@ const GroupPage = () => {
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group, mapping_id, loading, error } = groupCurrentState;
-  const { host } = group;
+  // const { host } = group;
   const { user, access_token } = state;
 
   useEffect(() => {
