@@ -150,18 +150,14 @@ const GroupsByCategoryPage = () => {
       <h3>원하는 모임에 가입해보세요!</h3>
       <div className="categoryContainer">
         <ul>
-          {categories.map(
-            (
-              category, // 카테고리 이름으로 카테고리목록 렌더링
-            ) => (
-              <li key={category.id}>
-                <button onClick={handleClickCategory} value={category.id}>
-                  {' '}
-                  {category.title}
-                </button>
-              </li>
-            ),
-          )}
+          {categories.map(category => (
+            <li key={category.id}>
+              <button onClick={handleClickCategory} value={category.id}>
+                {' '}
+                {category.title}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="groupContainer">

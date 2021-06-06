@@ -8,8 +8,9 @@ axios.defaults.withCredentials = true;
 
 const EditGroupModal = ({ isOpen, close }) => {
   const [inputs, setInputs] = useState({
-    groupName: '',
-    category: '',
+    group_id: '',
+    title: '',
+    information: '',
     groupIntroduce: '',
   });
 
@@ -28,13 +29,16 @@ const EditGroupModal = ({ isOpen, close }) => {
   const handleClick = e => {
     async () => {
       let res = await axios
-        .put('/updateGroup', {
+        .post('https://localhost4000/main/groupInfo/updateGroup', {
           headers: {
             Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
           data: {
-            inputs: inputs,
+            group_id: inputs.group_id,
+            title: inputs.title,
+            information: inputs.information,
+            groupIntroduce: inputs.groupIntroduce,
           },
           withCredentials: true,
           crossDomain: true,
@@ -63,6 +67,7 @@ const EditGroupModal = ({ isOpen, close }) => {
     handleClick();
     alert('수정 완료!');
     setModalStatus(close);
+    window.location.reload();
   };
 
   return isOpen ? (

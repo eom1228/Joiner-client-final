@@ -75,7 +75,7 @@ export function groupReducer(state, action) {
     case 'SET_GROUPID':
       return {
         ...state,
-        mapping_id: action.value,
+        mapping_id: action.mapping_id,
       };
     // case 'UPLOAD_IMG': // 필요한가..? 따로 구현?
     //   return {

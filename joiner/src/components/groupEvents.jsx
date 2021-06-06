@@ -25,11 +25,11 @@ const GroupEvents = () => {
   const { access_token, user, isLogin } = state;
   const { groups } = user;
   const [events, setEvents] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
 
   useEffect(() => {
     console.log('hihi');
-    // if (events) return;
+
     const getGroupEvents = async () => {
       console.log('뭘로 찍냐구요!!!');
       try {
@@ -58,37 +58,44 @@ const GroupEvents = () => {
     };
     console.log(events);
     getGroupEvents();
-  }, [group, events.map(event => event.eventUser)]);
+  }, [group]);
 
   const leaveGroup = async () => {
-    let response = await axios.delete('/main/groupPage/groupSecession', {
-      headers: {
-        // Authorization: `Bearer ${access_token}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        //   [user.id]: user.id,
-        [user.id]: user.id, // group의 id
-      },
-      withCredentials: true,
-      crossDomain: true,
-    });
-    dispatch({ type: 'LEAVE_GROUP', payload: response.data.group.id });
+    let response = await axios
+      .post('https://localhost:4000/group/groupPage/groupSecession', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          group_id: group.id,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      })
+      .then(res => {
+        setResponseMessage(res.data);
+      })
+      .catch(e => setResponseMessage(e));
   };
 
   const joinGroup = async () => {
-    let response = await axios.patch('/main/groupPage/groupJoin', {
-      headers: {
-        // Authorization: `Bearer ${access_token}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        [user.id]: user.id,
-      },
-      withCredentials: true,
-      crossDomain: true,
-    });
-    dispatch({ type: 'JOIN_GROUP', payload: response.user.groups });
+    let response = await axios
+      .post('https://localhost:4000/group/groupPage/groupJoin', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          group_id: group.id,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      })
+      .then(res => {
+        setResponseMessage(res.data);
+      })
+      .catch(e => setResponseMessage(e));
   };
 
   //     const deleteGroupMember = async () => {
@@ -138,15 +145,16 @@ const GroupEvents = () => {
 
   const handleLeaveClick = () => {
     leaveGroup();
+    window.location.reload();
   };
 
   const handleJoinClick = () => {
     joinGroup();
+    window.location.reload();
   };
 
   if (!events) return null;
-  // if (!groupUser) return <div>Loading!!!</div>;
-  // if (!group) return <div>장난하나</div>;
+  if (!groupUser) return <div>Loading!!!</div>;
 
   return isLogin ? (
     <>
@@ -154,8 +162,8 @@ const GroupEvents = () => {
       <div style={{ backgroundColor: 'green' }}>
         {console.log(group)}
         {console.log(groupUser)}
-        {user.id === host.id ||
-        user.userName === groupUser.map(member => member.userName) ? (
+        {user.id == host ||
+        user.userName == groupUser.map(member => member.userName) ? (
           <div>
             <CreateEventButton />
             <button onClick={handleLeaveClick}>그룹 탈퇴</button>
