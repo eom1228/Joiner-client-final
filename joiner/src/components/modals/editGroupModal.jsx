@@ -21,40 +21,46 @@ const EditGroupModal = ({ isOpen, close }) => {
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
   //   const { groupName, category, information } = groupCurrentState;
-  const { token } = state;
+  const { access_token } = state;
   const { groupName, category, groupIntroduce } = groupCurrentState;
+  const [responseMessage, setResponseMessage] = useState('');
 
-  useEffect(() => {
-    const editGroupInfo = async () => {
-      let response = await axios.put('/updateGroup', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          inputs: inputs,
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      groupDispatch({ type: 'EDIT_GROUP', payload: response.inputs });
+  const handleClick = e => {
+    async () => {
+      let res = await axios
+        .put('/updateGroup', {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+          data: {
+            inputs: inputs,
+          },
+          withCredentials: true,
+          crossDomain: true,
+        })
+        .then(res => setResponseMessage(res.data)) // 서버랑 확인
+        .catch(e => setResponseMessage(e));
     };
-    editGroupInfo(groupDispatch);
-  }, [inputs.groupName, inputs.category, inputs.groupIntroduce]);
-
+  };
   const handleChange = e => {
     setInputs({
       ...inputs,
       [e.target.id]: e.target.value,
     });
+    groupDispatch({
+      type: 'EDIT_GROUP',
+      group: {
+        groupName: inputs.groupName,
+        category: inputs.category,
+        groupIntroduce: inputs.groupIntroduce,
+      },
+    });
   };
-
-  //   useEffect(() => {
-  //     updateEvent();
-  //   }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
+    handleClick();
     alert('수정 완료!');
     setModalStatus(close);
   };
@@ -75,7 +81,7 @@ const EditGroupModal = ({ isOpen, close }) => {
           <input
             placeholder={category}
             value={inputs.category}
-            id="groupCategory"
+            id="category"
             onChange={handleChange}
           />
         </p>
@@ -84,7 +90,7 @@ const EditGroupModal = ({ isOpen, close }) => {
           <input
             placeholder={groupIntroduce}
             value={inputs.groupIntroduce}
-            id="groupInfo"
+            id="groupIntroduce"
             onChange={handleChange}
           />
         </p>

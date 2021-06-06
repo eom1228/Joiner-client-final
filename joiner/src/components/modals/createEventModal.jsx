@@ -6,15 +6,16 @@ import { withRouter, Link } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
 
-const CreateEventModal = ({ isOpen, close }) => {
+const CreateEventModal = ({ isOpen, close, event }) => {
   const [inputs, setInputs] = useState({
-    eventTitle: '',
-    activityContent: '',
+    title: '',
+    information: '',
     date: '',
     lat: '',
     lng: '',
     limit: '',
   });
+  const [statusMessage, setStatusMessage] = useState('');
   const [modalStatus, setModalStatus] = useState({
     // 수정완료 확인 누를 시 모달창 닫아주기 위함
     close: '',
@@ -29,19 +30,29 @@ const CreateEventModal = ({ isOpen, close }) => {
 
   function handleClick() {
     const createGroupEvent = async () => {
-      let response = await axios.post('/main/groupPage/createEvent', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          inputs: inputs,
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      groupDispatch({ type: 'CREATE_GROUPEVENT', payload: response.inputs });
+      try {
+        let res = await axios.post('/main/groupPage/createEvent', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          data: {
+            group_id: group.id,
+            title: inputs.title,
+            information: inputs.information,
+            limit: inputs.limit, // 확인!!!
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (res.status === 200) {
+          setStatusMessage(res.data);
+        }
+      } catch (e) {
+        setStatusMessage(e);
+      }
     };
+
 
     createGroupEvent(groupDispatch);
   }
@@ -143,6 +154,7 @@ const CreateEventModal = ({ isOpen, close }) => {
   //     }
   //   }, [data]);
 
+
   const handleChange = e => {
     setInputs({
       ...inputs,
@@ -158,33 +170,28 @@ const CreateEventModal = ({ isOpen, close }) => {
 
   return isOpen ? (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <p>
           <input
             placeholder="이벤트명"
-            value={inputs.eventTitle}
+            value={inputs.title}
             id="eventTitle"
             onChange={handleChange}
+            styled="black"
           />
         </p>
 
         <p>
           <input
             placeholder="활동분야"
-            value={inputs.activityContent}
+            value={inputs.information}
             id="eventContent"
             onChange={handleChange}
           />
         </p>
 
-        <p>
-          <input
-            placeholder="날짜 및 시간"
-            value={inputs.date}
-            id="eventDate"
-            onChange={handleChange}
-          />
-        </p>
+        <input type="date"></input>
+
         <p>
           <div id="eventMap"></div>
         </p>
@@ -196,6 +203,7 @@ const CreateEventModal = ({ isOpen, close }) => {
             onChange={handleChange}
           />
         </p>
+
 
         <button type="submit" onClick={handleClick}>
           생성

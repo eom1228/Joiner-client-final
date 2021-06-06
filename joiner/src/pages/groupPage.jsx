@@ -9,22 +9,33 @@ import styled from 'styled-components';
 import EventInfoButton from '../components/modals/eventInfoButton';
 axios.defaults.withCredentials = true;
 
-// const PageBody = styled.div`
-//   display: flex;
-//   padding: 0px 30px;
-//   width 100%;
-//   height: 100%;
-//   align-items: center;
-//   background-color: ;
-// `;
-// const PageBodyTop = styled.div``;
+const PageBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px;
+  height: 100vh;
+  width 100vw;
+  align-items: center;
+  background-color: ;
+`;
+const PageBodyTop = styled.div`
+  height: 40%;
+  width: 100%;
+  background-size: cover
+  display: flex; 
+  justify-content: center; 
+  ;`;
 
-// const PageBodyBottom = styled.div``;
+const PageBodyBottom = styled.div`
+  height: 60%;
+  width: 100%;
+  justify-content: center;
+`;
 const GroupPage = () => {
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group, mapping_id, loading, error } = groupCurrentState;
-  const { host } = group;
+  // const { host } = group;
   const { user, access_token } = state;
 
   useEffect(() => {
@@ -58,15 +69,15 @@ const GroupPage = () => {
   if (!group) return null;
   return (
     <>
-      {/* // <PageBody>
-    //   <PageBodyTop> */}
-      <GroupImgs host={host} />
-      <GroupSummary group={group} />
-      {/* // </PageBodyTop>
-      // <PageBodyBottom> */}
-      <GroupInfoEventsContainer />
-      {/* //   </PageBodyBottom> */}
-      {/* // </PageBody> */}
+      <PageBody>
+        <PageBodyTop>
+          <GroupImgs host={host} />
+          <GroupSummary group={group} />
+        </PageBodyTop>
+        <PageBodyBottom>
+          <GroupInfoEventsContainer />
+        </PageBodyBottom>
+      </PageBody>
     </>
   );
 };

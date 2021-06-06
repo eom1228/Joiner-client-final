@@ -64,7 +64,12 @@ export function groupReducer(state, action) {
     case 'EDIT_GROUP':
       return {
         ...state,
-        group: action.payload.group, // 확인 필요..
+        group: {
+          ...state.group,
+          category: action.group.category,
+          groupIntroduce: action.group.groupIntroduce,
+          groupName: action.group.groupName,
+        },
       };
 
     case 'SET_GROUPID':
