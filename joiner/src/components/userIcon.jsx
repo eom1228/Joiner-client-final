@@ -18,6 +18,7 @@ const UserIcon = () => {
     console.log();
     e.preventDefault();
     const formData = new FormData();
+
     formData.append('imgFile', file);
     console.log(formData);
 
@@ -28,11 +29,14 @@ const UserIcon = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log('bye');
       const { fileName, filePath } = response.data;
+
       console.log(response);
 
-      setUploadedImage({ fileName, filePath });
 
+      setUploadedImage({ fileName, filePath });
+      console.log('hey');
       setMessage('이미지 업로드 완료!');
     } catch (err) {
       console.log(err);

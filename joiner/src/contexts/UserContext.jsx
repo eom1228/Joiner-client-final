@@ -14,9 +14,9 @@ export const initialState = {
   },
   // users: [],
   err: '',
-  access_token: '', // JWT store 역할
+  access_token: '',
   // token_type: 'Bearer',
-  isLogin: false,
+  isLogin: true,
   isLoading: false,
   //   errorMessage: null,
 };
@@ -171,6 +171,25 @@ export function userReducer(state, action) {
         },
       };
 
+    case 'ATTEND_EVENT':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          events: action.events,
+        },
+      };
+
+    case 'CANCEL_EVENT':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          events: state.user.events.filter(
+            userEvent => userEvent !== action.event,
+          ),
+        },
+      };
     case 'CHANGE_PAGE_STATE':
       // 버튼을 누르면 page state값이 바뀐다.
       return {

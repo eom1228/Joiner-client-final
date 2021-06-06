@@ -6,14 +6,15 @@ import { withRouter, Link } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
 
-const CreateEventModal = ({ isOpen, close }) => {
+const CreateEventModal = ({ isOpen, close, event }) => {
   const [inputs, setInputs] = useState({
-    eventTitle: '',
-    activityContent: '',
+    title: '',
+    information: '',
     date: '',
     location: '',
     limit: '',
   });
+  const [statusMessage, setStatusMessage] = useState('');
   const [modalStatus, setModalStatus] = useState({
     // 수정완료 확인 누를 시 모달창 닫아주기 위함
     close: '',
@@ -28,42 +29,30 @@ const CreateEventModal = ({ isOpen, close }) => {
 
   useEffect(() => {
     const createGroupEvent = async () => {
-      let response = await axios.post('/main/groupPage/createEvent', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          inputs: inputs,
-        },
-        withCredentials: true,
-        crossDomain: true,
-      });
-      groupDispatch({ type: 'CREATE_GROUPEVENT', payload: response.inputs });
+      try {
+        let res = await axios.post('/main/groupPage/createEvent', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          data: {
+            group_id: group.id,
+            title: inputs.title,
+            information: inputs.information,
+            limit: inputs.limit, // 확인!!!
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (res.status === 200) {
+          setStatusMessage(res.data);
+        }
+      } catch (e) {
+        setStatusMessage(e);
+      }
     };
-    createGroupEvent(groupDispatch);
-  }, [inputs]);
-
-  //   useEffect(() => {
-  //     // getGroup에서 dep array group.events로 하면 상관 없을듯??
-  //     if (createGroupEvent(groupDispatch)) {
-  //       const getNewGroupEvent = async () => {
-  //         let response = await axios.get('main/groupPage/newEvent', {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //             'Content-Type': 'application/json',
-  //           },
-  //           data: {
-  //             data,
-  //           },
-  //           withCredentials: true,
-  //           crossDomain: true,
-  //         });
-  //         groupDispatch({ type: 'GET_CREATEDEVENT', payload: response.data });
-  //       };
-  //       getNewGroupEvent(groupDispatch);
-  //     }
-  //   }, [data]);
+    createGroupEvent();
+  }, []);
 
   const handleChange = e => {
     setInputs({
@@ -80,11 +69,11 @@ const CreateEventModal = ({ isOpen, close }) => {
 
   return isOpen ? (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <p>
           <input
             placeholder="이벤트명"
-            value={inputs.eventTitle}
+            value={inputs.title}
             id="eventTitle"
             onChange={handleChange}
             styled="black"
@@ -94,20 +83,14 @@ const CreateEventModal = ({ isOpen, close }) => {
         <p>
           <input
             placeholder="활동분야"
-            value={inputs.activityContent}
+            value={inputs.information}
             id="eventContent"
             onChange={handleChange}
           />
         </p>
 
-        <p>
-          <input
-            placeholder="날짜 및 시간"
-            value={inputs.date}
-            id="eventDate"
-            onChange={handleChange}
-          />
-        </p>
+        <input type="date"></input>
+
         <p>
           <input
             placeholder="장소"
@@ -125,7 +108,9 @@ const CreateEventModal = ({ isOpen, close }) => {
           />
         </p>
 
-        <button type="submit">생성</button>
+        <button type="submit" onClick={handleSubmit}>
+          생성
+        </button>
         <button onClick={close}>취소</button>
       </form>
     </>

@@ -12,7 +12,7 @@ import EventInfoButton from './modals/eventInfoButton';
 import CreateEventButton from './modals/createEventButton';
 import axios from 'axios';
 import EditGroupButton from './modals/editGroupButton';
-import LoginModal from './modals/loginModal';
+import IsLoginModal from './modals/loginModalBtn';
 
 // import LoginModal from ' ';
 
@@ -58,7 +58,7 @@ const GroupEvents = () => {
     };
     console.log(events);
     getGroupEvents();
-  }, [group]);
+  }, [group, events.map(event => event.eventUser)]);
 
   const leaveGroup = async () => {
     let response = await axios.delete('/main/groupPage/groupSecession', {
@@ -154,7 +154,7 @@ const GroupEvents = () => {
       <div style={{ backgroundColor: 'green' }}>
         {console.log(group)}
         {console.log(groupUser)}
-        {user.username === host ||
+        {user.id === host.id ||
         user.userName === groupUser.map(member => member.userName) ? (
           <div>
             <CreateEventButton />
@@ -186,7 +186,7 @@ const GroupEvents = () => {
       {console.log(events)}
 
       <div>
-        <LoginModal>그룹 가입</LoginModal>
+        <IsLoginModal></IsLoginModal>
         {/* <CreateEventButton onClick={openModal} />
             <button onClick={openModal}>그룹 가입</button>
             <EditGroupButton onClick={openModal} /> */}

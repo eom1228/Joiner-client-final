@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, useHistory, withRouter } from 'react-router-dom';
+import { Link, useHistory, withRouter, Redirect } from 'react-router-dom';
 import '../styles/navbar.scss';
 import { useUserContext } from '../contexts/UserContext';
+import { useGroupContext } from '../contexts/GroupContext';
 import IsLoginModal from '../components/modals/loginModalBtn';
 import IsSignupModal from '../components/modals/signupModalBtn';
 // import {
@@ -27,6 +28,9 @@ case3 myPage일 경우
 const NavBar = ({ location }) => {
   const history = useHistory();
   const { state } = useUserContext();
+  const { groupCurrentState } = useGroupContext();
+  const { mapping_id } = groupCurrentState;
+
   if (!state.isLogin) {
     if (location.pathname === '/main' || location.pathname === '/') {
       return (
@@ -210,7 +214,7 @@ const NavBar = ({ location }) => {
                 Events
               </Link>
               <Link to="/category" value="groups" className="linkBtn">
-                Groups
+                Category
               </Link>
             </div>
 
@@ -222,6 +226,11 @@ const NavBar = ({ location }) => {
           </nav>
         </>
       );
+    } else if (
+      location.pathname === '/groupPage' ||
+      (location.pathname === '/GroupPage' && mapping_id === null)
+    ) {
+      return <Redirect to="/category" />;
     }
   }
 };
