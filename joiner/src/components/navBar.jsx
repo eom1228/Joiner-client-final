@@ -114,6 +114,43 @@ const NavBar = ({ location }) => {
           </nav>
         </>
       );
+    } else if (
+      location.pathname === '/groupPage' ||
+      location.pathname === '/GroupPage'
+    ) {
+      return (
+        <nav className="navBarContainer">
+          <div className="logoBox">
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: `60px`,
+                height: `60px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
+              }}
+            />
+          </div>
+          <div className="linkBox">
+            <Link to="/main" value="events" className="linkBtn">
+              Events
+            </Link>
+            <Link to="/category" value="groups" className="linkBtn">
+              Category
+            </Link>
+          </div>
+
+          <div className="signs">
+            <Link value="logout" className="logoutBtn">
+              Logout
+            </Link>
+          </div>
+        </nav>
+      );
+      // <Redirect to="/category" />;
     }
   } else if (state.isLogin) {
     if (location.pathname === '/main' || location.pathname === '/') {
@@ -143,7 +180,7 @@ const NavBar = ({ location }) => {
               </Link>
             </div>
             <div className="signs">
-              <Link value="logout" className="logoutBtn">
+              <Link to="/main" value="logout" className="logoutBtn">
                 Logout
               </Link>
             </div>
@@ -228,41 +265,39 @@ const NavBar = ({ location }) => {
       );
     } else if (
       location.pathname === '/groupPage' ||
-      (location.pathname === '/GroupPage' && mapping_id === null)
+      location.pathname === '/GroupPage'
     ) {
       return (
-        <>
-          <nav className="navBarContainer">
-            <div className="logoBox">
-              <img
-                src={logo}
-                alt="Logo"
-                style={{
-                  width: `60px`,
-                  height: `60px`,
-                  cursor: 'pointer',
-                }}
-                onClick={() => {
-                  history.push('/');
-                }}
-              />
-            </div>
-            <div className="linkBox">
-              <Link to="/main" value="events" className="linkBtn">
-                Events
-              </Link>
-              <Link to="/category" value="groups" className="linkBtn">
-                Category
-              </Link>
-            </div>
+        <nav className="navBarContainer">
+          <div className="logoBox">
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: `60px`,
+                height: `60px`,
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/');
+              }}
+            />
+          </div>
+          <div className="linkBox">
+            <Link to="/main" value="events" className="linkBtn">
+              Events
+            </Link>
+            <Link to="/category" value="groups" className="linkBtn">
+              Category
+            </Link>
+          </div>
 
-            <div className="signs">
-              <Link value="logout" className="logoutBtn">
-                Logout
-              </Link>
-            </div>
-          </nav>
-        </>
+          <div className="signs">
+            <Link value="logout" className="logoutBtn">
+              Logout
+            </Link>
+          </div>
+        </nav>
       );
       // <Redirect to="/category" />;
     }

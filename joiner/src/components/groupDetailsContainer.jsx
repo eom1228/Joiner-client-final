@@ -6,7 +6,7 @@ const GroupDetailsContainer = () => {
   //   const [isToggleOn, setIsToggleOn] = useState(false);
   const { groupCurrentState } = useGroupContext();
   const { group } = groupCurrentState;
-  const { information, members, chat } = group;
+  const { information, groupUser, chat } = group;
 
   //   const handleClick = e => {
   //     e.preventDefault();

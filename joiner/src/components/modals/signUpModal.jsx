@@ -32,7 +32,7 @@ const SignupModal = ({ isOpen, close }) => {
         crossDomain: true,
       })
       .then(res => {
-        history.push('/login');
+        history.push('/main');
         console.log(res);
       });
   };

@@ -16,7 +16,7 @@ const MemberModal = ({ isOpen, close }) => {
   // const { access_token } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group, mapping_id } = groupCurrentState;
-  const { members } = group;
+  const { groupUser } = group;
 
   useEffect(() => {
     const getMembers = async () => {
@@ -36,7 +36,7 @@ const MemberModal = ({ isOpen, close }) => {
         );
         groupDispatch({
           type: 'GET_GROUPMEMBERS',
-          members: res.data.groupUser,
+          groupUser: res.data.groupUser,
         });
         console.log(res);
       } catch (err) {
@@ -108,8 +108,8 @@ const MemberModal = ({ isOpen, close }) => {
           <div className="memberList">
             {nameFilter ? (
               <div className="searchResults">
-                {members &&
-                  members
+                {groupUser &&
+                  groupUser
                     .filter(member => member.email === userInputs.email)
                     .map(filteredMember => (
                       <div className="userInfo">
@@ -121,7 +121,7 @@ const MemberModal = ({ isOpen, close }) => {
             ) : (
               <ul className="list">
                 {console.log('test')}
-                {members.map(member => {
+                {groupUser.map(member => {
                   // return (
                   <>
                     <li key={member.id}>{member.userName}</li>

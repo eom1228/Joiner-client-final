@@ -53,6 +53,7 @@ const GroupPage = () => {
           crossDomain: true,
         });
         if (res.status === 200) {
+          console.log(res.data);
           groupDispatch({ type: 'GET_SUCCESS', group: res.data });
           return;
         }

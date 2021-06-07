@@ -23,86 +23,79 @@ const EditGroupModal = ({ isOpen, close }) => {
   const { groupCurrentState, groupDispatch } = useGroupContext();
   //   const { groupName, category, information } = groupCurrentState;
   const { access_token } = state;
-  const { groupName, category, groupIntroduce } = groupCurrentState;
+  const { group } = groupCurrentState;
+  const { title, category, groupIntroduce } = group;
   const [responseMessage, setResponseMessage] = useState('');
 
   const handleClick = e => {
-    async () => {
-      let res = await axios
-        .post('https://localhost4000/main/groupInfo/updateGroup', {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            'Content-Type': 'application/json',
-          },
-          data: {
-            group_id: inputs.group_id,
-            title: inputs.title,
-            information: inputs.information,
-            groupIntroduce: inputs.groupIntroduce,
-          },
-          withCredentials: true,
-          crossDomain: true,
-        })
-        .then(res => setResponseMessage(res.data)) // 서버랑 확인
-        .catch(e => setResponseMessage(e));
-    };
+    console.log('clicked');
+    axios
+      .post('https://localhost:4000/main/groupInfo/updateGroup', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          group_id: group.id,
+          title: inputs.title,
+          information: inputs.information,
+          groupIntroduce: inputs.groupIntroduce,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      })
+      .then(res => {
+        console.log(res);
+      }) // 서버랑 확인
+      .catch(e => {
+        console.log(e);
+      });
   };
   const handleChange = e => {
     setInputs({
       ...inputs,
       [e.target.id]: e.target.value,
     });
-    groupDispatch({
-      type: 'EDIT_GROUP',
-      group: {
-        groupName: inputs.groupName,
-        category: inputs.category,
-        groupIntroduce: inputs.groupIntroduce,
-      },
-    });
+    console.log(inputs);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    handleClick();
-    alert('수정 완료!');
-    setModalStatus(close);
-    window.location.reload();
+    // alert('수정 완료!');
+    // setModalStatus(close);
   };
-
+  useEffect(() => {
+    console.log(group);
+    setInputs({ ...inputs, group_id: group.id });
+    return () => {};
+  }, [isOpen]);
   return isOpen ? (
     <>
-      <form onSubmit={handleSubmit}>
-        <p>
-          <input
-            placeholder={groupName}
-            value={inputs.groupName}
-            id="groupName"
-            onChange={handleChange}
-          />
-        </p>
+      <input
+        placeholder={title}
+        value={inputs.title}
+        id="title"
+        onChange={handleChange}
+      />
 
-        <p>
-          <input
-            placeholder={category}
-            value={inputs.category}
-            id="category"
-            onChange={handleChange}
-          />
-        </p>
+      <input
+        placeholder="information"
+        value={inputs.information}
+        id="information"
+        onChange={handleChange}
+      />
 
-        <p>
-          <input
-            placeholder={groupIntroduce}
-            value={inputs.groupIntroduce}
-            id="groupIntroduce"
-            onChange={handleChange}
-          />
-        </p>
+      <input
+        placeholder={groupIntroduce}
+        value={inputs.groupIntroduce}
+        id="groupIntroduce"
+        onChange={handleChange}
+      />
 
-        <button type="submit">수정 완료!</button>
-        <button onClick={close}>취소</button>
-      </form>
+      <button type="submit" onClick={handleClick}>
+        수정 완료!
+      </button>
+      <button onClick={close}>취소</button>
     </>
   ) : null;
 };
