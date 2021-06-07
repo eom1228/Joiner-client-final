@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/modalgroup.scss';
 import axios from 'axios';
+import { useUserContext } from '../../contexts/UserContext.jsx';
 
 const CreateGroupModal = props => {
+  const { state, dispatch } = useUserContext();
+  const { user, err, access_token } = state;
   const [userInputs, setUserInputs] = useState({
     title: '',
     location: '',
@@ -14,6 +17,7 @@ const CreateGroupModal = props => {
     console.log(userInputs);
   }
   function testzzizzi() {
+    console.log(access_token);
     axios
       .post('https://localhost:4000/main/createGroup', {
         headers: {
@@ -22,9 +26,9 @@ const CreateGroupModal = props => {
         },
         data: {
           title: userInputs.title,
-          locations: userInputs.location,
           information: userInputs.information,
           groupIntroduce: userInputs.groupIntroduce,
+          category_id: 1,
         },
         withCredentials: true,
         crossDomain: true,

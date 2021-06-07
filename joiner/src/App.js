@@ -47,7 +47,7 @@ const App = ({ location }) => {
             <Switch>
               <Route exact path="/" component={landingPage} />
               <Route path="/main" component={mainPage} />
-              <Route exact path="/groupPage" component={GroupPage} />
+              <Route path="/groupPage" component={GroupPage} />
               <Route path="/userInfo" component={MyPage} />
               <Route path="/category" component={GroupsByCategoryPage} />
             </Switch>

@@ -4,7 +4,7 @@ import React, { useReducer, createContext, useContext, useEffect } from 'react';
 export const groupState = {
   group: {
     id: '',
-    groupName: '', // title
+    title: '', // title
     imgs: [], //     // img
     category: '', // category_id
     host: '', // groupIntroduce
@@ -68,7 +68,7 @@ export function groupReducer(state, action) {
           ...state.group,
           category: action.group.category,
           groupIntroduce: action.group.groupIntroduce,
-          groupName: action.group.groupName,
+          title: action.group.title,
         },
       };
 
@@ -133,7 +133,7 @@ export function groupReducer(state, action) {
         ...state,
         group: {
           ...state.group,
-          members: action.group.members,
+          groupUser: action.group.groupUser,
         },
       };
     default:

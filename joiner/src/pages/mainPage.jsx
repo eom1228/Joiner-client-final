@@ -125,6 +125,9 @@ const MainPage = props => {
     //   '//dapi.kakao.com/v2/maps/sdk.js?appkey=fe59e6a12fa1b1dd06d62fcf138604a2';
     // document.head.appendChild(script);
     map();
+    return () => {
+      map();
+    };
   }, []);
   return (
     <div id="maincontainer">

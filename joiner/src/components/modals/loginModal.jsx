@@ -6,6 +6,8 @@ import axios from 'axios';
 import '../modals/loginStyle.css';
 import IsSignupModal from './signupModalBtn.jsx';
 
+axios.defaults.withCredentials = true;
+
 const LoginModal = ({ isOpen, close }) => {
   const [userInputs, setUserInputs] = useState({ email: '', password: '' });
   const { state, dispatch } = useUserContext();
@@ -25,8 +27,8 @@ const LoginModal = ({ isOpen, close }) => {
           email: userInputs.email,
           password: userInputs.password,
         },
-        withCredentials: true,
-        crossDomain: true,
+        // withCredentials: true,
+        // crossDomain: true,
       })
       .then(res => {
         console.log(res);

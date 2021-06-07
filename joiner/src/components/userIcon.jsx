@@ -34,7 +34,6 @@ const UserIcon = () => {
 
       console.log(response);
 
-
       setUploadedImage({ fileName, filePath });
       console.log('hey');
       setMessage('이미지 업로드 완료!');
