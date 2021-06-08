@@ -57,12 +57,14 @@ const UserIcon = () => {
           <img style={{ width: '100%' }} src={uploadedImage.filePath} alt="" />
         ) : null}
         <form
+          className="form"
           onSubmit={onSubmit}
           action="upload"
           method="post"
           encType="multipart/form-data"
         >
           <input
+            className="file"
             type="file"
             name="imgFile"
             id="customFile"

@@ -150,7 +150,6 @@ const NavBar = ({ location }) => {
           </div>
         </nav>
       );
-      // <Redirect to="/category" />;
     }
   } else if (state.isLogin) {
     if (location.pathname === '/main' || location.pathname === '/') {
@@ -180,7 +179,7 @@ const NavBar = ({ location }) => {
               </Link>
             </div>
             <div className="signs">
-              <Link to="/main" value="logout" className="logoutBtn">
+              <Link value="logout" className="logoutBtn">
                 Logout
               </Link>
             </div>
@@ -267,6 +266,7 @@ const NavBar = ({ location }) => {
       location.pathname === '/groupPage' ||
       location.pathname === '/GroupPage'
     ) {
+      // return <Redirect to="/category" />;
       return (
         <nav className="navBarContainer">
           <div className="logoBox">
@@ -291,7 +291,6 @@ const NavBar = ({ location }) => {
               Category
             </Link>
           </div>
-
           <div className="signs">
             <Link value="logout" className="logoutBtn">
               Logout
@@ -299,7 +298,6 @@ const NavBar = ({ location }) => {
           </div>
         </nav>
       );
-      // <Redirect to="/category" />;
     }
   }
 };

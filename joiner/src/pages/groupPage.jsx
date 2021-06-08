@@ -11,26 +11,39 @@ axios.defaults.withCredentials = true;
 
 const PageBody = styled.div`
   display: flex;
+  
   flex-direction: column;
-  padding: 0px 30px;
   height: 100vh;
   width 100vw;
   align-items: center;
   background-color: ;
+
 `;
+
 const PageBodyTop = styled.div`
+  box-sizing: border-box;
   height: 40%;
-  width: 100%;
-  background-size: cover
-  display: flex; 
-  justify-content: center; 
-  ;`;
+  width: 60%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  background-color: #34314c;
+  border-radius: 20px;
+  margin-top: 20px;
+`;
 
 const PageBodyBottom = styled.div`
-  height: 60%;
-  width: 100%;
-  justify-content: center;
+  height: 50%;
+  width: 60%;
+  display: flex;
+  text-align: center;
+  align-items: top;
+  justify-content: flex-end;
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 20px;
 `;
+
 const GroupPage = () => {
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();

@@ -3,10 +3,11 @@ import { useGroupContext } from '../../contexts/GroupContext';
 import { useUserContext } from '../../contexts/UserContext';
 import axios from 'axios';
 import { withRouter, Link } from 'react-router-dom';
+import '../../styles/modalgroup.scss';
 
 axios.defaults.withCredentials = true;
 
-const EditGroupModal = ({ isOpen, close }) => {
+const EditGroupModal = ({ isOpen, handleModal, close }) => {
   const [inputs, setInputs] = useState({
     group_id: '',
     title: '',
@@ -14,10 +15,10 @@ const EditGroupModal = ({ isOpen, close }) => {
     groupIntroduce: '',
   });
 
-  const [modalStatus, setModalStatus] = useState({
-    // 수정완료 확인 누를 시 모달창 닫아주기 위함
-    close: '',
-  });
+  // const [modalStatus, setModalStatus] = useState({
+  //   // 수정완료 확인 누를 시 모달창 닫아주기 위함
+  //   close: '',
+  // });
 
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
@@ -69,35 +70,44 @@ const EditGroupModal = ({ isOpen, close }) => {
     setInputs({ ...inputs, group_id: group.id });
     return () => {};
   }, [isOpen]);
-  return isOpen ? (
-    <>
-      <input
-        placeholder={title}
-        value={inputs.title}
-        id="title"
-        onChange={handleChange}
-      />
+  return (
+    <div className="modal" onClick={handleModal}>
+      <div
+        className="groupModal"
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
+        <div className="contentContainer">
+          <input
+            placeholder="그룹명"
+            value={inputs.title}
+            id="title"
+            onChange={handleChange}
+          />
 
-      <input
-        placeholder="information"
-        value={inputs.information}
-        id="information"
-        onChange={handleChange}
-      />
+          <input
+            placeholder="활동분야"
+            value={inputs.information}
+            id="information"
+            onChange={handleChange}
+          />
 
-      <input
-        placeholder={groupIntroduce}
-        value={inputs.groupIntroduce}
-        id="groupIntroduce"
-        onChange={handleChange}
-      />
+          <input
+            placeholder="그룹소개 글"
+            value={inputs.groupIntroduce}
+            id="groupIntroduce"
+            onChange={handleChange}
+          />
 
-      <button type="submit" onClick={handleClick}>
-        수정 완료!
-      </button>
-      <button onClick={close}>취소</button>
-    </>
-  ) : null;
+          <button type="submit" onClick={handleClick}>
+            수정 완료!
+          </button>
+          <button onClick={close}>취소</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default withRouter(EditGroupModal);

@@ -3,8 +3,9 @@ import { useGroupContext } from '../../contexts/GroupContext';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
+import '../../styles/memberModal.scss';
 
-const MemberModal = ({ isOpen, close }) => {
+const MemberModal = ({ isOpen, handleModal, close }) => {
   const [userInputs, setUserInputs] = useState({
     userName: '',
     email: '',
@@ -84,56 +85,57 @@ const MemberModal = ({ isOpen, close }) => {
 
   return (
     <>
-      {isOpen ? (
-        <div className="memberModal">
-          <span
-            onClick={() => {
-              close();
-            }}
-          >
-            {' '}
-            &times;{' '}
-          </span>
-          <div className="member_searchbox">
-            <input
-              value={userInputs.email}
-              name="userName"
-              className="searchbox"
-              type="text"
-              placeholder="이름을 검색하세요"
-              onChange={handleChange}
-            />
-            <button onClick={searchFilter}>검색</button>
-          </div>
-          <div className="memberList">
-            {nameFilter ? (
-              <div className="searchResults">
-                {groupUser &&
-                  groupUser
-                    .filter(member => member.email === userInputs.email)
-                    .map(filteredMember => (
-                      <div className="userInfo">
-                        <div>{filteredMember.userName}</div>
-                        <div>{filteredMember.email}</div>
-                      </div>
-                    ))}
-              </div>
-            ) : (
-              <ul className="list">
-                {console.log('test')}
-                {groupUser.map(member => {
-                  // return (
-                  <>
-                    <li key={member.id}>{member.userName}</li>
-                    <li key={member.id}>{member.email}</li>
-                  </>;
-                  // );
-                })}
-              </ul>
-            )}
+      <div className="membersModal" onClick={handleModal}>
+        <div
+          className="groupMembersModal"
+          onClick={e => {
+            e.stopPropagation();
+          }}
+        >
+          <div className="membersContainer">
+            <div>
+              <input
+                value={userInputs.userName}
+                name="userName"
+                className="searchbox"
+                type="text"
+                placeholder="이름을 검색하세요"
+                onChange={handleChange}
+              />
+              <button id="searchBtn" onClick={searchFilter}>
+                검색
+              </button>
+            </div>
+
+            <div className="memberList">
+              {nameFilter ? (
+                <ul className="searchResults">
+                  {groupUser &&
+                    groupUser
+                      .filter(member => member.email === userInputs.email)
+                      .map(filteredMember => (
+                        <div className="userInfo">
+                          <div>{filteredMember.userName}</div>
+                          <div>{filteredMember.email}</div>
+                        </div>
+                      ))}
+                </ul>
+              ) : (
+                <ul className="list">
+                  {console.log('test')}
+                  {groupUser.map(member => {
+                    // return (
+                    <div className="memberDetails">
+                      <li key={member.id}>{member.userName}</li>
+                      <li key={member.id}>{member.email}</li>
+                    </div>;
+                  })}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
-      ) : null}
+      </div>
     </>
   );
 };

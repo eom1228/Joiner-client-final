@@ -1,13 +1,21 @@
 import React from 'react';
 import GroupDetailsContainer from './groupDetailsContainer';
 import GroupEvents from './groupEvents';
+import styled from 'styled-components';
 
+const InfoEventsContainer = styled.div`
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
 const GroupInfoEventsContainer = () => {
   return (
-    <span>
+    <InfoEventsContainer>
       <GroupDetailsContainer />
       <GroupEvents />
-    </span>
+    </InfoEventsContainer>
   );
 };
 export default GroupInfoEventsContainer;

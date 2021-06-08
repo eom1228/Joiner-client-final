@@ -3,11 +3,12 @@ import { useGroupContext } from '../../contexts/GroupContext';
 import { useUserContext } from '../../contexts/UserContext';
 import axios from 'axios';
 import { withRouter, Link } from 'react-router-dom';
+import '../../styles/createEventModal.scss';
 
 axios.defaults.withCredentials = true;
 /*global kakao*/
 
-const CreateEventModal = ({ isOpen, close, event }) => {
+const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
   const [inputs, setInputs] = useState({
     title: '',
     information: '',
@@ -133,51 +134,60 @@ const CreateEventModal = ({ isOpen, close, event }) => {
       ...inputs,
       [e.target.id]: e.target.value,
     });
+    if (e.target.id === 'limit') {
+    }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    alert('생성 완료!');
-    setModalStatus(close);
-  };
+  return (
+    <div className="createEventModal" onClick={handleModal}>
+      <div
+        className="groupEventModal"
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
+        <div className="eventContentBox">
+          <form>
+            <input
+              placeholder="이벤트명"
+              type="text"
+              value={inputs.title}
+              id="title"
+              onChange={handleChange}
+              styled="black"
+            />
 
-  return isOpen ? (
-    <>
-      <form>
-        <input
-          placeholder="이벤트명"
-          value={inputs.title}
-          id="eventTitle"
-          onChange={handleChange}
-          styled="black"
-        />
+            <input
+              placeholder="활동분야"
+              type="text"
+              value={inputs.information}
+              id="information"
+              onChange={handleChange}
+            />
 
-        <input
-          placeholder="활동분야"
-          value={inputs.information}
-          id="eventContent"
-          onChange={handleChange}
-        />
+            <input type="date"></input>
 
-        <input type="date"></input>
+            <input
+              placeholder="인원 제한수"
+              value={inputs.limit}
+              id="limit"
+              type="number"
+              pattern="^-?[0-9]\d*\.?\d*$"
+              onChange={handleChange}
+            />
 
-        <input
-          placeholder="인원 제한수"
-          value={inputs.limit}
-          id="eventLimit"
-          onChange={handleChange}
-        />
-
-        <button type="submit" onClick={handleClick}>
-          생성
-        </button>
-        <button onClick={close}>취소</button>
-      </form>
-      <div id="eventMap" style={{ height: '200px' }}>
-        맵
+            <button type="submit" onClick={handleClick}>
+              생성
+            </button>
+            <button onClick={close}>취소</button>
+          </form>
+          <div id="eventMap" style={{ height: '200px' }}>
+            맵
+          </div>
+        </div>
       </div>
-    </>
-  ) : null;
+    </div>
+  );
 };
 
 export default withRouter(CreateEventModal);
