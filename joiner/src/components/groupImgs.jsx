@@ -3,7 +3,26 @@ import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
 import DefaultImg from '../images/image-file.png';
+import styled from 'styled-components';
 
+const ImgContents = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border: 0.3rem solid #34314c;
+  border-radius: 1rem;
+  background-color: white;
+`;
+const Test = styled.span`
+  padding: 6px 20px;
+  background-color: beige;
+  border-radius: 1rem;
+  color: black;
+  cursor: pointer;
+`;
 const GroupImgs = ({ host }) => {
   const [file, setFile] = useState(null);
   const [uploadedImage, setUploadedImage] = useState({});
@@ -44,13 +63,12 @@ const GroupImgs = ({ host }) => {
   };
 
   return (
-    <>
-      {/* form 의 type을 enctype="multipart/form-data" 로 설정해야
-// //       사용자가 전송한 파일을 서버로 전송할 수 있다. */}
+    <ImgContents>
       <div className="groupImage">
         {uploadedImage ? (
           <img style={{ width: '100%' }} src={uploadedImage.filePath} alt="" />
         ) : null}
+
         <form
           onSubmit={e => {
             user.id !== host.id ? alert('그룹장이 아니세요!') : onSubmit;
@@ -59,16 +77,22 @@ const GroupImgs = ({ host }) => {
           method="post"
           encType="multipart/form-data"
         >
-          <input
-            type="file"
-            name="imgFile"
-            id="customFile"
-            onChange={onChange}
-          />
+          <Test>
+            <label for="customFile">
+              파일 선택
+              <input
+                type="file"
+                name="imgFile"
+                id="customFile"
+                onChange={onChange}
+                style={{ display: 'none' }}
+              />
+            </label>
+          </Test>
           <input type="submit" value="Upload" />
         </form>
       </div>
-    </>
+    </ImgContents>
   );
 };
 
