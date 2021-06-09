@@ -1,4 +1,4 @@
-.modal {
+.editGroupModal {
   z-index: 1050;
   position: fixed;
   top: 0;
@@ -6,7 +6,8 @@
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
-  .groupModal {
+  overflow: hidden;
+  .editModal {
     border-radius: 10px;
     width: 480px;
     height: 421px;
@@ -17,7 +18,7 @@
     padding: 20px;
     background: #f3f4f9;
     text-align: center;
-    .contentContainer {
+    .editContentContainer {
       padding: 20px;
       width: 100%;
       display: flex;
@@ -31,6 +32,17 @@
         padding: 9px 12px;
         color: black;
         background: #f3f4f9;
+        #groupIntroduce {
+          overflow: scroll;
+        }
+      }
+      textarea {
+        height: 100px;
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #353866;
+        border-radius: 10px;
+        resize: none;
       }
       button {
         margin: 0 auto;
@@ -44,6 +56,9 @@
         height: 40px;
         border-style: none;
       }
+      //   #groupIntroduce {
+      //     overflow-y: scroll;
+      //   }
     }
   }
 }

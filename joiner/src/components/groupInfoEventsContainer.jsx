@@ -6,15 +6,31 @@ import styled from 'styled-components';
 const InfoEventsContainer = styled.div`
   display: flex;
   margin: 0 auto;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
+  width: 100%;
 `;
+const StyledGroupDetails = styled.div`
+  flex-basis: 45%;
+  border: 0.3rem solid #34314c;
+`;
+
+const StyledEvents = styled.div`
+  display: flex;
+  flex-basis: 55%;
+  height: 100%;
+  border: 1rem solid black;
+  justify-content: center;
+`;
+
 const GroupInfoEventsContainer = () => {
   return (
     <InfoEventsContainer>
-      <GroupDetailsContainer />
-      <GroupEvents />
+      <StyledGroupDetails>
+        <GroupDetailsContainer />
+      </StyledGroupDetails>
+      <StyledEvents>
+        <GroupEvents />
+      </StyledEvents>
     </InfoEventsContainer>
   );
 };
