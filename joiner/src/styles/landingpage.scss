@@ -11,7 +11,7 @@
 // $color-pink: #ff7473;
 // $color-yellow: #ffc952;
 // $color-blue: #47b8e0;
-$color-background: #34314c;
+$color-background:#f4f5f9;
 $color-pink: #f1404b;
 $color-yellow: #dddfe6;
 $color-blue: #f4f5f9;
@@ -106,7 +106,7 @@ body {
     width: 10px;
     height: 10px;
     margin-top: 10px;
-    border-radius: 50%;
+    // border-radius: 50%;
     cursor: pointer;
     transition: background 0.3s ease-out;
     &:active {
@@ -117,13 +117,13 @@ body {
 
 .section {
   // box-shadow: 0 0 10px 5px #e1e5ee;
-  border-radius: 1rem;
+  // border-radius: 1rem;
   margin-top: 1.5rem;
   height: 100vh;
-  background-color: #fff;
+  background-color: #f4f5f9;
   h1 {
     position: absolute;
-    color: rgb(181, 76, 94);
+    color:#fa5a5a;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -139,9 +139,8 @@ body {
 }
 .section1 {
   margin-top: 0;
-  border-radius: 0;
   height: 100vh;
-  background: url(../images/bg2.jpg) no-repeat;
+  background: url(../images/backgroundpic.jpeg) no-repeat;
   background-size: cover;
 }
 
@@ -151,7 +150,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center;;
+  background-size: 100%;
   // top: 260%;
   // left: 50%;
   // transform: translate(-50%, -50%);
@@ -221,10 +221,10 @@ body {
     &.graph {
       width: 100%;
       height: 80%;
-      border-radius: 1rem;
+      // border-radius: 1rem;
       opacity: 0;
       .graph_img {
-        border-radius: 2rem;
+        // border-radius: 2rem;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -281,11 +281,11 @@ body {
     .card {
       margin: 0 1rem;
       box-shadow: 0 0 10px 5px #e1e5ee;
-      border-radius: 1rem;
+      // border-radius: 1rem;
       height: 50%;
       width: 50%;
       .card_img {
-        border-radius: 1rem;
+        // border-radius: 1rem;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -304,10 +304,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: white;
+    background-color:#f4f5f9;
     // border: 1rem solid white;
     margin: 1rem;
-    border-radius: 1rem;
+    // border-radius: 1rem;
     &:nth-child(1) {
       flex: 1 1 50%;
       .innerItemHeader {
@@ -336,7 +336,7 @@ body {
     .innerItemImage {
       background-color: black;
       // border: 1rem solid green;
-      border-radius: 1rem;
+      // border-radius: 1rem;
       align-self: center;
       margin-bottom: 10rem;
       // padding: 5rem;
@@ -374,7 +374,7 @@ body {
       margin: 0 auto;
       margin-top: 2rem;
       img {
-        border-radius: 3rem;
+        // border-radius: 3rem;
         width: 100%;
         height: 100%;
         object-fit: cover;
