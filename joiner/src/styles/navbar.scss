@@ -16,20 +16,23 @@ a {
 }
 
 .navBarContainer {
+  font-family: 'Staatliches', cursive;
+  font-size: large;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
   height: 10vh;
   // border-radius: 1rem;
-  background-color: #aaabd3;
+  background-color: #f4f5f9;
   .logoBox {
-    width: 130%;
+    width: 120%;
     height: 130%;
     cursor: pointer;
     flex-grow: 1;
     display: flex;
     align-items: center;
+    text-align: center;
   }
   .linkBox {
     width: 100%;
@@ -49,17 +52,16 @@ a {
       margin-right: 20px;
       // display: inline-block;
       // margin-top: 4vh;
-      margin-right: 20px;
-      font-size: 18px;
+      font-size: 25px;
       font-weight: 600;
-      color: white;
+      color: #34314c;
       text-decoration: none;
-      background-color: #aaabd3;
+      background-color: #f4f5f9;
       transition: all 0.5s ease-in-out;
       border-color: transparent;
       &:hover {
         // background:
-        color: #34314c;
+        color: #fa5a5a;
         cursor: pointer;
       }
     }
@@ -69,17 +71,17 @@ a {
 .linkBtn {
   @include btnStyle;
   display: inline-block;
-  margin-top: 4vh;
+  margin-top: 3vh;
   margin-right: 20px;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 600;
-  color: white;
+  color:#34314c;
   text-decoration: none;
-  background-color: #aaabd3;
+  background-color: #f4f5f9;
   transition: all 0.5s ease-in-out;
   &:hover {
     // background:
-    color: #34314c;
+    color: #fa5a5a;
     cursor: pointer;
   }
 }
@@ -87,15 +89,15 @@ a {
   @include btnStyle;
   display: inline-block;
   margin-right: 20px;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 600;
-  color: white;
+  color:#34314c;
   text-decoration: none;
-  background-color: #aaabd3;
+  background-color: #f4f5f9;
   transition: all 0.5s ease-in-out;
   &:hover {
     // background:
-    color: #34314c;
+    color: #fa5a5a;
     cursor: pointer;
   }
 }

@@ -85,8 +85,8 @@ const NavBar = ({ location }) => {
                   history.push('/');
                 }}
                 style={{
-                  width: `60px`,
-                  height: `60px`,
+                  width: `100px`,
+                  height: `100px`,
                   cursor: 'pointer',
                 }}
               />

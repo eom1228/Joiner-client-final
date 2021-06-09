@@ -142,7 +142,7 @@ const LandingPage = props => {
           <div className="graph" ref={graphRef}>
             {' '}
             <img
-              src="https://cdn.pixabay.com/photo/2015/10/12/15/05/girl-984155_1280.jpg"
+              src="https://cdn.pixabay.com/photo/2016/02/18/22/18/picnic-1208229_1280.jpg"
               alt="graphImage"
               className="graph_img"
             />
@@ -158,9 +158,9 @@ const LandingPage = props => {
           <p>사람들과 함께하세요</p>
         </div>
         <div id="cardWrapper">
-          <Card img="https://cdn.pixabay.com/photo/2016/08/01/20/15/girl-1562025_1280.jpg" />
+          <Card img="https://cdn.pixabay.com/photo/2016/11/08/05/20/sunset-1807524_1280.jpg" />
           <Card img="https://cdn.pixabay.com/photo/2015/05/15/14/50/concert-768722_1280.jpg" />
-          <Card img="https://cdn.pixabay.com/photo/2020/03/13/23/13/girls-4929292_1280.jpg" />
+          <Card img="https://cdn.pixabay.com/photo/2015/06/12/18/26/team-807300_1280.jpg" />
         </div>
       </section>
 
@@ -178,7 +178,7 @@ const LandingPage = props => {
         <div className="innerWrap">
           <div className="innerItemHeader2">
             <h3>원하는 날짜에 활동을 누군가와 같이.</h3>
-            <p>HELP </p>
+            <p>같은 취향을 가진 좋은 사람들과 취미생활을 즐길수있습니다. </p>
           </div>
           <div className="innerItemImage">
             {/* <img src="" alt="groupImage" className="groupImage" /> */}
