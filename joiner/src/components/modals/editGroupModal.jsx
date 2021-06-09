@@ -3,7 +3,7 @@ import { useGroupContext } from '../../contexts/GroupContext';
 import { useUserContext } from '../../contexts/UserContext';
 import axios from 'axios';
 import { withRouter, Link } from 'react-router-dom';
-import '../../styles/modalgroup.scss';
+import '../../styles/editGroupModal.scss';
 
 axios.defaults.withCredentials = true;
 
@@ -71,14 +71,14 @@ const EditGroupModal = ({ isOpen, handleModal, close }) => {
     return () => {};
   }, [isOpen]);
   return (
-    <div className="modal" onClick={handleModal}>
+    <div className="editGroupModal" onClick={handleModal}>
       <div
-        className="groupModal"
+        className="editModal"
         onClick={e => {
           e.stopPropagation();
         }}
       >
-        <div className="contentContainer">
+        <div className="editContentContainer">
           <input
             placeholder="그룹명"
             value={inputs.title}
@@ -93,11 +93,12 @@ const EditGroupModal = ({ isOpen, handleModal, close }) => {
             onChange={handleChange}
           />
 
-          <input
+          <textarea
             placeholder="그룹소개 글"
             value={inputs.groupIntroduce}
             id="groupIntroduce"
             onChange={handleChange}
+            type="text"
           />
 
           <button type="submit" onClick={handleClick}>

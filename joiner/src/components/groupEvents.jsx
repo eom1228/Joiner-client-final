@@ -15,13 +15,33 @@ import EditGroupButton from './modals/editGroupButton';
 import IsLoginModal from './modals/loginModalBtn';
 import styled from 'styled-components';
 // import LoginModal from ' ';
+const EventButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  // border: 1rem solid green;
+`;
 const StyledButton = styled.button`
- 
-  margin-right: 20px;
-  display: inline-block;
-  margin-top: 4vh;
-  margin-right: 20px;
   font-size: 18px;
+  font-weight: 600;
+  color: white;
+  height: 50px;
+  width: 80px;
+  text-decoration: none;
+  background-color: #34314c;
+  transition: all 0.5s ease-in-out;
+  border-color: transparent;
+  border-radius: 1rem;
+
+  &:hover {
+
+    color: #aaabd3;
+    cursor: pointer;
+  
+`;
+const StyledEventButton = styled.button`
+font-size: 18px;
   font-weight: 600;
   color: white;
   height: 50px;
@@ -33,6 +53,38 @@ const StyledButton = styled.button`
   border-radius: 1rem;
   &:hover {
 
+    color: #aaabd3;
+    cursor: pointer;
+  `;
+
+const StyledButtonJoin = styled.button`
+font-size: 18px;
+  font-weight: 600;
+  color: white;
+  height: 50px;
+  width: 80px;
+  text-decoration: none;
+  background-color: #34314c;
+  transition: all 0.5s ease-in-out;
+  border-color: transparent;
+  border-radius: 1rem;
+  &:hover {
+    color: #aaabd3;
+    cursor: pointer;
+  `;
+
+const StyledButtonLoginJoin = styled.button`
+font-size: 18px;
+  font-weight: 600;
+  color: white;
+  height: 50px;
+  width: 80px;
+  text-decoration: none;
+  background-color: #34314c;
+  transition: all 0.5s ease-in-out;
+  border-color: transparent;
+  border-radius: 1rem;
+  &:hover {
     color: #aaabd3;
     cursor: pointer;
   `;
@@ -138,32 +190,48 @@ const GroupEvents = () => {
         {console.log(groupUser)}
         {user.id == host ||
         user.userName == groupUser.map(member => member.userName) ? (
-          <div>
-            <CreateEventButton />
+          <>
+            <EventButtonsWrapper>
+              <div style={{ flex: '1 1 10%' }}>
+                <CreateEventButton />
 
-            <StyledButton onClick={handleLeaveClick}>그룹 탈퇴</StyledButton>
-
-            <EditGroupButton />
-          </div>
+                <EditGroupButton />
+              </div>
+              <div style={{ flex: '1 1 70%' }}>
+                <p style={{ marginTop: '25px' }}>예정된 이벤트</p>
+                <ul>
+                  {events.map(event => (
+                    <li key={event.id}>
+                      <StyledEventButton>
+                        <EventInfoButton event={event}></EventInfoButton>
+                      </StyledEventButton>
+                      <p>{event.information}</p>
+                      <p>{event.date}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div
+                style={{
+                  flex: '1 1 20%',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                }}
+              >
+                <StyledButton className="groupLeave" onClick={handleLeaveClick}>
+                  그룹 탈퇴
+                </StyledButton>
+              </div>
+            </EventButtonsWrapper>
+          </>
         ) : (
           <div>
-            <StyledButton onClick={handleJoinClick}>그룹 가입</StyledButton>
+            <StyledButtonJoin onClick={handleJoinClick}>
+              그룹 가입
+            </StyledButtonJoin>
           </div>
         )}
-      </div>
-
-      <div>
-        <ul>
-          {events.map(event => (
-            <li key={event.id}>
-              <StyledButton>
-                <EventInfoButton event={event}></EventInfoButton>
-              </StyledButton>
-              <p>{event.information}</p>
-              <p>{event.date}</p>
-            </li>
-          ))}
-        </ul>
       </div>
     </>
   ) : (
@@ -171,19 +239,20 @@ const GroupEvents = () => {
       {console.log(events)}
 
       <div>
-        <StyledButton>
+        <StyledButtonLoginJoin>
           <IsLoginModal />
-        </StyledButton>
+        </StyledButtonLoginJoin>
       </div>
       <div>
         {console.log(events)}
+        <p>예정된 이벤트</p>
         <ul>
           {console.log(group.groupUser)}
           {events.map(event => (
             <li key={event.id}>
-              <StyledButton>
+              <StyledEventButton>
                 <EventInfoButton event={event}></EventInfoButton>
-              </StyledButton>
+              </StyledEventButton>
               <p>{event.information}</p>
               <p>{event.date}</p>
             </li>

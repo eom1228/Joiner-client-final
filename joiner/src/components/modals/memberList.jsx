@@ -4,7 +4,24 @@ import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
 import '../../styles/memberModal.scss';
+// import styled from 'styled-components';
+// const StyledButton = styled.button`
 
+// margin: 0 auto;
+
+// cursor: pointer;
+// // background-color: #353866;
+// color: white;
+// margin-top: 20px;
+// border-radius: 10px;
+// width: 10px;
+// height: 40px;
+// border-style: none;
+//   &:hover {
+
+//     color: #aaabd3;
+//     cursor: pointer;
+//   `;
 const MemberModal = ({ isOpen, handleModal, close }) => {
   const [userInputs, setUserInputs] = useState({
     userName: '',
@@ -85,15 +102,15 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
 
   return (
     <>
-      <div className="membersModal" onClick={handleModal}>
-        <div
-          className="groupMembersModal"
-          onClick={e => {
-            e.stopPropagation();
-          }}
-        >
+      <div className="membersModal">
+        <div className="groupMembersModal">
           <div className="membersContainer">
-            <div>
+            <div className="memberInterface">
+              <span id="members">회원</span>
+
+              <button id="chat">그룹챗</button>
+            </div>
+            <div className="searchInterface">
               <input
                 value={userInputs.userName}
                 name="userName"
@@ -101,6 +118,7 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
                 type="text"
                 placeholder="이름을 검색하세요"
                 onChange={handleChange}
+                style={{ marginTop: '20px' }}
               />
               <button id="searchBtn" onClick={searchFilter}>
                 검색
@@ -115,21 +133,40 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
                       .filter(member => member.email === userInputs.email)
                       .map(filteredMember => (
                         <div className="userInfo">
+                          {/* <span>{filteredMember.userIcon}</span> */}
                           <div>{filteredMember.userName}</div>
                           <div>{filteredMember.email}</div>
                         </div>
                       ))}
                 </ul>
               ) : (
-                <ul className="list">
-                  {console.log('test')}
-                  {groupUser.map(member => {
-                    // return (
-                    <div className="memberDetails">
-                      <li key={member.id}>{member.userName}</li>
-                      <li key={member.id}>{member.email}</li>
-                    </div>;
-                  })}
+                // <ul className="list">
+                //   {console.log('test')}
+                //   {groupUser.map(member => {
+                //     // return (
+                //     <div className="memberDetails">
+                //       <span>{member.userIcon}</span>
+                //       <li key={member.id}>{member.userName}</li>
+                //       <li key={member.id}>{member.email}</li>
+                //     </div>;
+                //   })}
+                // </ul>
+                <ul>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
+                  <li>hi</li>
                 </ul>
               )}
             </div>

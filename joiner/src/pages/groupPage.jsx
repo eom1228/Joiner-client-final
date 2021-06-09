@@ -22,7 +22,7 @@ const PageBody = styled.div`
 
 const PageBodyTop = styled.div`
   box-sizing: border-box;
-  height: 40%;
+  height: 30%;
   width: 60%;
   display: flex;
   text-align: center;
@@ -33,9 +33,10 @@ const PageBodyTop = styled.div`
 `;
 
 const PageBodyBottom = styled.div`
-  height: 50%;
+  height: 60%;
   width: 60%;
   display: flex;
+
   text-align: center;
   align-items: top;
   justify-content: flex-end;

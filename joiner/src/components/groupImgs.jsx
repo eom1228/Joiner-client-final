@@ -4,11 +4,35 @@ import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
 import DefaultImg from '../images/image-file.png';
 import styled from 'styled-components';
+// import '../components/groupImgs.css';
+
+// const ImgContents = styled.div`
+//   height: 100%;
+//   width: 100%;
+//   display: flex;
+//   position: relative;
+//   justify-content: center;
+//   align-items: center;
+//   border: 0.3rem solid #34314c;
+//   border-radius: 1rem;
+//   background-color: white;
+// `;
+// const Test = styled.span`
+
+//   padding: 6px 20px;
+//   background-color: beige;
+//   border-radius: 1rem;
+//   color: black;
+//   cursor: pointer;
+//   justify-content: bottom;
+// `;
 
 const ImgContents = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
+  flex-grow: 3;
+  flex-basis: 65%;
   position: relative;
   justify-content: center;
   align-items: center;
@@ -22,6 +46,7 @@ const Test = styled.span`
   border-radius: 1rem;
   color: black;
   cursor: pointer;
+  justify-content: bottom;
 `;
 const GroupImgs = ({ host }) => {
   const [file, setFile] = useState(null);

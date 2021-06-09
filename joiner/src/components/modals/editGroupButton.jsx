@@ -3,11 +3,8 @@ import EditGroupModal from './editGroupModal';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
- 
-  margin-right: 20px;
   display: inline-block;
   margin-top: 4vh;
-  margin-right: 20px;
   font-size: 18px;
   font-weight: 600;
   color: white;
@@ -15,6 +12,8 @@ const StyledButton = styled.button`
   background-color: #34314c;
   transition: all 0.5s ease-in-out;
   border-color: transparent;
+  border-radius: 1rem;
+  height: 50px;
   &:hover {
 
     color: #aaabd3;

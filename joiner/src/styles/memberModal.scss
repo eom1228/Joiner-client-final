@@ -1,53 +1,69 @@
 .membersModal {
-  z-index: 1050;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  //   z-index: 1050;
+  position: relative;
+  margin-top: 20px;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   background: rgba(0, 0, 0, 0.6);
   .groupMembersModal {
-    border-radius: 10px;
-    width: 480px;
-    height: 521px;
+    // border-radius: 10px;
+    width: auto;
+    height: auto;
     overflow-y: scroll;
-    background-color: #f3f4f9;
+    // background-color: #f3f4f9;
     position: relative;
     margin: 0 auto;
-    transform: translate(0, 50%);
-    padding: 20px;
-    background: #f3f4f9;
-    text-align: center;
+    // transform: translate(0, 50%);
+    // padding: 20px;
+    // background: #f3f4f9;
+    // text-align: center;
     .membersContainer {
       padding: 20px;
       width: 100%;
       display: flex;
       flex-direction: column;
+      .memberInterface {
+        display: flex;
+        // justify-content: center;
+
+        #members {
+          flex-basis: 35%;
+          margin: 0 auto;
+          //   text-align: center;
+        }
+        #chat {
+          //   align-self: flex-start;
+          flex-basis: 15%;
+          margin: 0 auto;
+          //   width: 20%;
+          height: 20%;
+          cursor: pointer;
+          background-color: #353866;
+          color: white;
+          // margin-top: 20px;
+          border-radius: 10px;
+          //   width: 40px;
+          height: 20px;
+          border-style: none;
+        }
+        // align-self: flex-start;
+        // #chat {
+        //   align-self: flex-end;
+        // }
+      }
+      //   .searchInterface {
       input {
         border-radius: 10px;
         margin-bottom: 20px;
         border: 2px solid #353866;
         height: 40px;
-        width: 200px;
+        width: 170px;
         font-size: 14px;
         padding: 9px 12px;
         color: black;
         background: #f3f4f9;
-      }
-      ul {
-        list-style: none;
-      }
-      button {
-        margin: 0 auto;
-        width: 20%;
-        cursor: pointer;
-        background-color: #353866;
-        color: white;
-        margin-top: 30px;
-        border-radius: 10px;
-        width: 100%;
-        height: 40px;
-        border-style: none;
       }
       #searchBtn {
         margin: 0 auto;
@@ -55,11 +71,38 @@
         cursor: pointer;
         background-color: #353866;
         color: white;
-        margin-top: 30px;
+        // margin-top: 20px;
         border-radius: 10px;
         width: 60px;
         height: 40px;
         border-style: none;
+        // align-self: flex-end;
+      }
+      //   }
+      .memberList {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+        ul {
+          list-style: none;
+          justify-self: flex-end;
+        }
+      }
+      //   button {
+      //     margin: 0 auto;
+      //     width: 20%;
+      //     cursor: pointer;
+      //     background-color: #353866;
+      //     color: white;
+      //     margin-top: 30px;
+      //     border-radius: 10px;
+      //     width: 100%;
+      //     height: 40px;
+      //     border-style: none;
+      //   }
+      .userInfo {
+        line-height: 5rem;
       }
       .memberDetails {
         margin: 0 auto;
