@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { useGroupContext } from '../contexts/GroupContext';
-import MemberModal from '../components/modals/memberModal';
-
+import MemberModal from '../components/modals/memberList';
+import styled from 'styled-components';
 const StyledBtnWrapper = styled.div`
   padding-top: 20px;
 `;

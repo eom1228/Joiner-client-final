@@ -4,6 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
 import '../../styles/memberModal.scss';
+import { data } from '../../dummyData/groupUserDummy';
 // import styled from 'styled-components';
 // const StyledButton = styled.button`
 
@@ -89,15 +90,11 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(e.target.name);
-    console.log(e.target.value);
     setUserInputs({ ...userInputs, [name]: value });
-    console.log(userInputs);
   };
 
   const searchFilter = () => {
     setNameFilter(true);
-    console.log(nameFilter);
   };
 
   return (
@@ -125,50 +122,33 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
               </button>
             </div>
 
-            <div className="memberList">
-              {nameFilter ? (
-                <ul className="searchResults">
-                  {groupUser &&
-                    groupUser
-                      .filter(member => member.email === userInputs.email)
-                      .map(filteredMember => (
-                        <div className="userInfo">
-                          {/* <span>{filteredMember.userIcon}</span> */}
+            <div
+              className="memberList"
+              style={{
+                overflowY: 'scroll',
+                height: '400px',
+                width: '100%',
+                marginTop: '20px',
+              }}
+            >
+              <ul className="searchResults">
+                {data
+                  .filter(member => {
+                    if (member.userName.includes(userInputs.userName)) {
+                      return member;
+                    }
+                  })
+                  .map(filteredMember => {
+                    return (
+                      <li>
+                        <div style={{ display: 'flex' }}>
+                          <div>img</div>
                           <div>{filteredMember.userName}</div>
-                          <div>{filteredMember.email}</div>
                         </div>
-                      ))}
-                </ul>
-              ) : (
-                // <ul className="list">
-                //   {console.log('test')}
-                //   {groupUser.map(member => {
-                //     // return (
-                //     <div className="memberDetails">
-                //       <span>{member.userIcon}</span>
-                //       <li key={member.id}>{member.userName}</li>
-                //       <li key={member.id}>{member.email}</li>
-                //     </div>;
-                //   })}
-                // </ul>
-                <ul>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                  <li>hi</li>
-                </ul>
-              )}
+                      </li>
+                    );
+                  })}
+              </ul>
             </div>
           </div>
         </div>
