@@ -13,6 +13,8 @@ export const groupState = {
     location: '',
     information: '',
     groupUser: [],
+    fileName: '',
+    filePath: '',
   },
   mapping_id: null,
   loading: false,
@@ -61,14 +63,23 @@ export function groupReducer(state, action) {
         error: action.error,
       };
 
+    case 'GET_GROUPIMG':
+      return {
+        ...state,
+        group: {
+          ...state.group,
+          fileName: action.fileName,
+          filePath: action.filePath,
+        },
+      };
     case 'EDIT_GROUP':
       return {
         ...state,
         group: {
           ...state.group,
-          category: action.group.category,
-          groupIntroduce: action.group.groupIntroduce,
-          title: action.group.title,
+          category: action.category,
+          groupIntroduce: action.groupIntroduce,
+          title: action.title,
         },
       };
 
@@ -111,23 +122,6 @@ export function groupReducer(state, action) {
     //       ],
     //     },
     //   };
-
-    case 'CREATE_GROUPEVENT': // createEventModal에서 따로 만들자
-      return {
-        ...state,
-        group: {
-          ...state.group,
-          events: action.payload.group.events,
-        },
-      };
-    case 'GET_CREATEDEVENT':
-      return {
-        ...state,
-        group: {
-          ...state.group,
-          events: action.payload.group.events,
-        },
-      };
     case 'GET_GROUPMEMBERS':
       return {
         ...state,

@@ -1,0 +1,91 @@
+@mixin btnStyle {
+  border-radius: 5rem;
+  border: none;
+  outline: none;
+  background: #e1e5ee;
+  // box-shadow: -5px -5px 10px rgb(209, 195, 195), 5px 5px 10px grey;
+}
+$color-background: #252c41;
+$color-pink: #f1404b;
+$color-yellow: #dddfe6;
+$color-blue: #f4f5f9;
+
+.categoryGroupBoxNotSelected {
+  margin: 0 auto;
+  width: 50%;
+  height: 90vh;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-grow: 1 1 auto;
+  flex: 1 1 40%;
+  // border: 1rem solid blue;
+  h3 {
+    margin: 0 auto;
+    width: 100%;
+    height: 15%;
+    border: 1rem solid #252c41;
+    display: flex;
+    position: relative;
+    justify-self: center;
+    flex-direction: column;
+    flex: 0.5 0.5 1%;
+  }
+  .categoryGroupLists {
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .categoryContainerNotSelected {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: relative;
+      flex: 1 1 50%;
+      border: 1rem solid #252c41;
+      ul {
+        list-style: none;
+      }
+      button {
+        margin-right: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        color: #34314c;
+        text-decoration: none;
+        background-color: #f4f5f9;
+        transition: all 0.5s ease-in-out;
+        border-color: transparent;
+        &:hover {
+          // background:
+          color: #fa5a5a;
+          cursor: pointer;
+        }
+      }
+    }
+    .groupContainerNotSelected {
+      width: 100%;
+      height: 100%;
+      flex: 1 1 50%;
+      border: 1rem solid #252c41;
+      ul {
+        list-style: none;
+      }
+      button {
+        margin-right: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        color: #34314c;
+        text-decoration: none;
+        background-color: #f4f5f9;
+        transition: all 0.5s ease-in-out;
+        border-color: transparent;
+        &:hover {
+          // background:
+          color: #fa5a5a;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

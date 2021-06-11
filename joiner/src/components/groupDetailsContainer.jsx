@@ -1,7 +1,8 @@
 import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { useGroupContext } from '../contexts/GroupContext';
-import MemberModal from '../components/modals/memberList';
+import MemberList from './memberList';
 import styled from 'styled-components';
+
 const StyledBtnWrapper = styled.div`
   padding-top: 20px;
 `;
@@ -26,7 +27,7 @@ const GroupDetailsContainer = () => {
       <StyledGroupInfoWrapper>
         {information}그룹정보-------------------------
       </StyledGroupInfoWrapper>
-      <MemberModal />
+      <MemberList />
     </div>
   );
 };

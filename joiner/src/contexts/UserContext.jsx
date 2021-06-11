@@ -7,10 +7,11 @@ export const initialState = {
     userName: '',
     email: '',
     password: '',
-    location: '',
-    groups: [],
+    userGroup: [],
     events: [],
     page: '',
+    fileName: '',
+    filePath: '',
   },
   // users: [],
   err: '',
@@ -68,11 +69,12 @@ export function userReducer(state, action) {
         ...state,
         user: {
           ...state.user,
+          id: action.id,
           userName: action.userName,
           email: action.email,
           password: action.password,
-          location: action.location,
-          groups: action.groups,
+
+          userGroup: action.userGroup,
           events: action.events,
         },
       };
@@ -90,10 +92,19 @@ export function userReducer(state, action) {
         ...state,
         user: {
           ...state.user,
-          groups: action.groups,
+          userGroup: action.userGroup,
         },
       };
 
+    case 'GET_USERICON':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          fileName: action.fileName,
+          filePath: action.filePath,
+        },
+      };
     case 'UDPDATE_USER':
       return {
         ...state,

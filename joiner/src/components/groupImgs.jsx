@@ -51,11 +51,39 @@ const Test = styled.span`
 const GroupImgs = ({ host }) => {
   const [file, setFile] = useState(null);
   const [uploadedImage, setUploadedImage] = useState({});
+  const [fetchedImage, setFetchedImage] = useState({});
   const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
   const { access_token, user } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group } = groupCurrentState;
+
+  useEffect(() => {
+    const getGroupIcon = async () => {
+      try {
+        let res = await axios.get('https://localhost:4000/upload/groupImg', {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (res.status === 200) {
+          dispatch({
+            type: 'GET_GROUPIMG',
+            fileName: res.data.fileName,
+            filePath: res.data.filePath,
+          });
+          const { fileName, filePath } = res.data;
+          setFetchedImage(fileName, filePath);
+        }
+      } catch (e) {
+        setErrorMessage(e);
+      }
+    };
+    getGroupIcon();
+  }, []);
 
   const onChange = e => {
     console.log(e.target.files[0]);
@@ -70,16 +98,23 @@ const GroupImgs = ({ host }) => {
     console.log(formData);
 
     try {
-      await axios.post(`https://localhost:4000/upload/${file.name}`, formData, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': 'multipart/form-data',
+      await axios.post(
+        `https://localhost:4000/upload/groupImg/${file.name}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          data: {
+            [group.id]: group.id,
+          },
         },
-      });
+      );
       const { fileName, filePath } = response.data;
       console.log(response);
 
-      setUploadedImage({ fileName, filePath });
+      setUploadedImage(fileName, filePath);
 
       setMessage('이미지 업로드 완료!');
     } catch (err) {
@@ -90,10 +125,27 @@ const GroupImgs = ({ host }) => {
   return (
     <ImgContents>
       <div className="groupImage">
-        {uploadedImage ? (
-          <img style={{ width: '100%' }} src={uploadedImage.filePath} alt="" />
+        {fetchedImage ? (
+          uploadedImage ? (
+            <img
+              style={{ width: '100%' }}
+              src={uploadedImage.filePath}
+              alt=""
+            />
+          ) : (
+            <img style={{ width: '100%' }} src={fetchedImage.filePath} alt="" />
+          )
         ) : null}
-
+        {/* 
+if (fetchedimage) {
+  if (uploadedImage) {
+    get uploaded Image
+  } else {
+    get fetched image 
+  }
+} else {
+  get null 
+} */}
         <form
           onSubmit={e => {
             user.id !== host.id ? alert('그룹장이 아니세요!') : onSubmit;

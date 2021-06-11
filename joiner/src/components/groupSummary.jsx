@@ -43,7 +43,7 @@ const GroupSummary = ({ group }) => {
     return (
       <SummaryContents>
         <GroupTitle>
-          <h1>{title}커피중독자들</h1>
+          <div>{title}</div>
         </GroupTitle>
         <GroupDetails>
           <div>{category}1111</div>

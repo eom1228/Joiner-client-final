@@ -85,6 +85,7 @@ font-size: 18px;
   border-color: transparent;
   border-radius: 1rem;
   &:hover {
+
     color: #aaabd3;
     cursor: pointer;
   `;
@@ -188,8 +189,10 @@ const GroupEvents = () => {
     <>
       <div>
         {console.log(groupUser)}
-        {user.id == host ||
-        user.userName == groupUser.map(member => member.userName) ? (
+        {groupUser
+          .map(member => member.userName)
+          .filter(userNameArr => userNameArr === user.userName) ===
+        [user.userName] ? (
           <>
             <EventButtonsWrapper>
               <div style={{ flex: '1 1 10%' }}>
@@ -263,11 +266,5 @@ const GroupEvents = () => {
     </div>
   );
 };
-
-/* // {eventName ? (
-    //     <EventInfoButton eventName={eventName}></EventInfoButton>
-    //   ) : (
-    //     <div>{events}</div>
-    //   )} */
 
 export default GroupEvents;
