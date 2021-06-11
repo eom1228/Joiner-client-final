@@ -15,38 +15,13 @@ const UserGroups = () => {
   // const [groupState, setGroupState] = useState(groups)
   // setGroups({ groups: res.data.userGroup });
   const { user, access_token, isLogin } = state;
-  // const { groups } = user;
+  const { userGroup } = user;
 
-  // setGroupState(Data.groupsData);
-  useEffect(() => {
-    // const getUserInfo = () => {
-    // dispatch({ type: 'GET_USERINFO' });
-    (function () {
-      console.log('1');
-      try {
-        console.log('2');
-        const res = axios.get('https://localhost:4000/user/userGroup', {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-          crossDomain: true,
-        });
-        console.log('3');
-        setGroups(res.data.userGroup);
-      } catch (err) {
-        console.log('4');
-        console.log(err);
-      }
-    });
-  }, []);
-
-  if (!groups) return <div>Loading...</div>;
+  if (!userGroup) return <div>Loading...</div>;
   return (
     <div>
       <ul>
-        {groups.map((group, index) => {
+        {userGroup.map((group, index) => {
           return <li key={index}>{group.title}</li>;
         })}
       </ul>

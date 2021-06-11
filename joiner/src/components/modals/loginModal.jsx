@@ -4,7 +4,6 @@ import { withRouter, Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/logo_remove.png';
 import axios from 'axios';
 import '../modals/loginStyle.css';
-import IsSignupModal from './signupModalBtn.jsx';
 
 axios.defaults.withCredentials = true;
 
@@ -39,11 +38,11 @@ const LoginModal = ({ isOpen, close }) => {
         });
         dispatch({
           type: 'SET_USERINFO',
+          id: res.data.data.user.id,
           email: res.data.data.user.email,
           password: res.data.data.user.password,
           userName: res.data.data.user.userName,
-          location: res.data.data.user.location,
-          groups: res.data.data.user.userGroup,
+          userGroup: res.data.data.user.userGroup,
           events: res.data.data.user.userEvent,
         });
         history.push('/main');

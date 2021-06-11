@@ -1,29 +1,11 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
-import { useGroupContext } from '../../contexts/GroupContext';
+import { useGroupContext } from '../contexts/GroupContext';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useUserContext } from '../../contexts/UserContext';
-import '../../styles/memberModal.scss';
-import { data } from '../../dummyData/groupUserDummy';
-// import styled from 'styled-components';
-// const StyledButton = styled.button`
+import { useUserContext } from '../contexts/UserContext';
+import '../styles/memberList.scss';
 
-// margin: 0 auto;
-
-// cursor: pointer;
-// // background-color: #353866;
-// color: white;
-// margin-top: 20px;
-// border-radius: 10px;
-// width: 10px;
-// height: 40px;
-// border-style: none;
-//   &:hover {
-
-//     color: #aaabd3;
-//     cursor: pointer;
-//   `;
-const MemberModal = ({ isOpen, handleModal, close }) => {
+const MemberList = () => {
   const [userInputs, setUserInputs] = useState({
     userName: '',
     email: '',
@@ -64,29 +46,6 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
     };
     getMembers();
   }, []);
-
-  // useEffect(() => {
-  //   const getMembers = () => {
-  //     groupDispatch({ type: 'GET_DATA' })
-  //       const res = await axios
-  //       .get('https://localhost:4000/group/groupMember', {
-  //         headers: {
-  //           Authorization: `Bearer ${access_token}`,
-  //           'Content-Type': 'application/json',
-  //         },
-  //         withCredentials: true,
-  //         crossDomain: true,
-  //       })
-  //       .then(res => {
-  //         groupDispatch({ type: 'GET_GROUPMEMBERS', members: res.data.members })
-  //       })
-  //       .catch(err => {
-  //         groupDispatch({ type: 'GET_ERROR', error: err})
-  //       })
-
-  //   };
-  //   getMembers();
-  // }, [])
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -132,7 +91,7 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
               }}
             >
               <ul className="searchResults">
-                {data
+                {groupUser
                   .filter(member => {
                     if (member.userName.includes(userInputs.userName)) {
                       return member;
@@ -156,4 +115,4 @@ const MemberModal = ({ isOpen, handleModal, close }) => {
     </>
   );
 };
-export default withRouter(MemberModal);
+export default withRouter(MemberList);
