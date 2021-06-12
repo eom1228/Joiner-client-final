@@ -13,7 +13,7 @@ $color-blue: #f4f5f9;
 .categoryGroupBoxNotSelected {
   margin: 0 auto;
   width: 50%;
-  height: 90vh;
+  height: 75vh;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -24,10 +24,12 @@ $color-blue: #f4f5f9;
     margin: 0 auto;
     width: 100%;
     height: 15%;
-    border: 1rem solid #252c41;
+    border: 0.5rem solid #34314c;
+    border-radius: 20px;
+
     display: flex;
     position: relative;
-    justify-self: center;
+    text-align: center;
     flex-direction: column;
     flex: 0.5 0.5 1%;
   }
@@ -43,8 +45,9 @@ $color-blue: #f4f5f9;
       display: flex;
       position: relative;
       flex: 1 1 50%;
-      border: 1rem solid #252c41;
-      ul {
+      border-radius: 30px;
+      border: 0.5rem solid #34314c;
+      .categoryPair {
         list-style: none;
       }
       button {
@@ -62,14 +65,42 @@ $color-blue: #f4f5f9;
           cursor: pointer;
         }
       }
+      .categoryRow {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(50%, auto));
+        // grid-template-columns: repeat(2, minmax(200px, auto));
+        // grid-template-rows: repeat(auto-fit, minmax(10%, auto));
+        // border-radius: 50px;
+        // border: 1rem solid #34314c;
+        width: 100%;
+
+        #categoryPair {
+          border-radius: 30px;
+          //   border: 0.5rem solid #fa5a5a;
+
+          width: 100%;
+          #categoryIcon {
+            display: inline;
+          }
+          #categoryName {
+            display: inline-block;
+          }
+        }
+      }
     }
     .groupContainerNotSelected {
       width: 100%;
       height: 100%;
       flex: 1 1 50%;
-      border: 1rem solid #252c41;
+      border-radius: 30px;
+      border: 0.5rem solid #34314c;
+
       ul {
         list-style: none;
+        text-align: center;
+        line-height: 6em;
+        overflow-y: scroll;
+        height: 100%;
       }
       button {
         margin-right: 20px;

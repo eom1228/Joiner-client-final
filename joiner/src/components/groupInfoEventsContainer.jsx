@@ -11,14 +11,16 @@ const InfoEventsContainer = styled.div`
 `;
 const StyledGroupDetails = styled.div`
   flex-basis: 45%;
-  border: 0.3rem solid #34314c;
+  border: 0.4rem solid #34314c;
+  border-radius: 20px;
 `;
 
 const StyledEvents = styled.div`
   display: flex;
   flex-basis: 55%;
   height: 100%;
-  border: 1rem solid black;
+  border: 0.4rem solid #34314c;
+  border-radius: 20px;
   justify-content: center;
 `;
 

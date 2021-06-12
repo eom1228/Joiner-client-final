@@ -17,7 +17,7 @@ export const initialState = {
   err: '',
   access_token: '',
   // token_type: 'Bearer',
-  isLogin: false,
+  isLogin: true,
   isLoading: false,
   //   errorMessage: null,
 };

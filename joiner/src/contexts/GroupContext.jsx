@@ -9,7 +9,7 @@ export const groupState = {
     category: '', // category_id
     host: '', // groupIntroduce
     groupIntroduce: '',
-    memberCount: 2,
+    memberCount: 1,
     location: '',
     information: '',
     groupUser: [],

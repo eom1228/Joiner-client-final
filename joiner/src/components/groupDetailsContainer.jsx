@@ -24,9 +24,7 @@ const GroupDetailsContainer = () => {
   return (
     <div>
       <StyledBtnWrapper></StyledBtnWrapper>
-      <StyledGroupInfoWrapper>
-        {information}그룹정보-------------------------
-      </StyledGroupInfoWrapper>
+      <StyledGroupInfoWrapper>{information}</StyledGroupInfoWrapper>
       <MemberList />
     </div>
   );

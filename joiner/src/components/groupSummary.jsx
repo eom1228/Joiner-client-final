@@ -14,22 +14,23 @@ const SummaryContents = styled.div`
   justify-content: top;
   text-align: center;
   flex-direction: column;
-  border: 0.3rem solid #34314c;
+  border: 0.4rem solid #34314c;
   background-color: white;
   border-radius: 1rem;
   padding-top: 30px;
 `;
 const GroupTitle = styled.h1`
-  font-size: 15px;
+  font-size: 22px;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
   padding-left: 20px;
   // vertical-align: text-top;
 `;
 
 const GroupDetails = styled.div`
   margin-top: 30px;
-  font-size: 15px;
+  font-size: 17px;
+  font-family: Roboto, Arial, sans-serif;
 `;
 const GroupSummary = ({ group }) => {
   const { title, category, host, memberCount } = group;
@@ -46,11 +47,11 @@ const GroupSummary = ({ group }) => {
           <div>{title}</div>
         </GroupTitle>
         <GroupDetails>
-          <div>{category}1111</div>
+          <div>{category}</div>
           {user.id === host ? (
-            <div style={{ marginTop: '10px' }}>{user.userName}fdsafsdaf</div>
+            <div style={{ marginTop: '10px' }}>{user.userName}</div>
           ) : null}
-          <div style={{ marginTop: '10px' }}>{memberCount}</div>
+          <div style={{ marginTop: '10px' }}>인원수: {memberCount}명</div>
         </GroupDetails>
       </SummaryContents>
     );
