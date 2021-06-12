@@ -35,7 +35,7 @@ $color-blue: #f4f5f9;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: white;
+      background-color: #f4f5f9;
       border-radius: 50px;
       border: 1rem solid #34314c;
       flex: 3;
@@ -49,21 +49,46 @@ $color-blue: #f4f5f9;
         align-items: center;
         // border: 0.3rem solid #34314c;
         border-radius: 1rem;
-        background-color: white;
+        background-color: #f4f5f9;
       }
-      form {
+      input[type="file"] {
         width: 100%;
         display: flex;
         justify-content: center;
-        input{
-          padding: 6px 20px;
-          background-color:#f4f5f9;
-          border-radius: 1rem;
-          color: #34314c;
+        margin-top: 4vh;
+        // margin-right: 20px;
+        font-size: 18px;
+        font-weight: 600px;
+        color:#34314c;
+        text-decoration: none;
+        background-color: #f4f5f9;
+        transition: all 0.5s ease-in-out;
+        border-color: transparent;
+        &:hover {
+          // background:
+          color: #fa5a5a;
           cursor: pointer;
-          justify-content: bottom;
         }
       }
+      button {
+      // margin-right: 20px;
+      // // display: inline-block;
+        margin-top: 4vh;
+        // margin-right: 20px;
+        font-size: 18px;
+        font-weight: 600px;
+        color:#34314c;
+        text-decoration: none;
+        background-color: #f4f5f9;
+        transition: all 0.5s ease-in-out;
+        border-color: transparent;
+        &:hover {
+          // background:
+          color: #fa5a5a;
+          cursor: pointer;
+        }
+      }
+        }
     }
     .userInfo {
       margin: 0 auto;
@@ -79,13 +104,13 @@ $color-blue: #f4f5f9;
       button {
         // margin-right: 20px;
         // // display: inline-block;
-        // // margin-top: 4vh;
+        margin-top: 4vh;
         // margin-right: 20px;
         font-size: 18px;
         font-weight: 600px;
         color:#34314c;
         text-decoration: none;
-        background-color: #f4f5f9;
+        // background-color: #f4f5f9;
         transition: all 0.5s ease-in-out;
         border-color: transparent;
         &:hover {
@@ -96,7 +121,7 @@ $color-blue: #f4f5f9;
       }
       input {
         border-radius: 10px;
-        margin-bottom: 50px;
+        margin-bottom: 0px;
         border: 2px solid #353866;
         height: 40px;
         font-size: 14px;
@@ -138,7 +163,6 @@ $color-blue: #f4f5f9;
       }
     }
   }
-}
 
 @media screen and (max-width: 800px) {
   .myPageContainer {

@@ -125,7 +125,12 @@ const UserIcon = () => {
           />
           <input type="submit" value="Upload" />
         </form> */}
-        <input type="file" name="imageFile" onChange={onChange} />
+        <input
+          type="file"
+          className="imageFile"
+          name="imageFile"
+          onChange={onChange}
+        />
         <button onClick={onSubmit}>업로드</button>
       </div>
     </>
