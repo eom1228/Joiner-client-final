@@ -15,7 +15,7 @@ const GroupsByCategoryPage = () => {
   const [mapId, setMapId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState({
     name: '',
-    filePath: '',
+    fileName: '',
   });
   const [userInputs, setUserInputs] = useState({ searchedGroup: '' });
   const [groupFilter, setGroupFilter] = useState(false);
@@ -64,32 +64,7 @@ const GroupsByCategoryPage = () => {
     getData();
   }, [mapId]);
 
-  // const handleClickGroup = e => {
-  //   console.log(e.target.value);
-  //   axios
-  //     .post('https://localhost:4000/category/groupList', {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       data: {
-  //         group_id: e.target.value,
-  //       },
-  //       withCredentials: true,
-  //       crossDomain: true,
-  //     })
-  //     .then(res => {
-  //       // res.data.id;
-  //       console.log(res.data.group_id);
-  //       // history.push('/groupPage');
-  //       console.log(res);
-  //       if (res.status === 200) {
-  //         history.push(`/groupPage/${res.data.group_id}`);
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
+  useEffect(() => {}, [selectedCategory]);
   const handleClickGroup = e => {
     setMapId(e.target.value);
     const id = e.target.value;
@@ -109,186 +84,79 @@ const GroupsByCategoryPage = () => {
   };
 
   const handleClickCategory = e => {
-    setSelectedCategory({ name: e.target.name, filePath: e.target.filePath });
+    setSelectedCategory({
+      name: e.target.name, //id값 들어갑니다
+      fileName: e.target.fileName,
+    });
     console.log(e.target);
   };
-  const searchFilter = () => {
-    setGroupFilter(true);
-  };
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setUserInputs({ ...userInputs, [name]: value });
-  };
 
-  return selectedCategory ? ( // 클릭된 카테고리가 있을 시
-    <div className="categoryGroupBox">
-      // 카테고리와 그룹을 포함한 전체 컨테이너
-      <h3>원하는 카테고리를 선택해 보아요!</h3>
-      <div className="searchInterface">
-        // 그룹명 검색창
-        <input
-          value={userInputs.searchedGroup}
-          name="searchedGroup"
-          className="searchbox"
-          type="text"
-          placeholder="그룹을 검색하세요"
-          onChange={handleChange}
-          style={{ marginTop: '20px' }}
-        />
-        <button id="searchBtn" onClick={searchFilter}>
-          검색
-        </button>
-      </div>
-      <div className="categoryContainer">
-        // 카테고리 목록 컨테이너
-        <div className="selectedCategory">
-          <div className="selectedCategoryIcon">
-            <img
-              src={`http://localhost:4000/${selectedCategory.filePath}`}
-            ></img>
-          </div>
-          <div className="selectedCategoryName">{selectedCategory.name}</div>
-        </div>
-        <div>
-          {categories // 클릭된 카테고리를 제외한 나머지 카테고리 (이미지 + 사진)
-            .filter(category => category.title !== selectedCategory.name)
-            .map(filteredCategory => (
-              <li key={filteredCategory.id}>
-                <img
-                  src={`http://localhost:4000/${filteredCategory.filePath}`}
-                  onClick={handleClickCategory}
-                ></img>
-                <button
-                  onClick={handleClickCategory}
-                  value={filteredCategory.id}
-                >
-                  {filteredCategory.title}
-                </button>
-              </li>
-            ))}
-        </div>
-      </div>
-      {groupFilter ? ( // 그룹명 검색 시 :
-        <ul className="searchResults">
-          {groups
-            .filter(group => {
-              // 그룹명 중 검색한 그룹명과 일치하는 그룹을 반환
-              if (group.title.includes(userInputs.searchedGroup)) {
-                return group;
-              }
-            })
-            .map(filteredGroup => {
-              return (
-                <li>
-                  <div style={{ display: 'flex' }}>
-                    <img src={filteredGroup.filePath}></img>
-                    <button onClick={handleClickGroup} value={filteredGroup.id}>
-                      {filteredGroup.title}
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
-      ) : (
-        // 그룹명 검색을 안했다면  :
-        <div className="groupContainer">
-          <ul>
-            {groups
-              .filter(group => {
-                // console.log(group.category_id);
-                // console.log(group.category_id == selectedCategory);
-                return group.category_id == selectedCategory;
-              })
-              .map(filteredGroup => {
-                return (
-                  <>
-                    {console.log(filteredGroup)}
-                    <li key={filteredGroup.id}>
-                      <button
-                        onClick={handleClickGroup}
-                        value={filteredGroup.id}
-                      >
-                        {filteredGroup.title}
-                      </button>
-                    </li>
-                  </>
-                );
-              })}
-          </ul>
-        </div>
-      )}
-    </div> // -----------------------------------------------------------
-  ) : (
+  return (
     // 첫화면: 카테고리 목록, 그룹 목록 불러오기  (카테고리 선택 안한 상황)
     <div className="categoryGroupBoxNotSelected">
       <h3>원하는 카테고리를 선택해 보아요!</h3>
-      <div className="searchInterface">
-        <input
-          value={userInputs.searchedGroup}
-          name="searchedGroup"
-          className="searchbox"
-          type="text"
-          placeholder="이름을 검색하세요"
-          onChange={handleChange}
-          style={{ marginTop: '20px' }}
-        />
-        <button id="searchBtn" onClick={searchFilter}>
-          검색
-        </button>
-      </div>
+
       <div className="categoryGroupLists">
         <div className="categoryContainerNotSelected">
-          <ul>
+          <div className="categoryRow">
             {categories.map(category => (
-              <li key={category.id}>
+              <div id="categoryPair">
                 <img
-                  src={`http://localhost:4000/${category.filePath}`}
+                  name={category.id}
+                  id="categoryIcon"
+                  src={`https://localhost:4000/categoryImgs/${category.fileName}`}
                   onClick={handleClickCategory}
                 ></img>
-                <button onClick={handleClickCategory} value={category.id}>
-                  {category.title}
-                </button>
-              </li>
+              </div>
             ))}
+          </div>
+        </div>
+        <div className="groupContainerNotSelected">
+          <ul>
+            {console.log('Categ1' + groups)}
+            {console.log(
+              'Categ2',
+              groups
+                .map(group => group.category_id)
+                .filter(id => id == selectedCategory.name)[0],
+            )}
+            {console.log('Categ3' + selectedCategory.name)}
+            {groups
+              .map(group => group.category_id)
+              .filter(group => group == selectedCategory.name)[0] ==
+            selectedCategory.name ? (
+              <>
+                {groups
+                  .filter(group => {
+                    return group.category_id == selectedCategory.name;
+                  })
+                  .map(group => {
+                    return (
+                      <li key={group.id}>
+                        <button onClick={handleClickGroup} value={group.id}>
+                          {group.title}
+                        </button>
+                      </li>
+                    );
+                  })}
+              </>
+            ) : (
+              <>
+                {groups.map(
+                  (
+                    group, // <-- 기본상태
+                  ) => (
+                    <li key={group.id}>
+                      <button onClick={handleClickGroup} value={group.id}>
+                        {group.title}
+                      </button>
+                    </li>
+                  ),
+                )}
+              </>
+            )}
           </ul>
         </div>
-        {groupFilter ? (
-          <ul className="searchResults">
-            {groups
-              .filter(group => {
-                if (group.title.includes(userInputs.searchedGroup)) {
-                  return group;
-                }
-              })
-              .map(filteredGroup => {
-                return (
-                  <li>
-                    <div style={{ display: 'flex' }}>
-                      <button
-                        onClick={handleClickGroup}
-                        value={filteredGroup.id}
-                      >
-                        {filteredGroup.title}
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-          </ul>
-        ) : (
-          <div className="groupContainerNotSelected">
-            <ul>
-              {groups.map(group => (
-                <li key={group.id}>
-                  <button onClick={handleClickGroup} value={group.id}>
-                    {group.title}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </div>
   );
