@@ -12,7 +12,7 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
   const [inputs, setInputs] = useState({
     title: '',
     information: '',
-    date: '',
+    eventDay: '',
     lat: '',
     lng: '',
     limit: '',
@@ -26,9 +26,9 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
   const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
 
-  const { token } = state;
+  const { access_token } = state;
   const { group } = groupCurrentState;
-  const { events } = group;
+  // const { events } = group;
   function setLatLng(lat, lng) {
     setInputs({ ...inputs, lat: lat, lng: lng });
   }
@@ -44,25 +44,24 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
   function handleClick() {
     const createGroupEvent = async () => {
       try {
-        let res = await axios.post(
-          'http://localhost:4000/main/groupPage/createEvent',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            data: {
-              group_id: group.id,
-              title: inputs.title,
-              information: inputs.information,
-              lat: inputs.lat,
-              lng: inputs.lng,
-              limit: inputs.limit, // 확인!!!
-            },
-            withCredentials: true,
-            crossDomain: true,
+        let res = await axios.post('https://localhost:4000/event/createEvent', {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
           },
-        );
+          data: {
+            group_id: group.id,
+            title: inputs.title,
+            information: inputs.information,
+            lat: inputs.lat,
+            lng: inputs.lng,
+            limit: inputs.limit, // 확인!!!
+            eventDay: inputs.eventDay,
+          },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        console.log(res);
         if (res.status === 200) {
           setStatusMessage(res.data);
         }
@@ -70,6 +69,7 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
         setStatusMessage(e);
       }
     };
+    createGroupEvent();
   }
 
   useEffect(() => {
@@ -134,8 +134,6 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
       ...inputs,
       [e.target.id]: e.target.value,
     });
-    if (e.target.id === 'limit') {
-    }
   };
 
   return (
@@ -147,7 +145,7 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
         }}
       >
         <div className="eventContentBox">
-          <form>
+          <form onsubmit="return false">
             <input
               placeholder="이벤트명"
               type="text"
@@ -165,7 +163,7 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
               onChange={handleChange}
             />
 
-            <input type="date"></input>
+            <input type="date" id="eventDay" onChange={handleChange}></input>
 
             <input
               placeholder="인원 제한수"
@@ -176,7 +174,7 @@ const CreateEventModal = ({ isOpen, handleModal, close, event }) => {
               onChange={handleChange}
             />
 
-            <button type="submit" onClick={handleClick}>
+            <button type="button" onClick={handleClick}>
               생성
             </button>
             <button onClick={close}>취소</button>

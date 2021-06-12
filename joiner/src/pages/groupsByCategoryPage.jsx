@@ -143,11 +143,11 @@ const GroupsByCategoryPage = () => {
         // 카테고리 목록 컨테이너
         <div className="selectedCategory">
           <div className="selectedCategoryIcon">
-            <img src={selectedCategory.filePath}></img> // src
+            <img
+              src={`http://localhost:4000/${selectedCategory.filePath}`}
+            ></img>
           </div>
-          // 클릭된 카테고리 이미지
-          <div className="selectedCategoryName">{selectedCategory.name}</div> //
-          클릭된 카테고리 이름
+          <div className="selectedCategoryName">{selectedCategory.name}</div>
         </div>
         <div>
           {categories // 클릭된 카테고리를 제외한 나머지 카테고리 (이미지 + 사진)
@@ -155,10 +155,9 @@ const GroupsByCategoryPage = () => {
             .map(filteredCategory => (
               <li key={filteredCategory.id}>
                 <img
-                  src={filteredCategory.filePath}
+                  src={`http://localhost:4000/${filteredCategory.filePath}`}
                   onClick={handleClickCategory}
                 ></img>
-                // src
                 <button
                   onClick={handleClickCategory}
                   value={filteredCategory.id}
@@ -183,7 +182,9 @@ const GroupsByCategoryPage = () => {
                 <li>
                   <div style={{ display: 'flex' }}>
                     <img src={filteredGroup.filePath}></img>
-                    <div>{filteredGroup.title}</div>
+                    <button onClick={handleClickGroup} value={filteredGroup.id}>
+                      {filteredGroup.title}
+                    </button>
                   </div>
                 </li>
               );
@@ -242,10 +243,9 @@ const GroupsByCategoryPage = () => {
             {categories.map(category => (
               <li key={category.id}>
                 <img
-                  src={category.filePath}
+                  src={`http://localhost:4000/${category.filePath}`}
                   onClick={handleClickCategory}
                 ></img>
-                // src
                 <button onClick={handleClickCategory} value={category.id}>
                   {category.title}
                 </button>
@@ -265,7 +265,12 @@ const GroupsByCategoryPage = () => {
                 return (
                   <li>
                     <div style={{ display: 'flex' }}>
-                      <div>{filteredGroup.title}</div>
+                      <button
+                        onClick={handleClickGroup}
+                        value={filteredGroup.id}
+                      >
+                        {filteredGroup.title}
+                      </button>
                     </div>
                   </li>
                 );

@@ -89,7 +89,6 @@ font-size: 18px;
     color: #aaabd3;
     cursor: pointer;
   `;
-
 const GroupEvents = () => {
   const { state, dispatch } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
@@ -100,12 +99,9 @@ const GroupEvents = () => {
   const { groups } = user;
   const [events, setEvents] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
-
+  const { test, setTest } = useState('');
   useEffect(() => {
-    console.log('hihi');
-
     const getGroupEvents = async () => {
-      console.log('뭘로 찍냐구요!!!');
       try {
         let res = await axios.get('https://localhost:4000/event/eventList', {
           headers: {
@@ -119,8 +115,8 @@ const GroupEvents = () => {
           crossDomain: true,
         });
         if (res.status === 200) {
-          console.log(res.data);
-          console.log(events);
+          // console.log(res.data);
+          // console.log(events);
           setEvents(res.data);
           console.log(events);
           // return;
@@ -149,6 +145,7 @@ const GroupEvents = () => {
       })
       .then(res => {
         setResponseMessage(res.data);
+        window.location.reload();
       })
       .catch(e => setResponseMessage(e));
   };
@@ -168,75 +165,73 @@ const GroupEvents = () => {
       })
       .then(res => {
         setResponseMessage(res.data);
+        window.location.reload();
       })
       .catch(e => setResponseMessage(e));
   };
 
   const handleLeaveClick = () => {
     leaveGroup();
-    window.location.reload();
   };
 
   const handleJoinClick = () => {
     joinGroup();
-    window.location.reload();
   };
 
   if (!events) return null;
   if (!groupUser) return <div>Loading!!!</div>;
 
   return isLogin ? (
-    <>
-      <div>
-        {console.log(groupUser)}
-        {groupUser
+    <div>
+      {/* {groupUser                        .slice(0, 1)
           .map(member => member.userName)
           .filter(userNameArr => userNameArr === user.userName) ===
-        [user.userName] ? (
-          <>
-            <EventButtonsWrapper>
-              <div style={{ flex: '1 1 10%' }}>
-                <CreateEventButton />
+        [user.userName]} */}
+      {console.log(test, 'hehe')}
+      {console.log(groupUser, 'hehe')}
+      {console.log(user, 'userrr')}
+      {groupUser.map(e => e.id).filter(e => e === user.id)[0] ? (
+        <EventButtonsWrapper>
+          <div style={{ flex: '1 1 10%' }}>
+            <CreateEventButton />
 
-                <EditGroupButton />
-              </div>
-              <div style={{ flex: '1 1 70%' }}>
-                <p style={{ marginTop: '25px' }}>예정된 이벤트</p>
-                <ul>
-                  {events.map(event => (
-                    <li key={event.id}>
-                      <StyledEventButton>
-                        <EventInfoButton event={event}></EventInfoButton>
-                      </StyledEventButton>
-                      <p>{event.information}</p>
-                      <p>{event.date}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div
-                style={{
-                  flex: '1 1 20%',
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <StyledButton className="groupLeave" onClick={handleLeaveClick}>
-                  그룹 탈퇴
-                </StyledButton>
-              </div>
-            </EventButtonsWrapper>
-          </>
-        ) : (
-          <div>
-            <StyledButtonJoin onClick={handleJoinClick}>
-              그룹 가입
-            </StyledButtonJoin>
+            <EditGroupButton />
           </div>
-        )}
-      </div>
-    </>
+          <div style={{ flex: '1 1 70%' }}>
+            <p style={{ marginTop: '25px' }}>예정된 이벤트</p>
+            <ul>
+              {events.map(event => (
+                <li key={event.id}>
+                  <StyledEventButton>
+                    <EventInfoButton event={event}></EventInfoButton>
+                  </StyledEventButton>
+                  <p>{event.information}</p>
+                  <p>{event.eventDay}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            style={{
+              flex: '1 1 20%',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <StyledButton className="groupLeave" onClick={handleLeaveClick}>
+              그룹 탈퇴
+            </StyledButton>
+          </div>
+        </EventButtonsWrapper>
+      ) : (
+        <div>
+          <StyledButtonJoin onClick={handleJoinClick}>
+            그룹 가입
+          </StyledButtonJoin>
+        </div>
+      )}
+    </div>
   ) : (
     <div>
       {console.log(events)}
@@ -257,7 +252,7 @@ const GroupEvents = () => {
                 <EventInfoButton event={event}></EventInfoButton>
               </StyledEventButton>
               <p>{event.information}</p>
-              <p>{event.date}</p>
+              <p>{event.eventDay}</p>
             </li>
           ))}
           {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}

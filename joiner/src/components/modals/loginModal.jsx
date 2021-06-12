@@ -44,6 +44,8 @@ const LoginModal = ({ isOpen, close }) => {
           userName: res.data.data.user.userName,
           userGroup: res.data.data.user.userGroup,
           events: res.data.data.user.userEvent,
+          fileName: res.data.data.user.fileName,
+          filePath: res.data.data.user.filePath,
         });
         history.push('/main');
       })
