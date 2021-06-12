@@ -36,7 +36,7 @@ const ImgContents = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  border: 0.3rem solid #34314c;
+  border: 0.4rem solid #34314c;
   border-radius: 1rem;
   background-color: white;
 `;

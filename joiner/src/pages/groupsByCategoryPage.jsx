@@ -4,6 +4,9 @@ import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
 import '../styles/groupsByCategoryPage.scss';
+import data from '../dummyData/categoryDummy';
+import groupData from '../dummyData/groupDummy';
+
 // import Footer from './footer';
 // import NavBar from './navBar';
 axios.defaults.withCredentials = true;
@@ -94,17 +97,21 @@ const GroupsByCategoryPage = () => {
   return (
     // 첫화면: 카테고리 목록, 그룹 목록 불러오기  (카테고리 선택 안한 상황)
     <div className="categoryGroupBoxNotSelected">
-      <h3>원하는 카테고리를 선택해 보아요!</h3>
+      <h3>원하는 카테고리의 그룹을 선택해 보아요!</h3>
 
       <div className="categoryGroupLists">
         <div className="categoryContainerNotSelected">
           <div className="categoryRow">
-            {categories.map(category => (
+            {data.categories.map(category => (
               <div id="categoryPair">
                 <img
                   name={category.id}
                   id="categoryIcon"
-                  src={`https://localhost:4000/categoryImgs/${category.fileName}`}
+                  // src={`https://localhost:4000/categoryImgs/${category.fileName}`}
+                  src={
+                    'https://cdn.discordapp.com/attachments/836112787276562437/852916157140041758/200622____11_-removebg-preview.png'
+                  }
+                  style={{ width: '100%', height: '100%' }}
                   onClick={handleClickCategory}
                 ></img>
               </div>
@@ -116,24 +123,28 @@ const GroupsByCategoryPage = () => {
             {console.log('Categ1' + groups)}
             {console.log(
               'Categ2',
-              groups
+              groupData.groups
                 .map(group => group.category_id)
                 .filter(id => id == selectedCategory.name)[0],
             )}
             {console.log('Categ3' + selectedCategory.name)}
-            {groups
+            {groupData.groups
               .map(group => group.category_id)
               .filter(group => group == selectedCategory.name)[0] ==
             selectedCategory.name ? (
               <>
-                {groups
+                {groupData.groups
                   .filter(group => {
                     return group.category_id == selectedCategory.name;
                   })
                   .map(group => {
                     return (
                       <li key={group.id}>
-                        <button onClick={handleClickGroup} value={group.id}>
+                        <button
+                          className="groupTitle"
+                          onClick={handleClickGroup}
+                          value={group.id}
+                        >
                           {group.title}
                         </button>
                       </li>
@@ -142,12 +153,16 @@ const GroupsByCategoryPage = () => {
               </>
             ) : (
               <>
-                {groups.map(
+                {groupData.groups.map(
                   (
                     group, // <-- 기본상태
                   ) => (
                     <li key={group.id}>
-                      <button onClick={handleClickGroup} value={group.id}>
+                      <button
+                        className="groupTitle"
+                        onClick={handleClickGroup}
+                        value={group.id}
+                      >
                         {group.title}
                       </button>
                     </li>
