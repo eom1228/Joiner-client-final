@@ -76,19 +76,15 @@ const GroupImgs = ({ host }) => {
     console.log(formData);
 
     try {
-      await axios.post(
-        `https://localhost:4000/upload/groupImg/${file.name}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-          data: {
-            group_id: group.id,
-          },
+      await axios.post(`https://localhost:4000/upload/groupImg`, formData, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'multipart/form-data',
         },
-      );
+        data: {
+          group_id: group.id,
+        },
+      });
       const { fileName, filePath } = response.data;
       console.log(response);
 
@@ -108,13 +104,13 @@ const GroupImgs = ({ host }) => {
           uploadedImage ? (
             <img
               style={{ width: '100%' }}
-              src={`https://localhost:4000/${uploadedImage.filePath}`}
+              src={`https://localhost:4000/groupImgs/${group.fileName}`}
               alt=""
             />
           ) : (
             <img
               style={{ width: '100%' }}
-              src={`https://localhost:4000/${fetchedImage.group.filePath}`}
+              src={`https://localhost:4000/groupImgs/${group.fileName}`}
               alt=""
             />
           )
