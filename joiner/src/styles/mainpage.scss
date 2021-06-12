@@ -11,17 +11,18 @@ $color-blue: #f4f5f9;
   .mainSection1 {
     width: 100%;
     height: 10%;
-    background: url('https://images.pexels.com/photos/1483024/pexels-photo-1483024.jpeg?cs=srgb&dl=pexels-mali-maeder-1483024.jpg&fm=jpg');
+    background-color: #ea4c63;
+    // background: url('https://images.pexels.com/photos/1483024/pexels-photo-1483024.jpeg?cs=srgb&dl=pexels-mali-maeder-1483024.jpg&fm=jpg');
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    border-radius: 2rem;
+    border-radius: 5rem;
     margin-bottom: 0.5rem;
     span {
       cursor: pointer;
-      color: black;
+      color: #f4f5f9;
       font-weight: 600;
       font-size: 24px;
     }
@@ -35,7 +36,7 @@ $color-blue: #f4f5f9;
       width: 80%;
       margin: 0 auto;
       border-radius: 1rem;
-      margin-top: 5%;
+      margin-top: 2%;
     }
   }
 }

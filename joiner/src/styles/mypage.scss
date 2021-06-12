@@ -13,40 +13,56 @@ $color-blue: #f4f5f9;
 
 .myPageContainer {
   // border: 1rem solid blue;
+  justify-content: space-between;
   margin: 0 auto;
   width: 50vw;
   height: 90vh;
   display: flex;
   flex-direction: column;
   .userInfoBox {
-    margin-top: 80px;
+    margin-top: 30px;
     width: 100%;
     // border: 1rem solid red;
     display: flex;
     flex: 0.5 0.5 40%;
     flex-direction: row;
-    .userImage {
+   .userImage {
       width: 50%;
       display: flex;
+      justify-content: center;
       text-align: center;
       position: relative;
-      // justify-content: center;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
       background-color: white;
       border-radius: 50px;
       border: 1rem solid #34314c;
-      flex: 1 1 auto;
-      .form {
+      flex: 3;
+      img{
+        width: 50%;
+        display: flex;
+        // flex-grow: 3;
+        flex-basis: 0;
+        // position: relative;
+        justify-content: center;
+        align-items: center;
+        // border: 0.3rem solid #34314c;
+        border-radius: 1rem;
+        background-color: white;
+      }
+      form {
         width: 100%;
         display: flex;
-        text-align: center;
-        justify-content: flex-end;
-        align-items: top;
-        padding: 6px 20px;
-        background-color: beige;
-        border-radius: 1rem;
-        color: black;
-        cursor: pointer;
+        justify-content: center;
+        input{
+          padding: 6px 20px;
+          background-color:#f4f5f9;
+          border-radius: 1rem;
+          color: #34314c;
+          cursor: pointer;
+          justify-content: bottom;
+        }
       }
     }
     .userInfo {
@@ -55,11 +71,11 @@ $color-blue: #f4f5f9;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background-color: white;
+      background-color: #f4f5f9;
       border-radius: 50px;
       border: 1rem solid #34314c;
       // border: 1rem solid pink;
-      flex: 1 1 auto;
+      flex: 1;
       button {
         // margin-right: 20px;
         // // display: inline-block;
@@ -67,20 +83,20 @@ $color-blue: #f4f5f9;
         // margin-right: 20px;
         font-size: 18px;
         font-weight: 600px;
-        color: white;
+        color:#34314c;
         text-decoration: none;
-        background-color: #aaabd3;
+        background-color: #f4f5f9;
         transition: all 0.5s ease-in-out;
         border-color: transparent;
         &:hover {
           // background:
-          color: #34314c;
+          color: #fa5a5a;
           cursor: pointer;
         }
       }
       input {
         border-radius: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         border: 2px solid #353866;
         height: 40px;
         font-size: 14px;
@@ -91,11 +107,36 @@ $color-blue: #f4f5f9;
       > span {
         align-self: center;
       }
+      p {
+        text-align: center;
+      }
     }
   }
   .userGroupBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50%;
     flex: 1 0 50%;
-    border: 1rem solid sandybrown;
+    border: 1rem solid #34314c;
+    border-radius: 50px;
+    h2{
+      font-family: Roboto, Arial, sans-serif;
+      text-align: center;
+    }
+    ul{
+      justify-self: flex-end;
+      justify-content: center;
+      list-style: none;
+      li{
+        font-family: Roboto, Arial, sans-serif;
+        margin-top: 0 auto;
+        text-shadow: 2px 2px 2px gray;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: center;
+
+      }
+    }
   }
 }
 

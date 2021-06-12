@@ -4,8 +4,24 @@ $color-yellow: #dddfe6;
 $color-blue: #f4f5f9;
 
 .footerContainer {
-  background-color: #f4f5f9;
-  h1 {
-    color: black;
+  background-color: #34314c;
+  font-family: 'Staatliches', cursive;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+  .joinerMem {
+    font-family: 'Staatliches', cursive;
+    li{
+      display: inline-block;
+      color: #f4f5f9;
+      align-items: center;
+      a{
+        text-align: center;
+        size: large;
+      }
+    }
   }
 }
