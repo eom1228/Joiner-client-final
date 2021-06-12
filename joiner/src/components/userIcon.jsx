@@ -85,6 +85,9 @@ const UserIcon = () => {
       {/* form 의 type을 enctype="multipart/form-data" 로 설정해야
     // //       사용자가 전송한 파일을 서버로 전송할 수 있다. */}
       <div className="userImage">
+        <div className="addPic">
+          <h3>📷 프로필 사진을 추가해주세요 📷</h3>
+        </div>
         <div>
           {!uploadedImage.fileName || !uploadedImage.filePath ? (
             <img
@@ -110,6 +113,7 @@ const UserIcon = () => {
           action="upload"
           method="post"
           encType="multipart/form-data"
+          style={{ textalign: 'center' }}
         >
           <input
             // src={}

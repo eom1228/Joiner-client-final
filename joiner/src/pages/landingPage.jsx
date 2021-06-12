@@ -46,13 +46,13 @@ const LandingPage = props => {
       text2Ref.current.classList.add('active');
       text3Ref.current.classList.add('active');
       hoguRef.current.classList.add('active');
-      graphRef.current.classList.add('active');
+      // graphRef.current.classList.add('active');
     } else if (scroll > section[1].offsetHeight) {
       textRef.current.classList.remove('active');
       text2Ref.current.classList.remove('active');
       text3Ref.current.classList.remove('active');
       hoguRef.current.classList.remove('active');
-      graphRef.current.classList.remove('active');
+      // graphRef.current.classList.remove('active');
     }
   }
 
@@ -139,28 +139,38 @@ const LandingPage = props => {
           <div className="text-bottom">
             <div ref={text3Ref}>잊지 못할 추억으로.</div>
           </div>
-          <div className="graph" ref={graphRef}>
+          {/* <div className="graph" ref={graphRef}>
             {' '}
             <img
               src="https://cdn.pixabay.com/photo/2016/02/18/22/18/picnic-1208229_1280.jpg"
               alt="graphImage"
               className="graph_img"
             />
-          </div>
+          </div> */}
         </div>
       </section>
 
       <section className="section section3">
         <div className="item2">
-          <span>산에서, </span>
-          <span>공연장에서, </span>
-          <span>축구장에서, </span>
-          <p>사람들과 함께하세요</p>
+          <span>언제든, </span>
+          <span>어디에서나, </span>
+          <span>누구든, </span>
+          <p>같이 하고싶은 사람들과 함께하세요</p>
         </div>
         <div id="cardWrapper">
           <Card img="https://cdn.pixabay.com/photo/2016/11/08/05/20/sunset-1807524_1280.jpg" />
           <Card img="https://cdn.pixabay.com/photo/2015/05/15/14/50/concert-768722_1280.jpg" />
           <Card img="https://cdn.pixabay.com/photo/2015/06/12/18/26/team-807300_1280.jpg" />
+        </div>
+        <div className="btnClass">
+          <button
+            onClick={() => {
+              history.push('/main');
+            }}
+            className="btn_toMain"
+          >
+            지금 Joiner와 함께하세요
+          </button>
         </div>
       </section>
 

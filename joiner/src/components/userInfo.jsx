@@ -99,9 +99,9 @@ const UserInfo = () => {
         </div>
         {submitted ? (
           <div>
-            <button type="submit" onClick={handleSubmit}>
+            {/* <button type="submit" onClick={handleSubmit}>
               완료
-            </button>
+            </button> */}
             <p>수정 완료!</p>
           </div>
         ) : (
