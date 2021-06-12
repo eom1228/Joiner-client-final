@@ -60,29 +60,7 @@ const GroupImgs = ({ host }) => {
   const { group } = groupCurrentState;
 
   useEffect(() => {
-    const getGroupIcon = async () => {
-      try {
-        let res = await axios.get('https://localhost:4000/upload/groupImg', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-          crossDomain: true,
-        });
-        if (res.status === 200) {
-          dispatch({
-            type: 'GET_GROUPIMG',
-            fileName: res.data.fileName,
-            filePath: res.data.filePath,
-          });
-          const { fileName, filePath } = res.data;
-          setFetchedImage(fileName, filePath);
-        }
-      } catch (e) {
-        setErrorMessage(e);
-      }
-    };
-    getGroupIcon();
+    setFetchedImage(group.fileName, group.filePath);
   }, []);
 
   const onChange = e => {
@@ -107,7 +85,7 @@ const GroupImgs = ({ host }) => {
             'Content-Type': 'multipart/form-data',
           },
           data: {
-            [group.id]: group.id,
+            group_id: group.id,
           },
         },
       );
@@ -125,27 +103,22 @@ const GroupImgs = ({ host }) => {
   return (
     <ImgContents>
       <div className="groupImage">
+        {console.log(group.filePath)}
         {fetchedImage ? (
           uploadedImage ? (
             <img
               style={{ width: '100%' }}
-              src={uploadedImage.filePath}
+              src={`https://localhost:4000/${uploadedImage.filePath}`}
               alt=""
             />
           ) : (
-            <img style={{ width: '100%' }} src={fetchedImage.filePath} alt="" />
+            <img
+              style={{ width: '100%' }}
+              src={`https://localhost:4000/${fetchedImage.group.filePath}`}
+              alt=""
+            />
           )
         ) : null}
-        {/* 
-if (fetchedimage) {
-  if (uploadedImage) {
-    get uploaded Image
-  } else {
-    get fetched image 
-  }
-} else {
-  get null 
-} */}
         <form
           onSubmit={e => {
             user.id !== host.id ? alert('그룹장이 아니세요!') : onSubmit;
