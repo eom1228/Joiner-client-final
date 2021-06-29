@@ -6,7 +6,10 @@ axios.defaults.withCredentials = true;
 
 const UserIcon = () => {
   const [file, setFile] = useState(null);
-  const [uploadedImage, setUploadedImage] = useState({});
+  // const [uploadedImage, setUploadedImage] = useState({
+  //   fileName: '',
+  //   filePath: '',
+  // });
   const [message, setMessage] = useState('');
   const [userIcon, setUserIcon] = useState('');
   const { state, dispatch } = useUserContext();
@@ -23,32 +26,6 @@ const UserIcon = () => {
     setFile(e.target.files[0]);
   };
 
-  const alt = e => {
-    return e.target.files[0].name;
-  };
-
-  const preview = e => {
-    return URL.createObjectURL(e.target.files[0]);
-  };
-
-  // useEffect(() => {
-  //   const getUserIcon = async () => {
-  //     try {
-  //       let res = await axios.get('https://localhost:4000/uploads', {
-  //         headers: {
-  //           Authorization: `Bearer ${access_token}`,
-  //           'Content-Type': 'application/json',
-  //         },
-  //         withCredentials: true,
-  //         crossDomain: true,
-  //       });
-  //     } catch (e) {
-  //       setErrorMessage(e);
-  //     }
-  //   };
-  //   getUserIcon();
-  // }, []);
-
   const onSubmit = () => {
     console.log();
     const formData = new FormData();
@@ -63,68 +40,30 @@ const UserIcon = () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      //application/json
-      //multipart/form-data
       .then(res => {
-        console.log(res.data);
-        const { fileName, filePath } = res.data;
-        setUploadedImage(fileName, filePath);
+        dispatch({
+          type: 'GET_USERICON',
+          fileName: res.data.fileName,
+          filePath: res.data.filePath,
+        });
+        console.log('되라', fileName);
       })
       .catch(err => setMessage(err));
-
-    // if (err.response.status === 500) {
-    //   console.log(err);
-    //   setMessage('서버에 문제가 있네용!');
-    // } else {
-    //   setMessage(err.response.data.msg);
-    // }
   };
 
   return (
     <>
-      {/* form 의 type을 enctype="multipart/form-data" 로 설정해야
-    // //       사용자가 전송한 파일을 서버로 전송할 수 있다. */}
       <div className="userImage">
         <div className="addPic">
           <h3>📷 프로필 사진을 추가해주세요 📷</h3>
         </div>
         <div>
-          {!uploadedImage.fileName || !uploadedImage.filePath ? (
-            <img
-              style={{ width: '100%' }}
-              src={`https://localhost:4000/userImgs/${fileName}`}
-              alt=""
-            />
-          ) : (
-            <img
-              style={{ width: '100%' }}
-              src={`https://localhost:4000/userImgs/${uploadedImage.fileName}`}
-              alt=""
-            />
-          )}
-        </div>
-
-        {/* {uploadedImage ? (
-          <img style={{ width: '100%' }} src={uploadedImage.filePath} alt="" />
-        ) : null} */}
-        {/* <form
-          className="form"
-          onSubmit={onSubmit}
-          action="upload"
-          method="post"
-          encType="multipart/form-data"
-          style={{ textalign: 'center' }}
-        >
-          <input
-            // src={}
-            className="file"
-            type="file"
-            name="imgFile"
-            id="customFile"
-            onChange={onChange}
+          <img
+            style={{ width: '100%' }}
+            src={`https://localhost:4000/userImgs/${fileName}`}
+            alt=""
           />
-          <input type="submit" value="Upload" />
-        </form> */}
+        </div>
         <input
           type="file"
           className="imageFile"

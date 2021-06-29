@@ -108,7 +108,7 @@ const NavBar = ({ location }) => {
               </Link>
             </div>
             <div className="signs">
-              <IsSignupModal value="signUp">Signup</IsSignupModal>
+              {/* <IsSignupModal value="signUp">Signup</IsSignupModal> */}
               <IsLoginModal value="signIn">Login</IsLoginModal>
             </div>
           </nav>
@@ -144,9 +144,7 @@ const NavBar = ({ location }) => {
           </div>
 
           <div className="signs">
-            <Link value="logout" className="logoutBtn">
-              Logout
-            </Link>
+            <IsLoginModal />
           </div>
         </nav>
       );

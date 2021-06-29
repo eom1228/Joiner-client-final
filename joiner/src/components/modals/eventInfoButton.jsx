@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
 import EventInfoModal from './eventInfoModal';
+import styled from 'styled-components';
 
+const StyledEventButton = styled.button`
+font-size: 23px;
+  font-weight: 400;
+  color: white;
+  height: 35px;
+  width: 80px;
+  text-decoration: none;
+  background-color: #34314c;
+  transition: all 0.5s ease-in-out;
+  border-color: transparent;
+  list-style: none; 
+  border-radius: 0.5rem;
+  &:hover {
+
+    color: #aaabd3;
+    cursor: pointer;
+  `;
 const EventInfoButton = ({ event }) => {
   const [isModalOn, setIsModalOn] = useState(false);
   function createGroupModal() {
@@ -9,7 +27,9 @@ const EventInfoButton = ({ event }) => {
   }
   return (
     <>
-      <button onClick={createGroupModal}>{event.title}이벤트이름</button>
+      <StyledEventButton onClick={createGroupModal}>
+        {event.title}
+      </StyledEventButton>
       {isModalOn && (
         <EventInfoModal handleModal={createGroupModal} event={event} />
       )}
@@ -18,27 +38,3 @@ const EventInfoButton = ({ event }) => {
 };
 
 export default EventInfoButton;
-
-// import React, { useState } from 'react';
-// import EventInfoModal from './eventInfoModal';
-
-// const EventInfoButton = ({ event }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   const openModal = () => {
-//     setIsOpen(true);
-//   };
-
-//   const closeModal = () => {
-//     setIsOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={openModal}>{event.title}</button>
-//       <EventInfoModal isOpen={isOpen} close={closeModal} event={event} />
-//     </div>
-//   );
-// };
-
-// export default EventInfoButton;

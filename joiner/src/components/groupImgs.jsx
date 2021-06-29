@@ -4,35 +4,13 @@ import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
 import DefaultImg from '../images/image-file.png';
 import styled from 'styled-components';
-// import '../components/groupImgs.css';
-
-// const ImgContents = styled.div`
-//   height: 100%;
-//   width: 100%;
-//   display: flex;
-//   position: relative;
-//   justify-content: center;
-//   align-items: center;
-//   border: 0.3rem solid #34314c;
-//   border-radius: 1rem;
-//   background-color: white;
-// `;
-// const Test = styled.span`
-
-//   padding: 6px 20px;
-//   background-color: beige;
-//   border-radius: 1rem;
-//   color: black;
-//   cursor: pointer;
-//   justify-content: bottom;
-// `;
 
 const ImgContents = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-grow: 3;
-  flex-basis: 65%;
+  flex-basis: 60%;
   position: relative;
   justify-content: center;
   align-items: center;
@@ -51,78 +29,69 @@ const Test = styled.span`
 const GroupImgs = ({ host }) => {
   const [file, setFile] = useState(null);
   const [uploadedImage, setUploadedImage] = useState({});
-  const [fetchedImage, setFetchedImage] = useState({});
+  // const [fetchedImage, setFetchedImage] = useState({});
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
   const { access_token, user } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group } = groupCurrentState;
-
-  useEffect(() => {
-    setFetchedImage(group.fileName, group.filePath);
-  }, []);
+  const { fileName, filePath } = group;
 
   const onChange = e => {
     console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
 
-  const onSubmit = async e => {
+  const onSubmit = () => {
     console.log();
-    e.preventDefault();
     const formData = new FormData();
-    formData.append('imgFile', file, file.name);
+    formData.append('imgFile', file);
     console.log(formData);
 
-    try {
-      await axios.post(`https://localhost:4000/upload/groupImg`, formData, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-        data: {
-          group_id: group.id,
-        },
-      });
-      const { fileName, filePath } = response.data;
-      console.log(response);
+    if (user.id === host) {
+      axios
+        .post(`https://localhost:4000/upload/groupImg`, formData, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          data: {
+            group_id: group.id,
+          },
+        })
+        .then(res => {
+          // const { fileName, filePath } = response.data;
+          console.log(res);
+          console.log('hehe', host);
+          console.log('userid', user.id);
+          // setUploadedImage(fileName, filePath);
+          groupDispatch({
+            type: 'GET_GROUPIMG',
+            fileName: res.data.fileName,
+            filePath: res.data.filePath,
+          });
 
-      setUploadedImage(fileName, filePath);
-
-      setMessage('이미지 업로드 완료!');
-    } catch (err) {
-      console.log(err);
+          setMessage('이미지 업로드 완료!');
+        })
+        .catch(err => console.log(err));
+    } else {
+      alert('그룹장이 아니세요!');
     }
   };
 
   return (
     <ImgContents>
       <div className="groupImage">
-        {console.log(group.filePath)}
-        {fetchedImage ? (
-          uploadedImage ? (
-            <img
-              style={{ width: '100%' }}
-              src={`https://localhost:4000/groupImgs/${group.fileName}`}
-              alt=""
-            />
-          ) : (
-            <img
-              style={{ width: '100%' }}
-              src={`https://localhost:4000/groupImgs/${group.fileName}`}
-              alt=""
-            />
-          )
-        ) : null}
-        <form
-          onSubmit={e => {
-            user.id !== host.id ? alert('그룹장이 아니세요!') : onSubmit;
-          }}
-          action="upload"
-          method="post"
-          encType="multipart/form-data"
-        >
+        {console.log(filePath)}
+
+        <img
+          style={{ width: '100%' }}
+          src={`https://localhost:4000/groupImgs/${fileName}`}
+          alt=""
+        />
+
+        <div className="addImage">
           <Test>
             <label for="customFile">
               파일 선택
@@ -135,8 +104,8 @@ const GroupImgs = ({ host }) => {
               />
             </label>
           </Test>
-          <input type="submit" value="Upload" />
-        </form>
+          <button onClick={onSubmit}>업로드</button>
+        </div>
       </div>
     </ImgContents>
   );

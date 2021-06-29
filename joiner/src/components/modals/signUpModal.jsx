@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
 import { withRouter, Link, useHistory } from 'react-router-dom';
+import IsLoginModal from '../modals/loginModalBtn';
 import Logo from '../../images/logo_remove.png';
 import '../modals/signupStyle.css';
 import axios from 'axios';
@@ -32,6 +33,7 @@ const SignupModal = ({ isOpen, close }) => {
         crossDomain: true,
       })
       .then(res => {
+        close();
         history.push('/main');
         console.log(res);
       });
@@ -96,14 +98,6 @@ const SignupModal = ({ isOpen, close }) => {
                   placeholder="비밀번호를 입력해주세요"
                   onChange={handleSignup}
                 />
-                {/* <input
-                  value={userInputs.location}
-                  className="location"
-                  name="location"
-                  type="text"
-                  placeholder="지역을 입력해주세요"
-                  onChange={handleSignup}
-                /> */}
                 <button
                   className="signUpBtn"
                   type="submit"
@@ -113,7 +107,7 @@ const SignupModal = ({ isOpen, close }) => {
                 </button>
                 <div className="signupEnd">
                   <div className="signupLine">로그인을 시도 해보실까요?</div>
-                  <Link to="/main">LOG IN</Link>
+                  <IsLoginModal />
                 </div>
               </div>
             </div>

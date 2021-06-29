@@ -4,8 +4,6 @@ import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
 import '../styles/groupsByCategoryPage.scss';
-import data from '../dummyData/categoryDummy';
-import groupData from '../dummyData/groupDummy';
 
 // import Footer from './footer';
 // import NavBar from './navBar';
@@ -102,15 +100,12 @@ const GroupsByCategoryPage = () => {
       <div className="categoryGroupLists">
         <div className="categoryContainerNotSelected">
           <div className="categoryRow">
-            {data.categories.map(category => (
+            {categories.map(category => (
               <div id="categoryPair">
                 <img
                   name={category.id}
                   id="categoryIcon"
-                  // src={`https://localhost:4000/categoryImgs/${category.fileName}`}
-                  src={
-                    'https://cdn.discordapp.com/attachments/836112787276562437/852916157140041758/200622____11_-removebg-preview.png'
-                  }
+                  src={`https://localhost:4000/categoryImgs/${category.fileName}`}
                   style={{ width: '100%', height: '100%' }}
                   onClick={handleClickCategory}
                 ></img>
@@ -123,17 +118,17 @@ const GroupsByCategoryPage = () => {
             {console.log('Categ1' + groups)}
             {console.log(
               'Categ2',
-              groupData.groups
+              groups
                 .map(group => group.category_id)
                 .filter(id => id == selectedCategory.name)[0],
             )}
             {console.log('Categ3' + selectedCategory.name)}
-            {groupData.groups
+            {groups
               .map(group => group.category_id)
               .filter(group => group == selectedCategory.name)[0] ==
             selectedCategory.name ? (
               <>
-                {groupData.groups
+                {groups
                   .filter(group => {
                     return group.category_id == selectedCategory.name;
                   })
@@ -153,7 +148,7 @@ const GroupsByCategoryPage = () => {
               </>
             ) : (
               <>
-                {groupData.groups.map(
+                {groups.map(
                   (
                     group, // <-- 기본상태
                   ) => (

@@ -17,7 +17,7 @@ export const initialState = {
   err: '',
   access_token: '',
   // token_type: 'Bearer',
-  isLogin: true,
+  isLogin: false,
   isLoading: false,
   //   errorMessage: null,
 };
@@ -107,7 +107,7 @@ export function userReducer(state, action) {
           filePath: action.filePath,
         },
       };
-    case 'UDPDATE_USER':
+    case 'UPDATE_USER':
       return {
         ...state,
         user: {

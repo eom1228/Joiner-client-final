@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   margin-right: 10px;
   display: inline-block;
   margin-top: 4vh;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 600;
   color: white;
   text-decoration: none;
@@ -16,6 +16,7 @@ const StyledButton = styled.button`
   border-color: transparent;
   border-radius: 1rem;
   height: 50px;
+  width: 120px;
   &:hover {
 
     color: #aaabd3;
