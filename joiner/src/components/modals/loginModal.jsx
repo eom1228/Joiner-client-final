@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
 import { withRouter, Link, useHistory } from 'react-router-dom';
+import IsSignupModal from '../modals/signupModalBtn';
 import Logo from '../../images/logo_remove.png';
 import axios from 'axios';
 import '../modals/loginStyle.css';
@@ -115,7 +116,7 @@ const LoginModal = ({ isOpen, close }) => {
                 </button>
                 <div className="loginEnd">
                   <div className="loginLine">회원이 아니신가요?</div>
-                  <Link to="/main">SIGN UP</Link>
+                  <IsSignupModal />
                 </div>
               </div>
             </div>

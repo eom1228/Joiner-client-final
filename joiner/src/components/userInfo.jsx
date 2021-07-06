@@ -27,23 +27,18 @@ const UserInfo = () => {
         crossDomain: true,
       })
       .then(res => {
-        console.log(res);
-        if (res.status === 200) {
-          dispatch({
-            type: 'UPDATE_USER',
-            userName: res.data.userName,
-          });
-        }
+        console.log('하이', res);
+        console.log(res.status);
+        dispatch({
+          type: 'UPDATE_USER',
+          userName: inputs.userName,
+        });
       })
       .catch(err => {
-        console.log(err.response);
+        console.log('야', err.response);
       });
-  };
 
-  const isValidEmail = str => {
-    const regExp =
-      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    return regExp.test(str);
+    console.log(userName);
   };
 
   const handleClick = () => {

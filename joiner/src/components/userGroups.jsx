@@ -16,23 +16,6 @@ const UserGroups = () => {
   // setGroups({ groups: res.data.userGroup });
   const { user, access_token, isLogin } = state;
   const { userGroup } = user;
-  const dobby = [
-    { title: 'amofamo' },
-    { title: 'aasdf' },
-    { title: 'ha4' },
-    { title: 'ha6' },
-    { title: 'ad2' },
-    { title: 'a2dasd' },
-    { title: 'ahadfg' },
-    { title: 'aasdfamo' },
-    { title: 'amoha6aamo' },
-    { title: 'amha78o' },
-    { title: 'amasdfa7mo' },
-    { title: 'ahadfg' },
-    { title: 'aasdfamo' },
-    { title: 'amoha6aamo' },
-    { title: 'amha78o' },
-  ];
 
   if (!userGroup) return <div>Loading...</div>;
   return (
@@ -40,7 +23,7 @@ const UserGroups = () => {
       <div className="memList">
         <h2> 📆 가입된 그룹 📆 </h2>
         <ul>
-          {dobby.map((group, index) => {
+          {userGroup.map((group, index) => {
             return <li key={index}>{group.title}</li>;
           })}
         </ul>

@@ -1,13 +1,12 @@
 import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { useGroupContext } from '../contexts/GroupContext';
-import MemberList from './memberList';
+
 import styled from 'styled-components';
 
-const StyledBtnWrapper = styled.div`
-  padding-top: 20px;
-`;
 const StyledGroupInfoWrapper = styled.div`
   padding-top: 20px;
+  text-align: center;
+  font-size: 22px;
 `;
 
 const GroupDetailsContainer = () => {
@@ -16,16 +15,9 @@ const GroupDetailsContainer = () => {
   const { group } = groupCurrentState;
   const { information, groupUser, chat } = group;
 
-  //   const handleClick = e => {
-  //     e.preventDefault();
-  //     setIsToggleOn({ isToggleOn: !isToggleOn });
-  //   };
-
   return (
     <div>
-      <StyledBtnWrapper></StyledBtnWrapper>
-      <StyledGroupInfoWrapper>{information}</StyledGroupInfoWrapper>
-      <MemberList />
+      <StyledGroupInfoWrapper>💡{information}💡</StyledGroupInfoWrapper>
     </div>
   );
 };

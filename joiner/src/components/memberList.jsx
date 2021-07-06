@@ -74,23 +74,18 @@ const MemberList = () => {
                 type="text"
                 placeholder="이름을 검색하세요"
                 onChange={handleChange}
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '20px', width: '80%' }}
               />
               <button id="searchBtn" onClick={searchFilter}>
                 검색
               </button>
             </div>
 
-            <div
-              className="memberList"
-              style={{
-                overflowY: 'scroll',
-                height: '400px',
-                width: '100%',
-                marginTop: '20px',
-              }}
-            >
-              <ul className="searchResults">
+            <div className="memberList">
+              <ul
+                className="searchResults"
+                style={{ justifySelf: 'flex-start' }}
+              >
                 {groupUser
                   .filter(member => {
                     if (member.userName.includes(userInputs.userName)) {
@@ -99,10 +94,9 @@ const MemberList = () => {
                   })
                   .map(filteredMember => {
                     return (
-                      <li>
-                        <div style={{ display: 'flex' }}>
-                          <div>img</div>
-                          <div>{filteredMember.userName}</div>
+                      <li style={{ marginTop: '30px' }}>
+                        <div style={{ fontSize: '22px' }}>
+                          {filteredMember.userName}
                         </div>
                       </li>
                     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import styled from 'styled-components';
+import GroupDetailsContainer from './groupDetailsContainer';
 
 const SummaryContents = styled.div`
   margin: 0 auto;
@@ -9,8 +10,9 @@ const SummaryContents = styled.div`
   height: 100%;
   box-sizing: border-box;
   display: flex;
+  flex-shrink: 1;
   flex-grow: 1;
-  flex-basis: 35%;
+  flex-basis: 40%;
   justify-content: top;
   text-align: center;
   flex-direction: column;
@@ -20,16 +22,15 @@ const SummaryContents = styled.div`
   padding-top: 30px;
 `;
 const GroupTitle = styled.h1`
-  font-size: 22px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
   padding-left: 20px;
-  // vertical-align: text-top;
 `;
 
 const GroupDetails = styled.div`
   margin-top: 30px;
-  font-size: 17px;
+  font-size: 18px;
   font-family: Roboto, Arial, sans-serif;
 `;
 const GroupSummary = ({ group }) => {
@@ -42,18 +43,21 @@ const GroupSummary = ({ group }) => {
   } else {
     console.log(group);
     return (
-      <SummaryContents>
-        <GroupTitle>
-          <div>{title}</div>
-        </GroupTitle>
-        <GroupDetails>
-          <div>{category}</div>
-          {user.id === host ? (
-            <div style={{ marginTop: '10px' }}>{user.userName}</div>
-          ) : null}
-          <div style={{ marginTop: '10px' }}>인원수: {memberCount}명</div>
-        </GroupDetails>
-      </SummaryContents>
+      <>
+        <SummaryContents>
+          <GroupTitle>
+            <div>{title}</div>
+          </GroupTitle>
+          <GroupDetails>
+            <div>{category}</div>
+            {user.id === host ? (
+              <div style={{ marginTop: '10px' }}>{user.userName}</div>
+            ) : null}
+            <div style={{ marginTop: '10px' }}>인원수: {memberCount}</div>
+            <GroupDetailsContainer />
+          </GroupDetails>
+        </SummaryContents>
+      </>
     );
   }
 };
