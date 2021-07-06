@@ -97,7 +97,7 @@ const GroupImgs = ({ host }) => {
               파일 선택
               <input
                 type="file"
-                name="imgFile"
+                name="imageFile"
                 id="customFile"
                 onChange={onChange}
                 style={{ display: 'none' }}
