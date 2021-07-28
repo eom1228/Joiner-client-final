@@ -12,174 +12,248 @@ import EventInfoButton from './modals/eventInfoButton';
 import CreateEventButton from './modals/createEventButton';
 import axios from 'axios';
 import EditGroupButton from './modals/editGroupButton';
-// import LoginModal from './modals/loginModal';
-
+import IsLoginModal from './modals/loginModalBtn';
+import styled from 'styled-components';
 // import LoginModal from ' ';
+const EventButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  // border: 1rem solid green;
+`;
+const StyledButton = styled.button`
+  font-size: 23px;
+  font-weight: 600;
+  color: white;
+  height: 50px;
+  width: 100px;
+  text-decoration: none;
+  background-color: #34314c;
+  transition: all 0.5s ease-in-out;
+  border-color: transparent;
+  border-radius: 1rem;
+
+  &:hover {
+
+    color: #aaabd3;
+    cursor: pointer;
+  
+`;
+
+const StyledButtonJoin = styled.button`
+font-size: 18px;
+  font-weight: 600;
+  color: white;
+  height: 50px;
+  width: 80px;
+  text-decoration: none;
+  background-color: #34314c;
+  transition: all 0.5s ease-in-out;
+  border-color: transparent;
+  border-radius: 1rem;
+  &:hover {
+    color: #aaabd3;
+    cursor: pointer;
+  `;
 
 const GroupEvents = () => {
-  //   const { eventName, date, time, information } = events;
   const { state, dispatch } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
 
-  const { group } = groupCurrentState;
-  const { host, members, events } = group;
-  const { token, user, isLogin } = state;
+  const { group, mapping_id } = groupCurrentState;
+  const { host, groupUser } = group;
+  const { access_token, user, isLogin } = state;
   const { groups } = user;
+  const [events, setEvents] = useState([]);
+  const [responseMessage, setResponseMessage] = useState('');
+  const { test, setTest } = useState('');
+  const [toggleBtn, setToggleBtn] = useState(false);
 
   useEffect(() => {
-    const leaveGroup = async () => {
-      let response = await axios.delete('/main/groupPage/groupSecession', {
+    const getGroupEvents = async () => {
+      try {
+        let res = await axios.get('https://localhost:4000/event/eventList', {
+          headers: {
+            // Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+          // data: {
+          //   event_id: event.id,
+          // },
+          withCredentials: true,
+          crossDomain: true,
+        });
+        if (res.status === 200) {
+          // console.log(res.data);
+          // console.log(events);
+          setEvents(res.data);
+          console.log(events);
+          // return;
+        }
+      } catch (e) {
+        console.log(e);
+        setResponseMessage(e);
+      }
+    };
+    console.log(events);
+    getGroupEvents();
+  }, [group]);
+
+  const leaveGroup = async () => {
+    let response = await axios
+      .post('https://localhost:4000/group/groupPage/groupSecession', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         data: {
-          //   [user.id]: user.id,
-          [user.id]: user.id, // group의 id
+          group_id: group.id,
         },
         withCredentials: true,
         crossDomain: true,
-      });
-      dispatch({ type: 'LEAVE_GROUP', payload: response.data.group.id });
-    };
-    leaveGroup(dispatch);
-  }, [groups]);
+      })
+      .then(res => {
+        setResponseMessage(res.data);
+        window.location.reload();
+      })
+      .catch(e => setResponseMessage(e));
+  };
 
-  useEffect(() => {
-    const joinGroup = async () => {
-      let response = await axios.patch('/main/groupPage/groupJoin', {
+  const joinGroup = async () => {
+    let response = await axios
+      .post('https://localhost:4000/group/groupPage/groupJoin', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
         },
         data: {
-          [user.id]: user.id,
+          group_id: group.id,
         },
         withCredentials: true,
         crossDomain: true,
-      });
-      dispatch({ type: 'JOIN_GROUP', payload: response.user.groups });
-    };
-
-    joinGroup(dispatch);
-  }, [groups]);
-
-  //     const deleteGroupMember = async () => {
-  //       let response = await axios.delete('/group', {
-  //           headers: {
-  //               Authorization: `Bearer ${token}`,
-  //               'Content-Type': 'application/json',
-  //           },
-  //           data: {
-  //               [user.id]: user.id
-  //           },
-  //           withCredentials: true,
-  //           crossDomain: true,
-
-  //       });
-  //       groupDispatch({
-  //         type: 'DELETE_GROUPMEMBER',
-  //         payload: response.group.members,
-  //         [group.memberCount]: group.memberCount--,
-  //       });
-  //     };
-  //     if (dispatch({ type: 'LEAVE_GROUP' })) {
-  //       deleteGroupMember(groupDispatch);
-  //     }
-  //   }, [groups]);
-
-  //   useEffect(() => {
-  //     const editGroup = async () => {
-  //       let response = await axios.post('/group', {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           'Content-Type': 'application/json',
-  //         },
-  //         data: {
-  //           [group.id]: group.id,
-  //         },
-  //         withCredentials: true,
-  //         crossDomain: true,
-  //       });
-  //       groupDispatch({
-  //         type: 'EDIT_GROUP',
-  //         payload: response.action.payload.value,
-  //       });
-  //     };
-  //     editGroup(groupDispatch);
-  //   }, [group]);
+      })
+      .then(res => {
+        setResponseMessage(res.data);
+        window.location.reload();
+      })
+      .catch(e => setResponseMessage(e));
+  };
 
   const handleLeaveClick = () => {
-    alert('그룹 탈퇴 완료!');
+    leaveGroup();
   };
 
   const handleJoinClick = () => {
-    alert('그룹 가입 완료!');
+    setToggleBtn(!toggleBtn);
+    if (isLogin) {
+      joinGroup();
+    } else {
+      null;
+    }
   };
 
+  if (!events) return null;
+  if (!groupUser) return <div>Loading!!!</div>;
+
   return isLogin ? (
-    <>
-      <div style={{ backgroundColor: 'green' }}>
-        {user.username === host ||
-        user.userName === members.map(member => member.userName) ? (
-          <div>
+    <div>
+      {/* {groupUser                        .slice(0, 1)
+          .map(member => member.userName)
+          .filter(userNameArr => userNameArr === user.userName) ===
+        [user.userName]} */}
+      {console.log(test, 'hehe')}
+      {console.log(groupUser, 'hehe')}
+      {console.log(user, 'userrr')}
+      {groupUser.map(e => e.id).filter(e => e === user.id)[0] ? (
+        <EventButtonsWrapper>
+          <div style={{ flex: '1 1 10%' }}>
             <CreateEventButton />
-            <button onClick={handleLeaveClick}>그룹 탈퇴</button>
+
             <EditGroupButton />
           </div>
-        ) : (
-          <div>
-            <button onClick={handleJoinClick}>그룹 가입</button>
-          </div>
-        )}
-      </div>
+          <div style={{ flex: '1 1 70%' }}>
+            <p style={{ marginTop: '25px', fontSize: '23px' }}>예정된 이벤트</p>
+            <ul>
+              {events.map(event => (
+                <li
+                  key={event.id}
+                  style={{ listStyle: 'none', marginTop: '15px' }}
+                >
+                  <EventInfoButton event={event}></EventInfoButton>
 
-      <div>
-        <ol>
-          {events.map(event => (
-            <li key={event.id}>
-              <EventInfoButton eventTitle={event.eventTitle}></EventInfoButton>
-              <p>{event.activityContent}</p>
-              <p>{event.date}</p>
-              <p>{event.limit}</p>
-            </li>
-          ))}
-          {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}
-        </ol>
-      </div>
-    </>
-  ) : (
-    <>
-      <div>
+                  <p style={{ fontSize: '23px', marginTop: '10px' }}>
+                    {event.information}
+                  </p>
+                  <p style={{ fontSize: '23px', marginTop: '10px' }}>
+                    {event.eventDay}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            style={{
+              flex: '1 1 20%',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <StyledButton
+              style={{ marginBottom: '20px' }}
+              className="groupLeave"
+              onClick={handleLeaveClick}
+            >
+              그룹 탈퇴
+            </StyledButton>
+          </div>
+        </EventButtonsWrapper>
+      ) : (
         <div>
-          <IsLoginModal>그룹 가입</IsLoginModal>
-          {/* <CreateEventButton onClick={openModal} />
-          <button onClick={openModal}>그룹 가입</button>
-          <EditGroupButton onClick={openModal} /> */}
+          <StyledButtonJoin onClick={handleJoinClick}>
+            그룹 가입
+          </StyledButtonJoin>
         </div>
-      </div>
+      )}
+    </div>
+  ) : (
+    <div>
+      {console.log(toggleBtn)}
+
+      {!toggleBtn ? (
+        <div>
+          <StyledButtonJoin onClick={handleJoinClick}>
+            그룹 가입
+          </StyledButtonJoin>
+        </div>
+      ) : (
+        <div>
+          <IsLoginModal />
+        </div>
+      )}
       <div>
-        <ol>
+        {console.log(events)}
+        <p style={{ marginTop: '25px', fontSize: '23px' }}>예정된 이벤트:</p>
+        <ul>
+          {console.log(group.groupUser)}
           {events.map(event => (
-            <li key={event.id}>
-              <EventInfoButton eventTitle={event.eventTitle}></EventInfoButton>
-              <p>{event.activityContent}</p>
-              <p>{event.date}</p>
-              <p>{event.limit}</p>
+            <li key={event.id} style={{ listStyle: 'none', marginTop: '15px' }}>
+              <EventInfoButton event={event}></EventInfoButton>
+
+              <p style={{ fontSize: '23px', marginTop: '10px' }}>
+                {event.information}
+              </p>
+              <p style={{ fontSize: '23px', marginTop: '10px' }}>
+                {event.eventDay}
+              </p>
             </li>
           ))}
           {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}
-        </ol>
+        </ul>
       </div>
-    </>
+    </div>
   );
 };
 
-{
-  /* // {eventName ? (
-  //     <EventInfoButton eventName={eventName}></EventInfoButton>
-  //   ) : (
-  //     <div>{events}</div>
-  //   )} */
-}
 export default GroupEvents;

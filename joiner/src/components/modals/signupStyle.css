@@ -1,0 +1,145 @@
+.modal {
+  z-index: 1050;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+/* 배경에 픽스를 주고 투명도를 준다. */
+.signupModal {
+  width: 480px;
+  height: 621px;
+  background-color: #F3F4F9;
+  position: relative;
+  box-sizing: border-box;
+  margin: 50px auto;
+  /* transform: translate(0, 30%); */
+  padding: 20px;
+  background: #F3F4F9;
+  border-radius: 10px;
+  /* 로그인 배경이다  */
+}
+.close {
+  float: right;
+  font-size: 25px;
+}
+
+
+.modalContents {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  padding: 0 20px 32px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.logo {
+  width: 150px;
+  margin: 0 auto;
+}
+  
+.userName {
+  margin-top: 30px;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  background: #F3F4F9;
+  border: 2px solid  #353866;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  color: black;
+}
+  input::placeholder {
+  color: black;
+  }
+
+.email {
+  margin-top: 30px;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  background: #F3F4F9;
+  border: 2px solid  #353866;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  color: black;
+}
+
+.password {
+  margin-top: 30px;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  background: #F3F4F9;
+  border: 2px solid  #353866;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  color: black;
+}
+
+          /* .location {
+            margin-top: 30px;
+            border-radius: 10px;
+            width: 100%;
+            height: 40px;
+            background: #F3F4F9;
+            border: 2px solid  #353866;
+            padding: 9px 12px;
+            outline: none;
+            box-sizing: border-box;
+            color: beige;
+          } */
+  
+.signupMid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.autoSignup {
+  font-size: 12px;
+  color: #8d8d8d;
+  line-height: 3;
+}
+.signUpBtn {
+  height: 40px;
+  font-size: 14px;
+  padding: 13px 30px;
+  cursor: pointer;
+  background-color: #353866;
+  color: white;
+  line-height: 1px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border-style: none;
+}
+.signupEnd {
+  text-align: center;
+  font-size: 13px;
+}
+.signupLine {
+  font-weight: bold;
+  justify-self: flex-end;
+  justify-content: center;
+  color: #fa5a5a;
+  font-size: 15px;
+  margin-bottom: 35px;
+}
+a {
+  font-weight: bold;
+  color: #353866;
+  /* text-decoration: none; */
+  cursor: pointer;
+  font-size: 13px;
+}
+          
+.noUser {
+  text-decoration: none;
+}

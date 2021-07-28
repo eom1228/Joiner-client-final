@@ -4,18 +4,18 @@ import SignupModal from '../modals/signUpModal';
 const IsSignupModal = () => {
   const [isModal, setIsModal] = useState(false);
 
-  const OpenModal = () => {
+  const openModal = () => {
     setIsModal(true);
   };
 
-  const CloseModal = () => {
+  const closeModal = () => {
     setIsModal(false);
   };
 
   return (
     <>
-      <button onClick={OpenModal}>회원가입</button>
-      <SignupModal isOpen={isModal} close={CloseModal} />
+      <button onClick={openModal}>SIGN UP</button>
+      <SignupModal isOpen={isModal} close={closeModal} />
     </>
   );
 };

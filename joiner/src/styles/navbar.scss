@@ -1,0 +1,103 @@
+@mixin btnStyle {
+  border-radius: 5rem;
+  border: none;
+  outline: none;
+  background: #e1e5ee;
+  // box-shadow: -5px -5px 10px rgb(209, 195, 195), 5px 5px 10px grey;
+}
+
+$color-background: #252c41;
+$color-pink: #f1404b;
+$color-yellow: #dddfe6;
+$color-blue: #f4f5f9;
+
+a {
+  text-decoration: none;
+}
+
+.navBarContainer {
+  font-family: Roboto, Arial, sans-serif;
+  font-size: large;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+  // border-radius: 1rem;
+  background-color: #f4f5f9;
+  .logoBox {
+    width: 120%;
+    height: 130%;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  .linkBox {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex: 1 0 10%;
+  }
+  .signs {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      margin-right: 20px;
+      // display: inline-block;
+      // margin-top: 4vh;
+      font-size: 25px;
+      font-weight: 600;
+      color: #34314c;
+      text-decoration: none;
+      background-color: #f4f5f9;
+      transition: all 0.5s ease-in-out;
+      border-color: transparent;
+      &:hover {
+        // background:
+        color: #fa5a5a;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.linkBtn {
+  @include btnStyle;
+  display: inline-block;
+  margin-top: 3vh;
+  margin-right: 20px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #34314c;
+  text-decoration: none;
+  background-color: #f4f5f9;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    // background:
+    color: #fa5a5a;
+    cursor: pointer;
+  }
+}
+.logoutBtn {
+  @include btnStyle;
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #34314c;
+  text-decoration: none;
+  background-color: #f4f5f9;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    // background:
+    color: #fa5a5a;
+    cursor: pointer;
+  }
+}
