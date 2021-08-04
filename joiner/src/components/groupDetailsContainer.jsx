@@ -1,24 +1,23 @@
 import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { useGroupContext } from '../contexts/GroupContext';
 
+import styled from 'styled-components';
+
+const StyledGroupInfoWrapper = styled.div`
+  padding-top: 20px;
+  text-align: center;
+  font-size: 22px;
+`;
+
 const GroupDetailsContainer = () => {
   //   const [isToggleOn, setIsToggleOn] = useState(false);
   const { groupCurrentState } = useGroupContext();
   const { group } = groupCurrentState;
-  const { information, members, chat } = group;
-
-  //   const handleClick = e => {
-  //     e.preventDefault();
-  //     setIsToggleOn({ isToggleOn: !isToggleOn });
-  //   };
+  const { information, groupUser, chat } = group;
 
   return (
     <div>
-      <div className="groupFilterBtnWrapper">
-        <button>회원</button> // onClick open MembersModal, render members
-        <button>채팅</button> // onClick open ChatModal, render chat
-      </div>
-      <div className="groupInfo">{information}</div>
+      <StyledGroupInfoWrapper>💡{information}💡</StyledGroupInfoWrapper>
     </div>
   );
 };

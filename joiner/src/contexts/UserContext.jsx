@@ -7,28 +7,32 @@ export const initialState = {
     userName: '',
     email: '',
     password: '',
-    location: '',
-    groups: [],
+    userGroup: [],
     events: [],
     page: '',
+    fileName: '',
+    filePath: '',
   },
   // users: [],
   err: '',
-  access_token: '', // JWT store 역할
-  token_type: 'Bearer',
+  access_token: '',
+  // token_type: 'Bearer',
   isLogin: false,
   isLoading: false,
   //   errorMessage: null,
-  isLogin: true,
 };
 
 export function userReducer(state, action) {
   switch (action.type) {
-    case 'FIELD':
-      return {
-        ...state,
-        [action.fieldName]: action.value,
-      };
+    // case 'FIELD':
+    //   return {
+    //     ...state,
+    //     user: {
+    //       ...state.user,
+    //       password: action.payload.user.password,
+    //       email: action.payload.user.email,
+    //     },
+    //   };
 
     case 'LOGIN':
       return {
@@ -63,11 +67,18 @@ export function userReducer(state, action) {
     case 'SET_USERINFO':
       return {
         ...state,
-        userName: action.payload.userName,
-        email: action.payload.email,
-        location: action.payload.location,
-        group: action.payload.group,
-        event: action.payload.event,
+        user: {
+          ...state.user,
+          id: action.id,
+          userName: action.userName,
+          email: action.email,
+          password: action.password,
+
+          userGroup: action.userGroup,
+          events: action.events,
+          fileName: action.fileName,
+          filePath: action.filePath,
+        },
       };
 
     case 'GET_USERINFO':
@@ -75,13 +86,40 @@ export function userReducer(state, action) {
         ...state,
         // user: action.payload.user,
         // token: action.payload.auth_token,
+        isLoading: true,
       };
 
     case 'GET_SUCCESS':
       return {
         ...state,
-        user: action.payload.user,
-        token: action.payload.auth_token,
+        user: {
+          ...state.user,
+          userGroup: action.userGroup,
+        },
+      };
+
+    case 'GET_USERICON':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          fileName: action.fileName,
+          filePath: action.filePath,
+        },
+      };
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          userName: action.userName,
+        },
+      };
+
+    case 'UPDATE_FAIL':
+      return {
+        ...state,
+        err: action.err,
       };
 
     case 'REGISTER_USER':
@@ -125,27 +163,34 @@ export function userReducer(state, action) {
         user: state.user.filter(user => user.location === action.location),
       };
 
-    case 'JOIN_GROUP': // 유저가 속한 그룹 => 멤버
+    case 'CREATE_EVENT':
       return {
-        // groups user의 group목록에서 가입한 그룹 추가 ,, group의 유저 목록에서
         ...state,
         user: {
           ...state.user,
-          groups: action.payload.groups,
+          events: action.events,
         },
       };
 
-    case 'LEAVE_GROUP':
+    case 'ATTEND_EVENT':
       return {
         ...state,
         user: {
           ...state.user,
-          groups: state.user.groups.filter(
-            group => group.id !== action.payload.id,
+          events: action.events,
+        },
+      };
+
+    case 'CANCEL_EVENT':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          events: state.user.events.filter(
+            userEvent => userEvent !== action.event,
           ),
         },
       };
-
     case 'CHANGE_PAGE_STATE':
       // 버튼을 누르면 page state값이 바뀐다.
       return {
@@ -156,11 +201,17 @@ export function userReducer(state, action) {
         },
       };
 
-    case 'ACCESS_TOKEN':
+    case 'GET_ACCESSTOKEN':
       return {
         ...state,
-        access_token: '',
-        token_type: 'Bearer',
+        isLoading: true,
+      };
+
+    case 'SET_ACCESSTOKEN':
+      return {
+        ...state,
+        access_token: action.access_token,
+        isLogin: true,
       };
     default:
       return state;

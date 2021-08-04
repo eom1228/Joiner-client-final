@@ -4,17 +4,19 @@ import React, { useReducer, createContext, useContext, useEffect } from 'react';
 export const groupState = {
   group: {
     id: '',
-    groupName: '', // title
+    title: '', // title
     imgs: [], //     // img
     category: '', // category_id
     host: '', // groupIntroduce
     groupIntroduce: '',
-    memberCount: 0,
+    memberCount: 1,
     location: '',
     information: '',
-    events: [],
-    members: [],
+    groupUser: [],
+    fileName: '',
+    filePath: '',
   },
+  mapping_id: null,
   loading: false,
   error: null,
 };
@@ -40,17 +42,18 @@ export function groupReducer(state, action) {
         group: action.payload.group,
       };
 
-    case 'GET_GROUP':
+    case 'GET_DATA':
       return {
         ...state,
         loading: true,
+        error: null,
       };
 
     case 'GET_SUCCESS':
       return {
         ...state,
         loading: false,
-        group: action.payload.group, // todoItems: action.payload.items ->
+        group: action.group,
       };
 
     case 'GET_ERROR':
@@ -60,12 +63,31 @@ export function groupReducer(state, action) {
         error: action.error,
       };
 
+    case 'GET_GROUPIMG':
+      return {
+        ...state,
+        group: {
+          ...state.group,
+          fileName: action.fileName,
+          filePath: action.filePath,
+        },
+      };
     case 'EDIT_GROUP':
       return {
         ...state,
-        group: action.payload.group, // 확인 필요..
+        group: {
+          ...state.group,
+          category: action.category,
+          groupIntroduce: action.groupIntroduce,
+          title: action.title,
+        },
       };
 
+    case 'SET_GROUPID':
+      return {
+        ...state,
+        mapping_id: action.mapping_id,
+      };
     // case 'UPLOAD_IMG': // 필요한가..? 따로 구현?
     //   return {
     //     ...state,
@@ -100,25 +122,16 @@ export function groupReducer(state, action) {
     //       ],
     //     },
     //   };
-
-    case 'CREATE_GROUPEVENT': // createEventModal에서 따로 만들자
+    case 'GET_GROUPMEMBERS':
       return {
         ...state,
         group: {
           ...state.group,
-          events: action.payload.group.events,
-        },
-      };
-    case 'GET_CREATEDEVENT':
-      return {
-        ...state,
-        group: {
-          ...state.group,
-          events: action.payload.group.events,
+          groupUser: action.group.groupUser,
         },
       };
     default:
-      throw new Error('');
+      return state;
   }
 }
 

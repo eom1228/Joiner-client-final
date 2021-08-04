@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, useHistory, withRouter } from 'react-router-dom';
-
+import { Link, useHistory, withRouter, Redirect } from 'react-router-dom';
+import '../styles/navbar.scss';
 import { useUserContext } from '../contexts/UserContext';
+import { useGroupContext } from '../contexts/GroupContext';
 import IsLoginModal from '../components/modals/loginModalBtn';
 import IsSignupModal from '../components/modals/signupModalBtn';
 // import {
@@ -9,7 +10,7 @@ import IsSignupModal from '../components/modals/signupModalBtn';
 //   UserStateContext,
 //   initialState,
 // } from '../contexts/UserContext';
-import logo from '../images/LOGO.jpg';
+import logo from '../images/logo_remove.png';
 
 // 버튼 클릭시 유저 상태 user.page = '어떤페이지'
 // 로그인 상태 및 user.page에 따라서 보여주는 버튼 변경
@@ -27,160 +28,273 @@ case3 myPage일 경우
 const NavBar = ({ location }) => {
   const history = useHistory();
   const { state } = useUserContext();
+  const { groupCurrentState } = useGroupContext();
+  const { mapping_id } = groupCurrentState;
+
   if (!state.isLogin) {
     if (location.pathname === '/main' || location.pathname === '/') {
       return (
         <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                history.push('/');
-              }}
-            />
-            <Link
-              to="/GroupPage"
-              value="groups"
-              // onClick={e => {
-              //   console.log(state.page);
-              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-              // }}
-            >
-              Groups
-            </Link>
-            <IsSignupModal value="signUp">Signup</IsSignupModal>
-            <IsLoginModal value="signIn">Login</IsLoginModal>
+          <nav className="navBarContainer">
+            <div className="logoBox">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: `60px`,
+                  height: `60px`,
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/');
+                }}
+              />
+            </div>
+            <div className="linkBox">
+              <Link
+                to="/category"
+                value="groups"
+                // onClick={e => {
+                //   console.log(state.page);
+                //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // }}
+                className="linkBtn"
+              >
+                Category
+              </Link>
+            </div>
+            <div className="signs">
+              <IsSignupModal></IsSignupModal>
+              <IsLoginModal></IsLoginModal>
+            </div>
           </nav>
         </>
       );
     } else if (
-      location.pathname === '/GroupPage' ||
-      location.pathname === '/groupPage'
+      location.pathname === '/category' ||
+      location.pathname === '/Category'
     ) {
       return (
         <>
-          <nav>
+          <nav className="navBarContainer">
+            <div className="logoBox">
+              <img
+                src={logo}
+                alt="Logo"
+                onClick={() => {
+                  history.push('/');
+                }}
+                style={{
+                  width: `60px`,
+                  height: `60px`,
+                  cursor: 'pointer',
+                }}
+              />
+            </div>
+            <div className="linkBox">
+              <Link to="/main" value="events" className="linkBtn">
+                Events
+              </Link>
+              <Link
+                to="/category"
+                value="groups"
+                className="linkBtn"
+                // onClick={e => {
+                //   console.log(state.page);
+                //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
+                // }}
+              >
+                Category
+              </Link>
+            </div>
+            <div className="signs">
+              {/* <IsSignupModal value="signUp">Signup</IsSignupModal> */}
+              <IsLoginModal value="signIn">Login</IsLoginModal>
+            </div>
+          </nav>
+        </>
+      );
+    } else if (
+      location.pathname === '/groupPage' ||
+      location.pathname === '/GroupPage'
+    ) {
+      return (
+        <nav className="navBarContainer">
+          <div className="logoBox">
             <img
               src={logo}
               alt="Logo"
               style={{
-                width: `50px`,
-                height: `50px`,
+                width: `60px`,
+                height: `60px`,
                 cursor: 'pointer',
               }}
               onClick={() => {
                 history.push('/');
               }}
             />
-            <Link to="/main" value="events">
+          </div>
+          <div className="linkBox">
+            <Link to="/main" value="events" className="linkBtn">
               Events
             </Link>
-            <Link
-              to="/groupPage"
-              value="groups"
-              // onClick={e => {
-              //   console.log(state.page);
-              //   dispatch({ value: e.target.value, type: 'CHANGE_PAGE_STATE' });
-              // }}
-            >
-              Groups
+            <Link to="/category" value="groups" className="linkBtn">
+              Category
             </Link>
-            <IsSignupModal value="signUp">Signup</IsSignupModal>
-            <IsLoginModal value="signIn">Login</IsLoginModal>
-          </nav>
-        </>
+          </div>
+
+          <div className="signs">
+            <IsLoginModal />
+          </div>
+        </nav>
       );
     }
   } else if (state.isLogin) {
     if (location.pathname === '/main' || location.pathname === '/') {
       return (
         <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                history.push('/');
-              }}
-            />
-            <Link to="/groupPage" value="groups">
-              Groups
-            </Link>
-            <Link to="/userInfo" value="myPage">
-              MyPage
-            </Link>
-            <Link value="logout">Logout</Link>
+          <nav className="navBarContainer">
+            <div className="logoBox">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: `60px`,
+                  height: `60px`,
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/');
+                }}
+              />
+            </div>
+            <div className="linkBox">
+              <Link to="/category" value="groups" className="linkBtn">
+                Category
+              </Link>
+              <Link to="/userInfo" value="myPage" className="linkBtn">
+                MyPage
+              </Link>
+            </div>
+            <div className="signs">
+              <Link value="logout" className="logoutBtn">
+                Logout
+              </Link>
+            </div>
           </nav>
         </>
       );
     } else if (
-      location.pathname === '/GroupPage' ||
-      location.pathname === '/groupPage'
+      location.pathname === '/category' ||
+      location.pathname === '/Category'
     ) {
       return (
         <>
-          <nav>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: `50px`,
-                height: `50px`,
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                history.push('/');
-              }}
-            />
-            <Link to="/main" value="events">
-              Events
-            </Link>
-            <Link to="/groupPage" value="groups">
-              Groups
-            </Link>
-            <Link to="/userInfo" value="myPage">
-              MyPage
-            </Link>
-            <button value="logout">Logout</button>
+          <nav className="navBarContainer">
+            <div className="logoBox">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: `60px`,
+                  height: `60px`,
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/');
+                }}
+              />
+            </div>
+            <div className="linkBox">
+              <Link to="/main" value="events" className="linkBtn">
+                Events
+              </Link>
+              <Link to="/category" value="groups" className="linkBtn">
+                Category
+              </Link>
+              <Link to="/userInfo" value="myPage" className="linkBtn">
+                MyPage
+              </Link>
+            </div>
+
+            <div className="signs">
+              <Link value="logout" className="logoutBtn">
+                Logout
+              </Link>
+            </div>
           </nav>
         </>
       );
     } else if (location.pathname === '/userInfo') {
       return (
         <>
-          <nav>
+          <nav className="navBarContainer">
+            <div className="logoBox">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: `60px`,
+                  height: `60px`,
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/');
+                }}
+              />
+            </div>
+            <div className="linkBox">
+              <Link to="/main" value="events" className="linkBtn">
+                Events
+              </Link>
+              <Link to="/category" value="groups" className="linkBtn">
+                Category
+              </Link>
+            </div>
+
+            <div className="signs">
+              <Link value="logout" className="logoutBtn">
+                Logout
+              </Link>
+            </div>
+          </nav>
+        </>
+      );
+    } else if (
+      location.pathname === '/groupPage' ||
+      location.pathname === '/GroupPage'
+    ) {
+      // return <Redirect to="/category" />;
+      return (
+        <nav className="navBarContainer">
+          <div className="logoBox">
             <img
               src={logo}
               alt="Logo"
               style={{
-                width: `50px`,
-                height: `50px`,
+                width: `60px`,
+                height: `60px`,
                 cursor: 'pointer',
               }}
               onClick={() => {
                 history.push('/');
               }}
             />
-            <Link to="/main" value="events">
+          </div>
+          <div className="linkBox">
+            <Link to="/main" value="events" className="linkBtn">
               Events
             </Link>
-            <Link to="/groupPage" value="groups">
-              Groups
+            <Link to="/category" value="groups" className="linkBtn">
+              Category
             </Link>
-            <button value="logout">Logout</button>
-          </nav>
-        </>
+          </div>
+          <div className="signs">
+            <Link value="logout" className="logoutBtn">
+              Logout
+            </Link>
+          </div>
+        </nav>
       );
     }
   }

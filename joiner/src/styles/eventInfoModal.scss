@@ -1,0 +1,45 @@
+.modal {
+  z-index: 1050;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  .eventInfoModal {
+    border-radius: 10px;
+    width: 480px;
+    height: 321px;
+    background-color:#F3F4F9;
+    position: relative;
+    margin: 0 auto;
+    transform: translate(0, 50%);
+    padding: 20px;
+    background:#F3F4F9;
+    text-align: center;
+    .input {
+      color: black;
+    }
+    .contentContainer {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      .input {
+        color: black;
+      }
+      button {
+        margin: 0 auto;
+        width: 20%;
+        cursor: pointer;
+        background-color: #353866;
+        color: white;
+        margin-top: 30px;
+        border-radius: 10px;
+        width: 100%;
+        height: 40px;
+        border-style: none;
+      }
+    }
+  }
+}

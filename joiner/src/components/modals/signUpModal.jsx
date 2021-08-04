@@ -1,16 +1,51 @@
-import React, { useReducer, useContext, useState } from 'react';
+import React, { useReducer, useContext, useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext.jsx';
-import { withRouter, Link } from 'react-router-dom';
-import Logo from '../../images/LOGO.jpg';
+import { withRouter, Link, useHistory } from 'react-router-dom';
+import IsLoginModal from '../modals/loginModalBtn';
+import Logo from '../../images/logo_remove.png';
+import '../modals/signupStyle.css';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
-
 const SignupModal = ({ isOpen, close }) => {
+  const [userInputs, setUserInputs] = useState({
+    userName: '',
+    email: '',
+    password: '',
+  });
   const { state, dispatch } = useUserContext();
-  const { user, err, token } = state;
+  const { user, err, access_token } = state;
   const { userName, email, password, location } = user;
   const [alert, setAlert] = useState('');
+  const history = useHistory();
+
+  const clickSignupHandler = () => {
+    const data = axios
+      .post('https://localhost:4000/user/signUp', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          email: userInputs.email,
+          userName: userInputs.userName,
+          password: userInputs.password,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      })
+      .then(res => {
+        close();
+        history.push('/main');
+        console.log(res);
+      });
+  };
+
+  const handleSignup = e => {
+    const { name, value } = e.target;
+    console.log(e.target.name);
+    console.log(e.target.value);
+    setUserInputs({ ...userInputs, [name]: value });
+    console.log(userInputs);
+  };
 
   const isValidEmail = str => {
     const regExp =
@@ -24,108 +59,55 @@ const SignupModal = ({ isOpen, close }) => {
     return regExp.test(str);
   };
 
-  const handleSignup = () => {
-    if (!userName || !email || !password || !location) {
-      dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
-      return;
-    }
-
-    if (!isValidEmail(email)) {
-      setAlert('올바른 이메일 형식이 아닙니다.');
-      return;
-    }
-
-    if (!isValidPw(password)) {
-      setAlert('비밀번호는 영문, 숫자, 특수문자 포함 8자이상 입력해야합니다.');
-      return;
-    }
-
-    axios
-      .post('https://joiner/user/signUp', {
-        userName,
-        email,
-        password,
-        location,
-      })
-      .then(data => {
-        if (
-          data.status === 200 &&
-          data.data === '이미 존재하는 이메일 주소입니다.'
-        ) {
-          setAlert('이미 가입한 이메일 주소입니다.');
-          return;
-        }
-        dispatch({
-          type: 'REGISTER_USER',
-          payload: {
-            userName: action.payload.userName,
-            email: action.payload.email,
-            password: action.payload.password,
-            location: action.payload.location,
-          },
-        });
-        dispatch({ type: 'SHOW_MODAL' }).catch(err => {
-          dispatch({ type: 'REGISTER_FAIL', err: '알맞은 정보를 입력하세요.' });
-        });
-      });
-  };
   return (
     <>
       {isOpen ? (
         <div className="modal">
-          <div onClick={close}>
+          <div onClick={() => close}>
             <div className="signupModal">
-              <span className="close" onClick={close}>
+              <span className="close" onClick={() => close()}>
                 &times;
               </span>
-              <div className="modalContents" onClick={isOpen}>
+              <div className="modalContents" onClick={() => isOpen}>
                 <img
                   className="logo"
                   src={Logo}
-                  style={{ width: `50px`, height: `50px` }}
+                  style={{ width: `120px`, height: `120px` }}
                 />
                 <input
-                  // value={userName}
+                  value={userInputs.userName}
                   className="userName"
+                  name="userName"
                   type="text"
                   placeholder="이름을 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
                 <input
-                  // value={email}
+                  value={userInputs.email}
                   className="email"
+                  name="email"
                   type="text"
                   placeholder="이메일 주소를 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
                 <input
-                  // value={password}
+                  value={userInputs.password}
                   className="password"
+                  name="password"
                   type="password"
                   placeholder="비밀번호를 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
+                  onChange={handleSignup}
                 />
-                <input
-                  // value={location}
-                  className="loaction"
-                  type="text"
-                  placeholder="지역을 입력해주세요"
-                  onChange={e => {
-                    dispatch({ type: 'FIELD', payload: e.target.value });
-                  }}
-                />
-                <button className="signUpBtn" onClick={handleSignup}>
+                <button
+                  className="signUpBtn"
+                  type="submit"
+                  onClick={clickSignupHandler}
+                >
                   SIGN UP
                 </button>
                 <div className="signupEnd">
                   <div className="signupLine">로그인을 시도 해보실까요?</div>
-                  <Link to="/login">LOG IN</Link>
+                  <IsLoginModal />
                 </div>
               </div>
             </div>

@@ -1,0 +1,122 @@
+@mixin btnStyle {
+  border-radius: 5rem;
+  border: none;
+  outline: none;
+  background: #e1e5ee;
+  // box-shadow: -5px -5px 10px rgb(209, 195, 195), 5px 5px 10px grey;
+}
+$color-background: #252c41;
+$color-pink: #f1404b;
+$color-yellow: #dddfe6;
+$color-blue: #f4f5f9;
+
+.categoryGroupBoxNotSelected {
+  margin: 0 auto;
+  width: 50%;
+  height: 75vh;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-grow: 1 1 auto;
+  flex: 1 1 40%;
+  // border: 1rem solid blue;
+  h3 {
+    margin: 0 auto;
+    width: 100%;
+    height: 15%;
+    border: 0.5rem solid #34314c;
+    border-radius: 20px;
+
+    display: flex;
+    position: relative;
+    text-align: center;
+    flex-direction: column;
+    flex: 0.5 0.5 1%;
+  }
+  .categoryGroupLists {
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .categoryContainerNotSelected {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: relative;
+      flex: 1 1 50%;
+      border-radius: 30px;
+      border: 0.5rem solid #34314c;
+      .categoryPair {
+        list-style: none;
+      }
+      button {
+        margin-right: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        color: #34314c;
+        text-decoration: none;
+        background-color: #f4f5f9;
+        transition: all 0.5s ease-in-out;
+        border-color: transparent;
+        &:hover {
+          // background:
+          color: #fa5a5a;
+          cursor: pointer;
+        }
+      }
+      .categoryRow {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(50%, auto));
+        // grid-template-columns: repeat(2, minmax(200px, auto));
+        // grid-template-rows: repeat(auto-fit, minmax(10%, auto));
+        // border-radius: 50px;
+        // border: 1rem solid #34314c;
+        width: 100%;
+
+        #categoryPair {
+          border-radius: 30px;
+          //   border: 0.5rem solid #fa5a5a;
+
+          width: 100%;
+          #categoryIcon {
+            display: inline;
+          }
+          #categoryName {
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .groupContainerNotSelected {
+      width: 100%;
+      height: 100%;
+      flex: 1 1 50%;
+      border-radius: 30px;
+      border: 0.5rem solid #34314c;
+
+      ul {
+        list-style: none;
+        text-align: center;
+        line-height: 6em;
+        overflow-y: scroll;
+        height: 100%;
+      }
+      button {
+        margin-right: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        color: #34314c;
+        text-decoration: none;
+        background-color: #f4f5f9;
+        transition: all 0.5s ease-in-out;
+        border-color: transparent;
+        &:hover {
+          // background:
+          color: #fa5a5a;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
