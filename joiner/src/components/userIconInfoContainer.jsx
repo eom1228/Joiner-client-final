@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react';
-// import Footer from './footer';
-// import NavBar from './navBar';
-import { useUserContext } from '../contexts/UserContext';
-import axios from 'axios';
+import React from 'react';
 import UserIcon from './userIcon';
 import UserInfo from './userInfo';
-axios.defaults.withCredentials = true;
 
 const UserIconInfoContainer = () => {
-  const { state, dispatch } = useUserContext();
-  const { user } = state;
-  const { userName, email, location, group, event } = user;
 
   return (
     <>

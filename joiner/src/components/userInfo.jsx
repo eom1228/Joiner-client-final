@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import axios from 'axios';
-import data from '../dummyData/userDummy';
 axios.defaults.withCredentials = true;
 
 const UserInfo = () => {
@@ -52,18 +51,12 @@ const UserInfo = () => {
     });
   };
   const handleSubmit = e => {
-    // e.preventDefault();
     if (!inputs.userName) {
       alert('누락된 항목이 있습니다');
     }
-    // if (!isValidEmail(inputs.email)) {
-    //   alert('올바른 이메일 형식이 아닙니다');
     else {
-      // alert('수정 완료!');
       updateUserInfo();
       setSubmitted(true);
-      // window.location.reload();
-      // setIsToggleOn({ isToggleOn: !isToggleOn });
     }
   };
 
@@ -83,20 +76,10 @@ const UserInfo = () => {
         </div>
         <div className="emailField">
           <p>{email}</p>
-          {/* <span> */}
-          {/* <input
-              id="email"
-              placeholder="이메일"
-              value={inputs.email}
-              onChange={handleChange}
-            /> */}
-          {/* </span> */}
         </div>
         {submitted ? (
           <div>
-            {/* <button type="submit" onClick={handleSubmit}>
-              완료
-            </button> */}
+
             <p>수정 완료!</p>
           </div>
         ) : (

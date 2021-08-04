@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext, useEffect } from 'react';
+import React from 'react';
 import { useGroupContext } from '../contexts/GroupContext';
 
 import styled from 'styled-components';
@@ -10,7 +10,6 @@ const StyledGroupInfoWrapper = styled.div`
 `;
 
 const GroupDetailsContainer = () => {
-  //   const [isToggleOn, setIsToggleOn] = useState(false);
   const { groupCurrentState } = useGroupContext();
   const { group } = groupCurrentState;
   const { information, groupUser, chat } = group;

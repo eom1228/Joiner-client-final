@@ -1,8 +1,7 @@
-import React, { useReducer, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGroupContext } from '../contexts/GroupContext';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { useUserContext } from '../contexts/UserContext';
 import '../styles/memberList.scss';
 
 const MemberList = () => {
@@ -13,8 +12,6 @@ const MemberList = () => {
   });
   const [nameFilter, setNameFilter] = useState(false);
 
-  const { state } = useUserContext();
-  // const { access_token } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group, mapping_id } = groupCurrentState;
   const { groupUser } = group;

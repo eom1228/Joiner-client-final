@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
-import DefaultImg from '../images/image-file.png';
 import styled from 'styled-components';
 
 const ImgContents = styled.div`
@@ -28,10 +27,7 @@ const Test = styled.span`
 `;
 const GroupImgs = ({ host }) => {
   const [file, setFile] = useState(null);
-  const [uploadedImage, setUploadedImage] = useState({});
-  // const [fetchedImage, setFetchedImage] = useState({});
   const [message, setMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const { state, dispatch } = useUserContext();
   const { access_token, user } = state;
   const { groupCurrentState, groupDispatch } = useGroupContext();
@@ -61,11 +57,9 @@ const GroupImgs = ({ host }) => {
           },
         })
         .then(res => {
-          // const { fileName, filePath } = response.data;
           console.log(res);
           console.log('hehe', host);
           console.log('userid', user.id);
-          // setUploadedImage(fileName, filePath);
           groupDispatch({
             type: 'GET_GROUPIMG',
             fileName: res.data.fileName,
@@ -110,36 +104,5 @@ const GroupImgs = ({ host }) => {
     </ImgContents>
   );
 };
-
-//   return (
-//     <div className="imagePreview-container">
-//       <input
-//         className="image-selector"
-//         type="file"
-//         id="input"
-//         accept="image/jpg,image/png,image/jpeg,image/gif"
-//         multiple
-//         max={maxNum}
-//         onChange={previewFile}
-//       />
-//       <button
-//         className="image-upload"
-//         onClick={e => {
-//           user.id !== host.id
-//             ? alert('그룹장이 아니세요!')
-//             : uploadFile;
-//         }}
-//       >
-//         업로드
-//       </button>
-//       <button className="image-change" onClick={changeFile}>
-//         수정
-//       </button>
-//       <button className="image-delete" onClick={cancelFile}>
-//         삭제
-//       </button>
-//     </div>
-//   );
-// };
 
 export default GroupImgs;

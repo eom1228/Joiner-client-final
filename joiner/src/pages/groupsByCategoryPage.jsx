@@ -5,8 +5,6 @@ import { useGroupContext } from '../contexts/GroupContext';
 import axios from 'axios';
 import '../styles/groupsByCategoryPage.scss';
 
-// import Footer from './footer';
-// import NavBar from './navBar';
 axios.defaults.withCredentials = true;
 
 const GroupsByCategoryPage = () => {
@@ -18,12 +16,9 @@ const GroupsByCategoryPage = () => {
     name: '',
     fileName: '',
   });
-  const [userInputs, setUserInputs] = useState({ searchedGroup: '' });
-  const [groupFilter, setGroupFilter] = useState(false);
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { mapping_id } = groupCurrentState;
-  // const { mapping_id } = useParams();
-  // const { id } = useParams();
+
   const getData = () => {
     const getGroupList = axios.get(
       'https://localhost:4000/category/groupList',
@@ -61,7 +56,6 @@ const GroupsByCategoryPage = () => {
   };
 
   useEffect(() => {
-    // console.log("1" + )
     getData();
   }, [mapId]);
 
@@ -79,21 +73,17 @@ const GroupsByCategoryPage = () => {
     console.log(mapping_id);
 
     history.push('/groupPage');
-    // setTimeout(() => {
-    //   history.push(`/groupPage/${mapping_id}`);
-    // }, waitSecs);
   };
 
   const handleClickCategory = e => {
     setSelectedCategory({
-      name: e.target.name, //id값 들어갑니다
+      name: e.target.name,  
       fileName: e.target.fileName,
     });
     console.log(e.target);
   };
 
   return (
-    // 첫화면: 카테고리 목록, 그룹 목록 불러오기  (카테고리 선택 안한 상황)
     <div className="categoryGroupBoxNotSelected">
       <h3>원하는 카테고리의 그룹을 선택해 보아요!</h3>
 
@@ -150,7 +140,7 @@ const GroupsByCategoryPage = () => {
               <>
                 {groups.map(
                   (
-                    group, // <-- 기본상태
+                    group,  
                   ) => (
                     <li key={group.id}>
                       <button

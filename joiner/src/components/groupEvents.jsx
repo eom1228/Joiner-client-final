@@ -1,9 +1,5 @@
 import React, {
-  useRef,
-  useCallback,
   useState,
-  useReducer,
-  useContext,
   useEffect,
 } from 'react';
 import { useUserContext } from '../contexts/UserContext';
@@ -14,7 +10,7 @@ import axios from 'axios';
 import EditGroupButton from './modals/editGroupButton';
 import IsLoginModal from './modals/loginModalBtn';
 import styled from 'styled-components';
-// import LoginModal from ' ';
+
 const EventButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,21 +71,14 @@ const GroupEvents = () => {
       try {
         let res = await axios.get('https://localhost:4000/event/eventList', {
           headers: {
-            // Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
-          // data: {
-          //   event_id: event.id,
-          // },
           withCredentials: true,
           crossDomain: true,
         });
         if (res.status === 200) {
-          // console.log(res.data);
-          // console.log(events);
           setEvents(res.data);
           console.log(events);
-          // return;
         }
       } catch (e) {
         console.log(e);
@@ -158,13 +147,6 @@ const GroupEvents = () => {
 
   return isLogin ? (
     <div>
-      {/* {groupUser                        .slice(0, 1)
-          .map(member => member.userName)
-          .filter(userNameArr => userNameArr === user.userName) ===
-        [user.userName]} */}
-      {console.log(test, 'hehe')}
-      {console.log(groupUser, 'hehe')}
-      {console.log(user, 'userrr')}
       {groupUser.map(e => e.id).filter(e => e === user.id)[0] ? (
         <EventButtonsWrapper>
           <div style={{ flex: '1 1 10%' }}>
@@ -181,7 +163,6 @@ const GroupEvents = () => {
                   style={{ listStyle: 'none', marginTop: '15px' }}
                 >
                   <EventInfoButton event={event}></EventInfoButton>
-
                   <p style={{ fontSize: '23px', marginTop: '10px' }}>
                     {event.information}
                   </p>
@@ -249,7 +230,6 @@ const GroupEvents = () => {
               </p>
             </li>
           ))}
-          {/* { eventName ? <a href= openModal >{eventName}</a> : <div>{events}</div> } */}
         </ul>
       </div>
     </div>

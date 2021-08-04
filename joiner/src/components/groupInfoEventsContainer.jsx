@@ -1,5 +1,4 @@
 import React from 'react';
-import GroupDetailsContainer from './groupDetailsContainer';
 import GroupEvents from './groupEvents';
 import MemberList from './memberList';
 import styled from 'styled-components';

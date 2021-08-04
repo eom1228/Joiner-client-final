@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
 import GroupImgs from '../components/groupImgs';
 import GroupSummary from '../components/groupSummary';
 import GroupInfoEventsContainer from '../components/groupInfoEventsContainer';
 import axios from 'axios';
 import styled from 'styled-components';
-import EventInfoButton from '../components/modals/eventInfoButton';
 axios.defaults.withCredentials = true;
 
 const PageBody = styled.div`
@@ -46,11 +44,9 @@ const PageBodyBottom = styled.div`
 `;
 
 const GroupPage = () => {
-  const { state } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group, mapping_id, loading, error } = groupCurrentState;
   const { host } = group;
-  const { user, access_token } = state;
 
   useEffect(() => {
     const getGroup = async () => {
@@ -78,9 +74,6 @@ const GroupPage = () => {
     getGroup();
   }, []);
 
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>에러 발생!</div>;
-  // if (!group) return null;
   if (!group) return null;
   return (
     <>

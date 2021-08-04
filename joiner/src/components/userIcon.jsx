@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useUserContext } from '../contexts/UserContext';
 import { useGroupContext } from '../contexts/GroupContext';
@@ -6,20 +6,12 @@ axios.defaults.withCredentials = true;
 
 const UserIcon = () => {
   const [file, setFile] = useState(null);
-  // const [uploadedImage, setUploadedImage] = useState({
-  //   fileName: '',
-  //   filePath: '',
-  // });
   const [message, setMessage] = useState('');
-  const [userIcon, setUserIcon] = useState('');
   const { state, dispatch } = useUserContext();
   const { groupCurrentState, groupDispatch } = useGroupContext();
   const { group } = groupCurrentState;
   const { access_token, user } = state;
   const { filePath, fileName } = user;
-  const [errorMessage, setErrorMessage] = useState('');
-  // const imageUrl = URL.createObjectURL(file);
-  // const [fileUrl, setFileUrl] = useState(null);
 
   const onChange = e => {
     console.log(e.target.files[0]);
